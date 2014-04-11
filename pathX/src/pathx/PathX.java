@@ -19,12 +19,38 @@ public class PathX {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // NOW WE CAN LOAD THE UI, WHICH WILL USE ALL THE FLAVORED CONTENT
-        //String appTitle = props.getProperty(SortingHatPropertyType.TEXT_TITLE_BAR_GAME);
-        game.initMiniGame("pathX", 30, 750, 650);
+        try{
+            // LOAD THE SETTINGS FOR STARTING THE APP
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            props.addProperty(PropertiesManager.DATA_PATH_PROPERTY, PATH_DATA);
+            props.loadProperties(PROPERTIES_FILE_NAME, PROPERTIES_SCHEMA_FILE_NAME);
             
-        // GET THE PROPER WINDOW DIMENSIONS
-        game.startGame();
+            // THEN WE'LL LOAD THE GAME FLAVOR AS SPECIFIED BY THE PROPERTIES FILE
+            String gameFlavorFile = props.getProperty(pathXPropertyType.FILE_GAME_PROPERTIES);
+            props.loadProperties(gameFlavorFile, PROPERTIES_SCHEMA_FILE_NAME);
+
+            // NOW WE CAN LOAD THE UI, WHICH WILL USE ALL THE FLAVORED CONTENT
+            String appTitle = props.getProperty(pathXPropertyType.TEXT_TITLE_BAR_GAME);
+            game.initMiniGame(appTitle, 30, 750, 650);
+            
+            // GET THE PROPER WINDOW DIMENSIONS
+            game.startGame();
+        } catch(InvalidXMLFileFormatException ixmlffe){
+            
+        }
     }
     
+    /**
+     * pathXPropertyType represents the types of data that will need
+     * to be extracted from XML files.
+     */
+    public enum pathXPropertyType
+    {
+        // LOADED FROM properties.xml
+        
+        /* SETUP FILE NAMES */
+        FILE_GAME_PROPERTIES,
+        
+        TEXT_TITLE_BAR_GAME
+    }
 }

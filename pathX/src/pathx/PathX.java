@@ -3,6 +3,7 @@ package pathx;
 import pathx.ui.pathXGame;
 import properties_manager.PropertiesManager;
 import xml_utilities.InvalidXMLFileFormatException;
+import static pathx.pathXConstants.*;
 
 /**
  *

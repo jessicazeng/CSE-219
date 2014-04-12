@@ -12,6 +12,7 @@ and open the template in the editor.
         <property name="IMAGE_MENU_BACKGROUND"                  value="./pathx/MenuBackground.png"></property>
         <property name="IMAGE_MAP_BACKGROUND"                   value="./pathx/map.jpg"></property>
         <property name="IMAGE_SETTINGS_BACKGROUND"              value="./pathx/SettingsBackground.png"></property>
+        <property name="IMAGE_HELP_BACKGROUND"                  value="./pathx/HelpBackground.png"></property>
         <property name="IMAGE_BUTTON_CLOSE"                     value="./pathx/ButtonClose.png"></property>
         <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"          value="./pathx/ButtonCloseMouseOver.png"></property>
         <property name="IMAGE_BUTTON_PLAY"                      value="./pathx/ButtonPlay.png"></property>

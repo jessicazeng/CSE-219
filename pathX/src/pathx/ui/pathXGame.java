@@ -92,7 +92,62 @@ public class pathXGame  extends MiniGame{
         
         // load cursor?
         
+        // ADD A BUTTON FOR EACH MENU OPTION
+        float totalWidth = 4 * (MENU_BUTTON_WIDTH + MENU_BUTTON_MARGIN) - MENU_BUTTON_MARGIN;
+        Viewport viewport = data.getViewport();
+        x = (viewport.getScreenWidth() - totalWidth)/2.0f;
         
+        String playButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_PLAY);
+        sT = new SpriteType(PLAY_BUTTON_TYPE);
+        img = loadImage(imgPath + playButton);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String playMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_PLAY_MOUSE_OVER);
+        img = loadImage(imgPath + playMouseOverButton);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, x, MENU_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
+        guiButtons.put(PLAY_BUTTON_TYPE, s);
+        x += MENU_BUTTON_WIDTH + MENU_BUTTON_MARGIN;
+        
+        String resetButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_RESET);
+        sT = new SpriteType(RESET_BUTTON_TYPE);
+        img = loadImage(imgPath + resetButton);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String resetMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_RESET_MOUSE_OVER);
+        img = loadImage(imgPath + resetMouseOverButton);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, x, MENU_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
+        guiButtons.put(RESET_BUTTON_TYPE, s);
+        x += MENU_BUTTON_WIDTH + MENU_BUTTON_MARGIN;
+        
+        String settingsButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS);
+        sT = new SpriteType(SETTINGS_BUTTON_TYPE);
+        img = loadImage(imgPath + settingsButton);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String settingsMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS_MOUSE_OVER);
+        img = loadImage(imgPath + settingsMouseOverButton);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, x, MENU_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
+        guiButtons.put(SETTINGS_BUTTON_TYPE, s);
+        x += MENU_BUTTON_WIDTH + MENU_BUTTON_MARGIN;
+        
+        String helpButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_HELP);
+        sT = new SpriteType(HELP_BUTTON_TYPE);
+        img = loadImage(imgPath + helpButton);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String helpMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_HELP_MOUSE_OVER);
+        img = loadImage(imgPath + helpMouseOverButton);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, x, MENU_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
+        guiButtons.put(HELP_BUTTON_TYPE, s);
+        
+        String closeButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSE);
+        sT = new SpriteType(CLOSE_BUTTON_TYPE);
+        img = loadImage(imgPath + closeButton);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        s = new Sprite(sT, CLOSE_BUTTON_Y, CLOSE_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
+        guiButtons.put(CLOSE_BUTTON_TYPE, s);
+        
+        // ADD THE CONTROLS ALONG THE NORTH OF THE GAME SCREEN
     }
     
     @Override

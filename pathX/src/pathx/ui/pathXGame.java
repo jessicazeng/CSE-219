@@ -1,6 +1,7 @@
 package pathx.ui;
 
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 import mini_game.MiniGame;
 import mini_game.MiniGameState;
 import mini_game.Sprite;
@@ -47,7 +48,26 @@ public class pathXGame  extends MiniGame{
      * all the appropriate UI controls visible & invisible.
      */    
     public void switchToMenuScreen(){
-         
+         // CHANGE THE BACKGROUND
+        guiDecor.get(BACKGROUND_TYPE).setState(MENU_SCREEN_STATE);
+        
+        // ACTIVATE THE MENU BUTTONS
+        // DEACTIVATE THE MENU BUTTONS
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(RESET_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(HELP_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(HELP_BUTTON_TYPE).setEnabled(true);
+        
+        // MAKE THE CURRENT SCREEN THE MENU SCREEN
+        currentScreenState = MENU_SCREEN_STATE;
+        
+        // AND UPDATE THE DATA GAME STATE
+        data.setGameState(MiniGameState.NOT_STARTED);
     }
      
     public void switchToSettingsScreen(){
@@ -182,8 +202,34 @@ public class pathXGame  extends MiniGame{
         
     }
     
+    /**
+     * Updates the state of all gui controls according to the 
+     * current game conditions.
+     */
     @Override
     public void updateGUI(){
-        
+        // GO THROUGH THE VISIBLE BUTTONS TO TRIGGER MOUSE OVERS
+        Iterator<Sprite> buttonsIt = guiButtons.values().iterator();
+        while (buttonsIt.hasNext())
+        {
+            Sprite button = buttonsIt.next();
+            
+            // ARE WE ENTERING A BUTTON?
+            if (button.getState().equals(pathXStates.VISIBLE_STATE.toString()))
+            {
+                if (button.containsPoint(data.getLastMouseX(), data.getLastMouseY()))
+                {
+                    button.setState(pathXStates.MOUSE_OVER_STATE.toString());
+                }
+            }
+            // ARE WE EXITING A BUTTON?
+            else if (button.getState().equals(pathXStates.MOUSE_OVER_STATE.toString()))
+            {
+                 if (!button.containsPoint(data.getLastMouseX(), data.getLastMouseY()))
+                {
+                    button.setState(pathXStates.VISIBLE_STATE.toString());
+                }
+            }
+        }
     }
 }

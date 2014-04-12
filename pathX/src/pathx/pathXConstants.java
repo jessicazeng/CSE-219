@@ -37,6 +37,8 @@ public class pathXConstants {
     public static final String SCROLL_UP_BUTTON_TYPE = "SCROLL_UP_BUTTON_TYPE";
     public static final String SCROLL_LEFT_BUTTON_TYPE = "SCROLL_LEFT_BUTTON_TYPE";
     public static final String SCROLL_RIGHT_BUTTON_TYPE = "SCROLL_RIGHT_BUTTON_TYPE";
+    public static final String SOUND_BUTTON_TYPE = "SOUND_BUTTON_TYPE";
+    public static final String MUSIC_BUTTON_TYPE = "MUSIC_BUTTON_TYPE";
     
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;
@@ -60,6 +62,10 @@ public class pathXConstants {
     public static final int MAP_SCROLL_INC = 5;
     public static final int GAME_WORLD_WIDTH = 1499;
     public static final int GAME_WORLD_HEIGHT = 1129;
+    public static final int SOUND_BUTTON_X = 300;
+    public static final int SOUND_BUTTON_Y = 247;
+    public static final int MUSIC_BUTTON_X = 300;
+    public static final int MUSIC_BUTTON_Y = 287;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";

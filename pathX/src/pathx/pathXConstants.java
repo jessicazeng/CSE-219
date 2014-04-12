@@ -45,14 +45,14 @@ public class pathXConstants {
     public static final int MENU_BUTTON_Y = 385;
     public static final int CLOSE_BUTTON_X = 585;
     public static final int CLOSE_BUTTON_Y = 8;
-    public static final int DOWN_BUTTON_X = 15;
-    public static final int DOWN_BUTTON_Y = 390;
-    public static final int UP_BUTTON_X = 15;
-    public static final int UP_BUTTON_Y = 370;
-    public static final int LEFT_BUTTON_X = 8;
-    public static final int LEFT_BUTTON_Y = 360;
-    public static final int RIGHT_BUTTON_X = 22;
-    public static final int RIGHT_BUTTON_Y = 360;
+    public static final int DOWN_BUTTON_X = 35;
+    public static final int DOWN_BUTTON_Y = 415;
+    public static final int UP_BUTTON_X = 35;
+    public static final int UP_BUTTON_Y = 385;
+    public static final int LEFT_BUTTON_X = 5;
+    public static final int LEFT_BUTTON_Y = 400;
+    public static final int RIGHT_BUTTON_X = 70;
+    public static final int RIGHT_BUTTON_Y = 400;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";

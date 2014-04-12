@@ -45,18 +45,27 @@ public class pathXConstants {
     public static final int MENU_BUTTON_Y = 385;
     public static final int CLOSE_BUTTON_X = 585;
     public static final int CLOSE_BUTTON_Y = 8;
-    public static final int DOWN_BUTTON_X = 35;
+    public static final int DOWN_BUTTON_X = 40;
     public static final int DOWN_BUTTON_Y = 415;
-    public static final int UP_BUTTON_X = 35;
+    public static final int UP_BUTTON_X = 40;
     public static final int UP_BUTTON_Y = 385;
-    public static final int LEFT_BUTTON_X = 5;
+    public static final int LEFT_BUTTON_X = 10;
     public static final int LEFT_BUTTON_Y = 400;
-    public static final int RIGHT_BUTTON_X = 70;
+    public static final int RIGHT_BUTTON_X = 75;
     public static final int RIGHT_BUTTON_Y = 400;
+    public static final int MAP_WIDTH = 635;
+    public static final int MAP_HEIGHT = 500;
+    public static final int MAP_X = 0;
+    public static final int MAP_Y = 330;
+    public static final int MAP_SCROLL_INC = 5;
+    public static final int GAME_WORLD_WIDTH = 1499;
+    public static final int GAME_WORLD_HEIGHT = 1129;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";
     public static final String LEVEL_SCREEN_STATE = "LEVEL_SCREEN_STATE";  
+    public static final String SETTINGS_SCREEN_STATE = "SETTINGS_SCREEN_STATE";  
+    public static final String HELP_SCREEN_STATE = "HELP_SCREEN_STATE";  
     
     // COLORS USED FOR RENDERING VARIOUS THINGS, INCLUDING THE
     // COLOR KEY, WHICH REFERS TO THE COLOR TO IGNORE WHEN

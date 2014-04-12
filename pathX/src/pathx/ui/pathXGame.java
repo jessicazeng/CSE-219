@@ -214,7 +214,50 @@ public class pathXGame  extends MiniGame{
         s = new Sprite(sT, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
         guiButtons.put(CLOSE_BUTTON_TYPE, s);
         
-        // ADD THE CONTROLS ALONG THE NORTH OF THE GAME SCREEN
+        // ADD THE CONTROLS IN THE LEVEL SELECTION SCREEN
+        // THEN THE DOWN BUTTON
+        String downButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_DOWN);
+        sT = new SpriteType(SCROLL_DOWN_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + downButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String downMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_DOWN_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + downMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, DOWN_BUTTON_X, DOWN_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(SCROLL_DOWN_BUTTON_TYPE, s);
+        
+        // THEN THE UP BUTTON
+        String upButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_UP);
+        sT = new SpriteType(SCROLL_UP_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + upButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String upMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_UP_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + upMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, UP_BUTTON_X, UP_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(SCROLL_UP_BUTTON_TYPE, s);
+        
+        // THEN THE LEFT BUTTON
+        String leftButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_LEFT);
+        sT = new SpriteType(SCROLL_LEFT_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + leftButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String leftMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_LEFT_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + leftMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, LEFT_BUTTON_X, LEFT_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(SCROLL_LEFT_BUTTON_TYPE, s);
+        
+        // THEN THE RIGHT BUTTON
+        String rightButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_RIGHT);
+        sT = new SpriteType(SCROLL_RIGHT_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + rightButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String rightMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SCROLL_RIGHT_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + rightMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, RIGHT_BUTTON_X, RIGHT_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(SCROLL_RIGHT_BUTTON_TYPE, s);
     }
     
     /**

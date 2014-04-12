@@ -62,10 +62,10 @@ public class pathXConstants {
     public static final int MAP_SCROLL_INC = 5;
     public static final int GAME_WORLD_WIDTH = 1499;
     public static final int GAME_WORLD_HEIGHT = 1129;
-    public static final int SOUND_BUTTON_X = 300;
-    public static final int SOUND_BUTTON_Y = 247;
-    public static final int MUSIC_BUTTON_X = 300;
-    public static final int MUSIC_BUTTON_Y = 287;
+    public static final int SOUND_BUTTON_X = 220;
+    public static final int SOUND_BUTTON_Y = 212;
+    public static final int MUSIC_BUTTON_X = 220;
+    public static final int MUSIC_BUTTON_Y = 248;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";

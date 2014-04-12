@@ -9,23 +9,31 @@ and open the template in the editor.
 <properties>
     <property_list>
         <!-- ALL THE IMAGES TO BE USED IN THE GAME -->
-        <property name="IMAGE_MENU_BACKGROUND"              value="./pathx/MenuBackground.png"></property>
-        <property name="IMAGE_MAP_BACKGROUND"              value="./pathx/map.jpg"></property>
-        <property name="IMAGE_BUTTON_CLOSE"                   value="./pathx/ButtonClose.png"></property>
-        <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"                   value="./pathx/ButtonCloseMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_PLAY"                   value="./pathx/ButtonPlay.png"></property>
-        <property name="IMAGE_BUTTON_PLAY_MOUSE_OVER"                   value="./pathx/ButtonPlayMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_HELP"                   value="./pathx/ButtonHelp.png"></property>
-        <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"                   value="./pathx/ButtonHelpMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_RESET"                   value="./pathx/ButtonReset.png"></property>
-        <property name="IMAGE_BUTTON_RESET_MOUSE_OVER"                   value="./pathx/ButtonResetMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS"                   value="./pathx/ButtonSettings.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"                   value="./pathx/ButtonSettingsMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_HOME"                   value="./pathx/ButtonHome.png"></property>
-        <property name="IMAGE_BUTTON_SCROLL_DOWN"                   value="./pathx/ButtonScrollDown.png"></property>
-        <property name="IMAGE_BUTTON_SCROLL_LEFT"                   value="./pathx/ButtonScrollLeft.png"></property>
-        <property name="IMAGE_BUTTON_SCROLL_RIGHT"                   value="./pathx/ButtonScrollRight.png"></property>
-        <property name="IMAGE_BUTTON_SCROLL_UP"                   value="./pathx/ButtonScrollUp.png"></property>
+        <property name="IMAGE_MENU_BACKGROUND"                  value="./pathx/MenuBackground.png"></property>
+        <property name="IMAGE_MAP_BACKGROUND"                   value="./pathx/map.jpg"></property>
+        <property name="IMAGE_SETTINGS_BACKGROUND"              value="./pathx/SettingsBackground.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE"                     value="./pathx/ButtonClose.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"          value="./pathx/ButtonCloseMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_PLAY"                      value="./pathx/ButtonPlay.png"></property>
+        <property name="IMAGE_BUTTON_PLAY_MOUSE_OVER"           value="./pathx/ButtonPlayMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_HELP"                      value="./pathx/ButtonHelp.png"></property>
+        <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"           value="./pathx/ButtonHelpMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RESET"                     value="./pathx/ButtonReset.png"></property>
+        <property name="IMAGE_BUTTON_RESET_MOUSE_OVER"          value="./pathx/ButtonResetMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS"                  value="./pathx/ButtonSettings.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./pathx/ButtonSettingsMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_HOME"                      value="./pathx/ButtonHome.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_DOWN_MOUSE_OVER"    value="./pathx/ButtonScrollDownMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_DOWN"               value="./pathx/ButtonScrollDown.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_LEFT_MOUSE_OVER"    value="./pathx/ButtonScrollLeftMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_LEFT"               value="./pathx/ButtonScrollLeft.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_RIGHT_MOUSE_OVER"   value="./pathx/ButtonScrollRightMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_RIGHT"              value="./pathx/ButtonScrollRight.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_UP_MOUSE_OVER"      value="./pathx/ButtonScrollUpMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SCROLL_UP"                 value="./pathx/ButtonScrollUp.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS"                  value="./pathx/ButtonSound.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./pathx/ButtonSoundMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_CLICKED"          value="./pathx/ButtonSoundClicked.png"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>

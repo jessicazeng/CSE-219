@@ -104,6 +104,11 @@ public class pathXGame  extends MiniGame{
      
     public void switchToSettingsScreen(){
         guiDecor.get(BACKGROUND_TYPE).setState(SETTINGS_SCREEN_STATE);
+        
+        guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(true);
          
         // DEACTIVATE THE MENU CONTROLS
         guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -198,6 +203,26 @@ public class pathXGame  extends MiniGame{
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToScrollRightRequest();     }
         });
+        
+        // SOUND EVENT HANDLER
+        guiButtons.get(SOUND_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSoundPressRequest(SOUND_BUTTON_TYPE);     }
+        });
+        
+        // MUSIC EVENT HANDLER
+        guiButtons.get(MUSIC_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSoundPressRequest(MUSIC_BUTTON_TYPE);     }
+        });
+    }
+    
+    public void setClickedSoundButton(String buttontype){
+        if(guiButtons.get(buttontype).getState() == pathXStates.SELECTED_STATE.toString()){
+            guiButtons.get(buttontype).setState(pathXStates.VISIBLE_STATE.toString());
+        } else{
+            guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString());
+        }
     }
     
     @Override
@@ -339,32 +364,32 @@ public class pathXGame  extends MiniGame{
         guiButtons.put(SCROLL_RIGHT_BUTTON_TYPE, s);
         
         // THEN THE SOUND BUTTON
-        String soundButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS);
+        String soundButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SOUND);
         sT = new SpriteType(SOUND_BUTTON_TYPE);
         img = loadImageWithColorKey(imgPath + soundButton, COLOR_KEY);
         sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
-        String soundMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS_MOUSE_OVER);
+        String soundMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SOUND_MOUSE_OVER);
         img = loadImageWithColorKey(imgPath + soundMouseOverButton, COLOR_KEY);
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
-        String soundSelectedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS_CLICKED);
+        String soundSelectedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SOUND_CLICKED);
         img = loadImageWithColorKey(imgPath + soundSelectedButton, COLOR_KEY);
         sT.addState(pathXStates.SELECTED_STATE.toString(), img);
-        s = new Sprite(sT, RIGHT_BUTTON_X, RIGHT_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        s = new Sprite(sT, SOUND_BUTTON_X, SOUND_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
         guiButtons.put(SOUND_BUTTON_TYPE, s);
         
         // THEN THE MUSIC BUTTON
-        String musicButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS);
-        sT = new SpriteType(SOUND_BUTTON_TYPE);
+        String musicButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MUSIC);
+        sT = new SpriteType(MUSIC_BUTTON_TYPE);
         img = loadImageWithColorKey(imgPath + musicButton, COLOR_KEY);
         sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
-        String musicMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS_MOUSE_OVER);
-        img = loadImageWithColorKey(imgPath + soundMouseOverButton, COLOR_KEY);
+        String musicMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MUSIC_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + musicMouseOverButton, COLOR_KEY);
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
-        String musicSelectedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_SETTINGS_CLICKED);
+        String musicSelectedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MUSIC_CLICKED);
         img = loadImageWithColorKey(imgPath + musicSelectedButton, COLOR_KEY);
         sT.addState(pathXStates.SELECTED_STATE.toString(), img);
-        s = new Sprite(sT, RIGHT_BUTTON_X, RIGHT_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.put(SOUND_BUTTON_TYPE, s);
+        s = new Sprite(sT, MUSIC_BUTTON_X, MUSIC_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(MUSIC_BUTTON_TYPE, s);
     }
     
     /**

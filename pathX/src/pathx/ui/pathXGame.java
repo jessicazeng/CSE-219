@@ -170,7 +170,7 @@ public class pathXGame  extends MiniGame{
         sT = new SpriteType(CLOSE_BUTTON_TYPE);
         img = loadImage(imgPath + closeButton);
         sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
-        String closeMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSE);
+        String closeMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSE_MOUSE_OVER);
         img = loadImage(imgPath + closeMouseOverButton);
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());

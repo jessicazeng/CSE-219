@@ -13,6 +13,7 @@ import pathx.PathX.pathXPropertyType;
 import pathx.pathXConstants;
 import properties_manager.PropertiesManager;
 import static pathx.pathXConstants.*;
+import pathx.data.pathXDataModel;
 
 /**
  *
@@ -84,6 +85,11 @@ public class pathXGame  extends MiniGame{
     
     @Override
     public void initGUIHandlers(){
+        
+    }
+    
+    @Override
+    public void initGUIControls(){
         // WE'LL USE AND REUSE THESE FOR LOADING STUFF
         BufferedImage img;
         float x, y;
@@ -98,7 +104,7 @@ public class pathXGame  extends MiniGame{
         //window.setIconImage(img);
         
          // CONSTRUCT THE PANEL WHERE WE'LL DRAW EVERYTHING
-        //canvas = new SortingHatPanel(this, (SortingHatDataModel)data);
+        canvas = new pathXPanel(this, (pathXDataModel)data);
         
         // LOAD THE BACKGROUNDS, WHICH ARE GUI DECOR
         currentScreenState = MENU_SCREEN_STATE;
@@ -164,15 +170,13 @@ public class pathXGame  extends MiniGame{
         sT = new SpriteType(CLOSE_BUTTON_TYPE);
         img = loadImage(imgPath + closeButton);
         sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
-        s = new Sprite(sT, CLOSE_BUTTON_Y, CLOSE_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
+        String closeMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSE);
+        img = loadImage(imgPath + closeMouseOverButton);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, 0, 0, pathXStates.VISIBLE_STATE.toString());
         guiButtons.put(CLOSE_BUTTON_TYPE, s);
         
         // ADD THE CONTROLS ALONG THE NORTH OF THE GAME SCREEN
-    }
-    
-    @Override
-    public void initGUIControls(){
-        
     }
     
     /**
@@ -190,7 +194,7 @@ public class pathXGame  extends MiniGame{
         //record = fileManager.loadRecord();
         
         // INIT OUR DATA MANAGER
-        //data = new pathXDataModel(this);
+        data = new pathXDataModel(this);
     }
     
     @Override

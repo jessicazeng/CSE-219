@@ -1,7 +1,12 @@
 package pathx.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
+import javax.swing.JFrame;
 import mini_game.MiniGame;
 import mini_game.MiniGameState;
 import mini_game.Sprite;
@@ -92,7 +97,21 @@ public class pathXGame  extends MiniGame{
     
     @Override
     public void initGUIHandlers(){
+        // WE'LL RELAY UI EVENTS TO THIS OBJECT FOR HANDLING
+        eventHandler = new pathXEventHandler(this);
         
+        // WE'LL HAVE A CUSTOM RESPONSE FOR WHEN THE USER CLOSES THE WINDOW
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we) 
+            { eventHandler.respondToExitRequest(); }
+        });
+        
+        // PLAY EVENT HANDLER
+        guiButtons.get(PLAY_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToPlayRequest();     }
+        });
     }
     
     @Override

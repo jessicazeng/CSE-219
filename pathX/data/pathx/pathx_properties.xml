@@ -31,9 +31,9 @@ and open the template in the editor.
         <property name="IMAGE_BUTTON_SCROLL_RIGHT"              value="./pathx/ButtonScrollRight.png"></property>
         <property name="IMAGE_BUTTON_SCROLL_UP_MOUSE_OVER"      value="./pathx/ButtonScrollUpMouseOver.png"></property>
         <property name="IMAGE_BUTTON_SCROLL_UP"                 value="./pathx/ButtonScrollUp.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS"                  value="./pathx/ButtonSound.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./pathx/ButtonSoundMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS_CLICKED"          value="./pathx/ButtonSoundClicked.png"></property>
+        <property name="IMAGE_BUTTON_SOUND"                  value="./pathx/ButtonSound.png"></property>
+        <property name="IMAGE_BUTTON_SOUND_MOUSE_OVER"       value="./pathx/ButtonSoundMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SOUND_CLICKED"          value="./pathx/ButtonSoundClicked.png"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>

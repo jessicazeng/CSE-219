@@ -144,8 +144,6 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(HELP_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(SETTINGS_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(SCROLL_UP_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());

@@ -86,14 +86,33 @@ public class pathXGame  extends MiniGame{
         // ACTIVATE THE MENU BUTTONS
         // DEACTIVATE THE MENU BUTTONS
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
-        guiButtons.get(RESET_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(RESET_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
-        guiButtons.get(SETTINGS_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(true);
-        guiButtons.get(HELP_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(HELP_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(HELP_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(true);
+        
+        guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setEnabled(false);
         
         // MAKE THE CURRENT SCREEN THE MENU SCREEN
         currentScreenState = MENU_SCREEN_STATE;
@@ -111,6 +130,10 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(true);
          
         // DEACTIVATE THE MENU CONTROLS
         guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -170,8 +193,6 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(HELP_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(SETTINGS_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -188,6 +209,10 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(true);
     }
     
     @Override
@@ -230,6 +255,18 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MUSIC_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToSoundPressRequest(MUSIC_BUTTON_TYPE);     }
+        });
+        
+        // HOME BUTTON IN SETTINGS SCREEN EVENT HANDLER
+        guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSwitchToHomeScreenRequest();     }
+        });
+        
+        // CLOSE BUTTON SCREEN EVENT HANDLER
+        guiButtons.get(CLOSE_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToExitRequest();     }
         });
     }
     
@@ -417,6 +454,17 @@ public class pathXGame  extends MiniGame{
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, GAME_SPEED_BUTTON_X, GAME_SPEED_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
         guiButtons.put(GAME_SPEED_BUTTON_TYPE, s);
+        
+        // THEN THE SETTINGS HOME BUTTON
+        String settingsHomeButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_HOME);
+        sT = new SpriteType(SETTINGS_HOME_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + settingsHomeButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String settingsHomeMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_HOME_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + settingsHomeMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, HOME_BUTTON_X, HOME_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(SETTINGS_HOME_BUTTON_TYPE, s);
     }
     
     /**

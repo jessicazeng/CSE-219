@@ -31,7 +31,7 @@ public class PathX {
 
             // NOW WE CAN LOAD THE UI, WHICH WILL USE ALL THE FLAVORED CONTENT
             String appTitle = props.getProperty(pathXPropertyType.TEXT_TITLE_BAR_GAME);
-            game.initMiniGame(appTitle, 30, 750, 650);
+            game.initMiniGame(appTitle, 30, WINDOW_WIDTH, WINDOW_HEIGHT);
             
             // GET THE PROPER WINDOW DIMENSIONS
             game.startGame();
@@ -51,8 +51,12 @@ public class PathX {
         /* SETUP FILE NAMES */
         FILE_GAME_PROPERTIES,
         
+        /* DIRECTORY PATHS FOR FILE LOADING */
+        PATH_AUDIO,
+        PATH_IMG,
+        
         // LOADED FROM THE GAME FLAVOR PROPERTIES XML FILE
-            // sorting_hat_properties.xml
+            // pathx_properties.xml
                 
         /* IMAGE FILE NAMES */
         IMAGE_MENU_BACKGROUND,

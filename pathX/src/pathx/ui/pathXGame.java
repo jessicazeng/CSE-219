@@ -89,10 +89,23 @@ public class pathXGame  extends MiniGame{
     }
      
     public void switchToLevelSelectionScreen(){
+        BufferedImage img;
+        SpriteType sT;
+        Sprite s;
+        
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);    
         
         // CHANGE THE BACKGROUND
         guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
+        
+        currentScreenState = LEVEL_SCREEN_STATE;
+        s = guiDecor.get(BACKGROUND_TYPE);
+        sT = guiDecor.get(BACKGROUND_TYPE).getSpriteType();
+        img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
+        img = img.getSubimage(MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
+        sT.addState(LEVEL_SCREEN_STATE, img);
+        guiDecor.put(BACKGROUND_TYPE, s);
         
         // DEACTIVATE THE MENU CONTROLS
         guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -160,6 +173,7 @@ public class pathXGame  extends MiniGame{
         sT = new SpriteType(BACKGROUND_TYPE);
         sT.addState(MENU_SCREEN_STATE, img);
         img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
+        //img = img.getSubimage(0, 300, 635, 500);
         sT.addState(LEVEL_SCREEN_STATE, img);
         s = new Sprite(sT, 0, 0, 0, 0, MENU_SCREEN_STATE);
         guiDecor.put(BACKGROUND_TYPE, s);

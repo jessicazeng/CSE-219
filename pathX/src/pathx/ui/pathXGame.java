@@ -105,6 +105,16 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(false);
+        
+        //ACTIVATE LEVEL SELECTION SCREEN BUTTONS
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setEnabled(true);
     }
     
     @Override

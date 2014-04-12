@@ -23,6 +23,7 @@ and open the template in the editor.
         <property name="IMAGE_BUTTON_SETTINGS"                  value="./pathx/ButtonSettings.png"></property>
         <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./pathx/ButtonSettingsMouseOver.png"></property>
         <property name="IMAGE_BUTTON_HOME"                      value="./pathx/ButtonHome.png"></property>
+        <property name="IMAGE_BUTTON_HOME_MOUSE_OVER"           value="./pathx/ButtonHome.png"></property>
         <property name="IMAGE_BUTTON_SCROLL_DOWN_MOUSE_OVER"    value="./pathx/ButtonScrollDownMouseOver.png"></property>
         <property name="IMAGE_BUTTON_SCROLL_DOWN"               value="./pathx/ButtonScrollDown.png"></property>
         <property name="IMAGE_BUTTON_SCROLL_LEFT_MOUSE_OVER"    value="./pathx/ButtonScrollLeftMouseOver.png"></property>
@@ -34,6 +35,11 @@ and open the template in the editor.
         <property name="IMAGE_BUTTON_SOUND"                     value="./pathx/ButtonSound.png"></property>
         <property name="IMAGE_BUTTON_SOUND_MOUSE_OVER"          value="./pathx/ButtonSoundMouseOver.png"></property>
         <property name="IMAGE_BUTTON_SOUND_CLICKED"             value="./pathx/ButtonSoundClicked.png"></property>
+        <property name="IMAGE_BUTTON_MUSIC"                     value="./pathx/ButtonSound.png"></property>
+        <property name="IMAGE_BUTTON_MUSIC_MOUSE_OVER"          value="./pathx/ButtonSoundMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MUSIC_CLICKED"             value="./pathx/ButtonSoundClicked.png"></property>
+        <property name="IMAGE_BUTTON_GAME_SPEED_MOUSE_OVER"     value="./pathx/ButtonGameSpeedMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_GAME_SPEED"                value="./pathx/ButtonGameSpeed.png"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>

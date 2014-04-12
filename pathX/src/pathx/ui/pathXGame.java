@@ -109,6 +109,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(true);
          
         // DEACTIVATE THE MENU CONTROLS
         guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -121,6 +123,14 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
     }
      
     public void switchToHelpScreen(){
@@ -162,6 +172,12 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(false);
         
         //ACTIVATE LEVEL SELECTION SCREEN BUTTONS
         guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -390,6 +406,17 @@ public class pathXGame  extends MiniGame{
         sT.addState(pathXStates.SELECTED_STATE.toString(), img);
         s = new Sprite(sT, MUSIC_BUTTON_X, MUSIC_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
         guiButtons.put(MUSIC_BUTTON_TYPE, s);
+        
+        // THEN THE GAME SPEED BUTTON
+        String gameSpeedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_GAME_SPEED);
+        sT = new SpriteType(GAME_SPEED_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + gameSpeedButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String gameSpeedMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_GAME_SPEED_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + gameSpeedMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, GAME_SPEED_BUTTON_X, GAME_SPEED_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(GAME_SPEED_BUTTON_TYPE, s);
     }
     
     /**

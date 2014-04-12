@@ -36,6 +36,10 @@ public class pathXGame  extends MiniGame{
     private String currentScreenState;
     
     // Accessor Methods
+    public boolean isCurrentScreenState(String testScreenState)
+    {
+        return testScreenState.equals(currentScreenState);
+    }
     
     /**
      * This method forces the file manager to save the current player record.
@@ -80,7 +84,10 @@ public class pathXGame  extends MiniGame{
     }
      
     public void switchToLevelSelectionScreen(){
-         
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        // CHANGE THE BACKGROUND
+        guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
     }
     
     @Override
@@ -112,7 +119,7 @@ public class pathXGame  extends MiniGame{
         sT = new SpriteType(BACKGROUND_TYPE);
         sT.addState(MENU_SCREEN_STATE, img);
         img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
-        sT.addState(GAME_SCREEN_STATE, img);
+        sT.addState(LEVEL_SCREEN_STATE, img);
         s = new Sprite(sT, 0, 0, 0, 0, MENU_SCREEN_STATE);
         guiDecor.put(BACKGROUND_TYPE, s);
         

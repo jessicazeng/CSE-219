@@ -73,7 +73,7 @@ public class pathXPanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g){
-        try
+        try 
         {
             // MAKE SURE WE HAVE EXCLUSIVE ACCESS TO THE GAME DATA
             game.beginUsingData();

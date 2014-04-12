@@ -35,5 +35,46 @@ public class pathXEventHandler {
         System.exit(0);        
     }
     
+    /**
+     * Called when the user clicks the play button in the menu
+     */
+    public void respondToPlayRequest(){
+        
+    }
     
+    /**
+     * Called when the user clicks on the reset button in the
+     * menu. Resets game and erases all player records.
+     */
+    public void respondToResetRequest(){
+        
+    }
+    
+    /**
+     * Called when the user clicks a button to select a level.
+     */    
+    public void respondToSelectLevelRequest(String levelFile){
+        
+    }
+    
+    /**
+     * Called when user clicks on settings button.
+     */
+    public void respondToSwitchToSettingsScreenRequest(){
+        
+    }
+    
+    /**
+     * Called when user clicks on help button.
+     */
+    public void respondToSwitchToHelpScreenRequest(){
+        
+    }
+    
+    /**
+     * Called when the user presses a key on the keyboard.
+     */    
+    public void respondToKeyPress(int keyCode){
+        
+    }
 }

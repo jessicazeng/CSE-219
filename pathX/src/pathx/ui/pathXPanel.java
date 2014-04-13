@@ -99,11 +99,13 @@ public class pathXPanel extends JPanel {
         if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
             Viewport viewport = data.getViewport();
             viewport.updateViewportBoundaries();
-            int x = viewport.getMaxViewportX();
-            int y = viewport.getMaxViewportY();
+            int x1 = viewport.getViewportX();
+            int y1 = viewport.getViewportY();
+            int x2 = x1 + viewport.getViewportWidth();
+            int y2 = y1 + viewport.getViewportHeight();
             SpriteType bgST = bg.getSpriteType();
             Image img = bgST.getStateImage(bg.getState());
-            g.drawImage(img, 0, 0, x, y, 0, 0, x, y, null);
+            g.drawImage(img, 0, 0, MAP_WIDTH, MAP_HEIGHT, x1, y1, x2, y2, null);
             //renderSprite(g, bg);
         } else{
             renderSprite(g, bg);

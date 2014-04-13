@@ -53,26 +53,14 @@ public class pathXGame  extends MiniGame{
         
     }
     
-    public void scroll(){
-        BufferedImage img;
-        SpriteType sT;
-        Sprite s;
-        
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
+    public void scroll(String buttontype){
         Viewport viewport = data.getViewport();
-        viewport.scroll(MAP_SCROLL_INC, 0);
-                
-        //String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);    
         
-        // CHANGE THE BACKGROUND
-        //guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
-        
-        //s = guiDecor.get(BACKGROUND_TYPE);
-        //sT = guiDecor.get(BACKGROUND_TYPE).getSpriteType();
-        //img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
-        //img = img.getSubimage(MAP_X + MAP_SCROLL_INC, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
-        //sT.addState(LEVEL_SCREEN_STATE, img);
-        //guiDecor.put(BACKGROUND_TYPE, s);
+        if(buttontype == SCROLL_RIGHT_BUTTON_TYPE){
+            int maxWidth = viewport.getGameWorldWidth() - viewport.getViewportWidth();
+            if(viewport.getViewportX() <= maxWidth)
+                viewport.scroll(MAP_SCROLL_INC, 0);
+        }
     }
     
     /**
@@ -193,6 +181,7 @@ public class pathXGame  extends MiniGame{
         Sprite s;
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
         String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);   
         
         // CHANGE THE BACKGROUND
@@ -269,7 +258,7 @@ public class pathXGame  extends MiniGame{
         // SCROLL RIGHT EVENT HANDLER
         guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
-            {   eventHandler.respondToScrollRightRequest();     }
+            {   eventHandler.respondToScrollRightRequest(SCROLL_RIGHT_BUTTON_TYPE);     }
         });
         
         // SOUND EVENT HANDLER
@@ -326,7 +315,9 @@ public class pathXGame  extends MiniGame{
         //img = loadImage(imgPath + windowIconFile);
         //window.setIconImage(img);
         
-        
+        Viewport viewport = data.getViewport();
+        viewport.setViewportSize(MAP_WIDTH, MAP_HEIGHT);
+        viewport.setGameWorldSize(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
         
          // CONSTRUCT THE PANEL WHERE WE'LL DRAW EVERYTHING
         canvas = new pathXPanel(this, (pathXDataModel)data);
@@ -350,7 +341,7 @@ public class pathXGame  extends MiniGame{
         
         // ADD A BUTTON FOR EACH MENU OPTION
         float totalWidth = 4 * (MENU_BUTTON_WIDTH + MENU_BUTTON_MARGIN) - MENU_BUTTON_MARGIN;
-        Viewport viewport = data.getViewport();
+        //Viewport viewport = data.getViewport();
         x = (viewport.getScreenWidth() - totalWidth)/2.0f;
         
         String playButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_PLAY);

@@ -36,15 +36,6 @@ public class pathXPanel extends JPanel {
     
     // WE'LL USE THIS TO FORMAT SOME TEXT FOR DISPLAY PURPOSES
     private NumberFormat numberFormatter;
- 
-    // WE'LL USE THIS AS THE BASE IMAGE FOR RENDERING UNSELECTED TILES
-    private BufferedImage blankTileImage;
-    
-    // WE'LL USE THIS AS THE BASE IMAGE FOR RENDERING SELECTED TILES
-    private BufferedImage blankTileSelectedImage;
-    
-    // THIS IS FOR WHEN THE USE MOUSES OVER A TILE
-    private BufferedImage blankTileMouseOverImage;
     
     /**
      * This constructor stores the game and data references,
@@ -86,7 +77,7 @@ public class pathXPanel extends JPanel {
 
             // AND THE BUTTONS AND DECOR
             renderGUIControls(g);
-        
+            
             // AND FINALLY, TEXT FOR DEBUGGING
             renderDebuggingText(g);
         }
@@ -104,12 +95,21 @@ public class pathXPanel extends JPanel {
      */
     public void renderBackground(Graphics g)
     {
-        // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
-        renderSprite(g, bg);
+        if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
+            Viewport viewport = data.getViewport();
+            int x = viewport.getViewportWidth();
+            int y = viewport.getViewportHeight();
+            SpriteType bgST = bg.getSpriteType();
+            Image img = bgST.getStateImage(bg.getState());
+            g.drawImage(img, 0, 0, x, y, 0, 0, x, y, null);
+            //renderSprite(g, bg);
+        } else{
+            renderSprite(g, bg);
+        }
     }
     
-    /**
+    /**   
      * Renders all the GUI decor and buttons.
      * 
      * @param g this panel's rendering context.

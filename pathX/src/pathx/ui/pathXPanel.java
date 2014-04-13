@@ -98,8 +98,9 @@ public class pathXPanel extends JPanel {
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
         if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
             Viewport viewport = data.getViewport();
-            int x = viewport.getViewportWidth();
-            int y = viewport.getViewportHeight();
+            viewport.updateViewportBoundaries();
+            int x = viewport.getMaxViewportX();
+            int y = viewport.getMaxViewportY();
             SpriteType bgST = bg.getSpriteType();
             Image img = bgST.getStateImage(bg.getState());
             g.drawImage(img, 0, 0, x, y, 0, 0, x, y, null);

@@ -62,8 +62,8 @@ public class pathXConstants {
     public static final int MAP_HEIGHT = 500;
     public static final int MAP_X = 0;
     public static final int MAP_Y = 330;
-    public static final int MAP_SCROLL_INC = 5;
-    public static final int GAME_WORLD_WIDTH = 1499;
+    public static final int MAP_SCROLL_INC = 20;
+    public static final int GAME_WORLD_WIDTH = 1494;
     public static final int GAME_WORLD_HEIGHT = 1129;
     public static final int SOUND_BUTTON_X = 220;
     public static final int SOUND_BUTTON_Y = 212;

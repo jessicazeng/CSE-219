@@ -84,8 +84,8 @@ public class pathXEventHandler {
         game.switchToHelpScreen();
     }
     
-    public void respondToScrollRightRequest(){
-        game.scroll();
+    public void respondToScrollRequest(String buttontype){
+        game.scroll(buttontype);
     }
     
     /**

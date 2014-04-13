@@ -40,6 +40,8 @@ public class pathXConstants {
     public static final String SOUND_BUTTON_TYPE = "SOUND_BUTTON_TYPE";
     public static final String MUSIC_BUTTON_TYPE = "MUSIC_BUTTON_TYPE";
     public static final String GAME_SPEED_BUTTON_TYPE = "GAME_SPEED_BUTTON_TYPE";
+    public static final String SETTINGS_HOME_BUTTON_TYPE = "SETTINGS_HOME_SPEED_BUTTON_TYPE";
+    public static final String LEVEL_SELECTION_HOME_BUTTON_TYPE = "LEVEL_SELECTION_HOME_SPEED_BUTTON_TYPE";
     
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;
@@ -69,6 +71,8 @@ public class pathXConstants {
     public static final int MUSIC_BUTTON_Y = 248;
     public static final int GAME_SPEED_BUTTON_X = 260;
     public static final int GAME_SPEED_BUTTON_Y = 335;
+    public static final int HOME_BUTTON_X = 535;
+    public static final int HOME_BUTTON_Y = 8;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";

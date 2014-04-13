@@ -63,6 +63,13 @@ public class pathXGame  extends MiniGame{
         } else if(buttontype == SCROLL_LEFT_BUTTON_TYPE){
             if(viewport.getViewportX() > 0)
                 viewport.scroll(0-MAP_SCROLL_INC, 0);
+        } else if(buttontype == SCROLL_UP_BUTTON_TYPE){
+            if(viewport.getViewportY() > 0)
+                viewport.scroll(0, 0-MAP_SCROLL_INC);
+        } else if(buttontype == SCROLL_DOWN_BUTTON_TYPE){
+            int maxHeight = viewport.getGameWorldHeight() - viewport.getViewportHeight();
+            if(viewport.getViewportY() < maxHeight)
+                viewport.scroll(0, MAP_SCROLL_INC);
         }
     }
     

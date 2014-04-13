@@ -39,7 +39,12 @@ public class pathXEventHandler {
      * Called when the user clicks the play button in the menu
      */
     public void respondToPlayRequest(){
-        
+        // WE ONLY LET THIS HAPPEN IF THE MENU SCREEN IS VISIBLE
+        if (game.isCurrentScreenState(MENU_SCREEN_STATE))
+        {
+            // GO TO THE MAP
+            game.switchToLevelSelectionScreen();
+        }      
     }
     
     /**
@@ -48,6 +53,14 @@ public class pathXEventHandler {
      */
     public void respondToResetRequest(){
         
+    }
+    
+    public void respondToSoundPressRequest(String buttontype){
+        game.setClickedSoundButton(buttontype);
+    }
+    
+    public void respondToSwitchToHomeScreenRequest(){
+        game.switchToMenuScreen();
     }
     
     /**
@@ -61,14 +74,18 @@ public class pathXEventHandler {
      * Called when user clicks on settings button.
      */
     public void respondToSwitchToSettingsScreenRequest(){
-        
+        game.switchToSettingsScreen();
     }
     
     /**
      * Called when user clicks on help button.
      */
     public void respondToSwitchToHelpScreenRequest(){
-        
+        game.switchToHelpScreen();
+    }
+    
+    public void respondToScrollRightRequest(){
+        game.scroll();
     }
     
     /**

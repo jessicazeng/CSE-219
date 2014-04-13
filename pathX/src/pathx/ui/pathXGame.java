@@ -258,7 +258,13 @@ public class pathXGame  extends MiniGame{
         // SCROLL RIGHT EVENT HANDLER
         guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
-            {   eventHandler.respondToScrollRightRequest(SCROLL_RIGHT_BUTTON_TYPE);     }
+            {   eventHandler.respondToScrollRequest(SCROLL_RIGHT_BUTTON_TYPE);     }
+        });
+        
+        // SCROLL LEFT EVENT HANDLER
+        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToScrollRequest(SCROLL_LEFT_BUTTON_TYPE);     }
         });
         
         // SOUND EVENT HANDLER

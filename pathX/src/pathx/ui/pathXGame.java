@@ -270,6 +270,18 @@ public class pathXGame  extends MiniGame{
             {   eventHandler.respondToScrollRequest(SCROLL_LEFT_BUTTON_TYPE);     }
         });
         
+        // SCROLL LEFT EVENT HANDLER
+        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToScrollRequest(SCROLL_DOWN_BUTTON_TYPE);     }
+        });
+        
+        // SCROLL LEFT EVENT HANDLER
+        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToScrollRequest(SCROLL_UP_BUTTON_TYPE);     }
+        });
+        
         // SOUND EVENT HANDLER
         guiButtons.get(SOUND_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)

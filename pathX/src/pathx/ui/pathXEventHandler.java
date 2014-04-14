@@ -1,9 +1,9 @@
 package pathx.ui;
 
-import static pathx.pathXConstants.LEVEL_SCREEN_STATE;
-import static pathx.pathXConstants.MENU_SCREEN_STATE;
+import java.awt.event.KeyEvent;
+import static pathx.pathXConstants.*;
 import pathx.data.pathXDataModel;
-import pathx.file.pathXFileManager;
+import pathx.file.pathXFileManager;;
 
 /**
  *
@@ -67,7 +67,7 @@ public class pathXEventHandler {
      * Called when the user clicks a button to select a level.
      */    
     public void respondToSelectLevelRequest(String levelFile){
-        
+        game.switchToLevelScreen(levelFile);
     }
     
     /**
@@ -92,6 +92,17 @@ public class pathXEventHandler {
      * Called when the user presses a key on the keyboard.
      */    
     public void respondToKeyPress(int keyCode){
-        
+        if (keyCode == KeyEvent.VK_LEFT){
+            respondToScrollRequest(SCROLL_LEFT_BUTTON_TYPE);
+        }
+        if (keyCode == KeyEvent.VK_DOWN){
+            respondToScrollRequest(SCROLL_DOWN_BUTTON_TYPE);
+        }
+        if (keyCode == KeyEvent.VK_UP){
+            respondToScrollRequest(SCROLL_UP_BUTTON_TYPE);
+        }
+        if (keyCode == KeyEvent.VK_RIGHT){
+            respondToScrollRequest(SCROLL_RIGHT_BUTTON_TYPE);
+        }
     }
 }

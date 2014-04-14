@@ -46,7 +46,15 @@ public class Record {
         }
     }
     
-    public HashMap getLevelRecords(){
-        return levelRecords;
+    public int getLevelPositionX(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.xposition;
+    }
+    
+    public int getLevelPositionY(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.yposition;
     }
 }

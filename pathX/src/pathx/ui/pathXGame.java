@@ -46,6 +46,10 @@ public class pathXGame  extends MiniGame{
         return testScreenState.equals(currentScreenState);
     }
     
+    public Record getPlayerRecord(){
+        return record;
+    }
+    
     /**
      * This method forces the file manager to save the current player record.
      */
@@ -534,6 +538,7 @@ public class pathXGame  extends MiniGame{
 
         // LOAD THE PLAYER'S RECORD FROM A FILE
         //record = fileManager.loadRecord();
+        record = new Record();
         
         // INIT OUR DATA MANAGER
         data = new pathXDataModel(this);

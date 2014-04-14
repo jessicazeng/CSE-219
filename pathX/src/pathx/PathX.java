@@ -92,6 +92,11 @@ public class PathX {
         IMAGE_BUTTON_GAME_SPEED_MOUSE_OVER,
         IMAGE_BUTTON_GAME_SPEED,
         
-        TEXT_TITLE_BAR_GAME
+        TEXT_TITLE_BAR_GAME,
+        
+        /* TILE LOADING STUFF */
+        LEVEL_OPTIONS,
+        X_LOCATION,
+        Y_LOCATION
     }
 }

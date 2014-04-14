@@ -45,4 +45,35 @@ and open the template in the editor.
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>
     </property_list>
+    
+    <!-- PLAYABLE LEVELS CREATED WITH THE LEVEL EDITOR -->
+    <property_options_list>
+        <property_options name="LEVEL_OPTIONS">
+            <option>The California Lemonade Stand Circuit</option>
+            <option>The Silicon Valley Tech Circuit</option>
+            <option>The Nevada Casino Circuit</option>
+            <option>The Old West Bank Circuit</option>
+            <option>The Florida Retirees Circuit</option>
+            <option>The I-95 Corridor Circuit</option>
+            <option>The Wall Street Circuit</option>
+        </property_options>
+        <property_options name="X_LOCATION">
+            <option>240</option>
+            <option>230</option>
+            <option>379</option>
+            <option>580</option>
+            <option>1279</option>
+            <option>1100</option>
+            <option>1378</option>
+        </property_options>
+        <property_options name="Y_LOCATION">
+            <option>600</option>
+            <option>580</option>
+            <option>610</option>
+            <option>592</option>
+            <option>956</option>
+            <option>626</option>
+            <option>462</option>
+        </property_options>
+    </property_options_list>
 </properties>

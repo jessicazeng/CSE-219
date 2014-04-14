@@ -41,6 +41,12 @@ public class Record {
                 level.locked = true;
             }
             level.levelCompleted = false;
+            
+            levelRecords.put(levelFile, level);
         }
+    }
+    
+    public HashMap getLevelRecords(){
+        return levelRecords;
     }
 }

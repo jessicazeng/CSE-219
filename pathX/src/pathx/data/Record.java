@@ -57,4 +57,15 @@ public class Record {
         
         return level.yposition;
     }
+    public boolean isLocked(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.locked;
+    }
+    
+    public boolean isLevelCompleted(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.levelCompleted;
+    }
 }

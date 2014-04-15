@@ -42,6 +42,8 @@ public class pathXConstants {
     public static final String GAME_SPEED_BUTTON_TYPE = "GAME_SPEED_BUTTON_TYPE";
     public static final String SETTINGS_HOME_BUTTON_TYPE = "SETTINGS_HOME_SPEED_BUTTON_TYPE";
     public static final String LEVEL_SELECTION_HOME_BUTTON_TYPE = "LEVEL_SELECTION_HOME_SPEED_BUTTON_TYPE";
+    public static final String LEVEL_BUTTON_TYPE = "LEVEL_BUTTON_TYPE";
+    public static final String LEVEL_DIALOG_TYPE = "LEVEL_DIALOG_TYPE";
     
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;
@@ -73,10 +75,13 @@ public class pathXConstants {
     public static final int GAME_SPEED_BUTTON_Y = 335;
     public static final int HOME_BUTTON_X = 535;
     public static final int HOME_BUTTON_Y = 8;
+    public static final int LEVEL_DIALOG_X = 120;
+    public static final int LEVEL_DIALOG_Y = 30;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";
-    public static final String LEVEL_SCREEN_STATE = "LEVEL_SCREEN_STATE";  
+    public static final String LEVEL_SCREEN_STATE = "LEVEL_SCREEN_STATE"; 
+    public static final String GAME_SCREEN_STATE = "GAME_SCREEN_STATE";
     public static final String SETTINGS_SCREEN_STATE = "SETTINGS_SCREEN_STATE";  
     public static final String HELP_SCREEN_STATE = "HELP_SCREEN_STATE";  
     

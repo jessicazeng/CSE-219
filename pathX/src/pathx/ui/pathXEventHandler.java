@@ -55,6 +55,10 @@ public class pathXEventHandler {
         
     }
     
+    public void respondToCloseDialogRequest(){
+        game.closeDialog();
+    }
+    
     public void respondToSoundPressRequest(String buttontype){
         game.setClickedSoundButton(buttontype);
     }

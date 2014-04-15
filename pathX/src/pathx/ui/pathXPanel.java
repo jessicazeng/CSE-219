@@ -7,8 +7,14 @@
 package pathx.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -77,9 +83,15 @@ public class pathXPanel extends JPanel {
         
             // RENDER THE BACKGROUND, WHICHEVER SCREEN WE'RE ON
             renderBackground(g);
-
+            
             // AND THE BUTTONS AND DECOR
             renderGUIControls(g);
+            
+            // ONLY RENDER THIS STUFF IF WE'RE ACTUALLY IN-GAME
+            if (!data.notStarted())
+            {
+                renderDialogs(g);
+            }
             
             // AND FINALLY, TEXT FOR DEBUGGING
             renderDebuggingText(g);
@@ -149,14 +161,72 @@ public class pathXPanel extends JPanel {
                 }
             }
             
-            //int x = 200 - viewport.getViewportX();
-            //int y = 200 - viewport.getViewportY();
-            //g.setColor(Color.red);
-            //g.fillOval(x, y, 20, 20);
-            //g.setColor(Color.red);
-            //g.drawOval(x, y, 20, 20);
+            for (int i = 0; i < levels.size(); i++){
+                final String levelName = levels.get(i);
+                boolean locked = rec.isLocked(levelName);
+                
+                if(locked == false){
+                    int screenPositionX1 = viewport.getViewportX();
+                    int screenPositionY1 = viewport.getViewportY();
+                    int screenPositionX2 = viewport.getViewportWidth() + screenPositionX1;
+                    int screenPositionY2 = viewport.getViewportHeight() + screenPositionY1;
+                    
+                    int x = rec.getLevelPositionX(levelName) - screenPositionX1;
+                    int y = rec.getLevelPositionY(levelName) - screenPositionY1;
+                
+                    final Point point = new Point(x, y);
+                    addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Point me = e.getPoint();
+                        Rectangle bounds = new Rectangle(point, new Dimension(20, 20));
+                    
+                        if (bounds.contains(me)) {
+                            ((pathXGame)game).switchToLevelScreen(levelName);
+                        }
+                    }
+                     });
+                }
+                
+            }
+        } else if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
+            renderSprite(g, bg);
+            
+            g.setColor(Color.white);
+            g.fillRect(146, 21, 478, 420);
+            g.setColor(Color.black);
+            g.drawRect(146, 21, 478, 420);
         } else{
             renderSprite(g, bg);
+        }
+    }
+    
+     /**
+     * Renders the game dialog boxes.
+     * 
+     * @param g This panel's graphics context.
+     */
+    public void renderDialogs(Graphics g){
+        Collection<Sprite> dialogSprites = game.getGUIDialogs().values();
+        for (Sprite s : dialogSprites)
+        {
+            // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
+            renderSprite(g, s);
+            
+            if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
+                final Point point = new Point(273, 346);
+                addMouseListener(new MouseAdapter(){
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Point me = e.getPoint();
+                    Rectangle bounds = new Rectangle(point, new Dimension(120, 145));
+                    
+                    if (bounds.contains(me)) {
+                        ((pathXGame)game).closeDialog();
+                    }
+                }
+                 });
+            }
         }
     }
     

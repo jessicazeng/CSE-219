@@ -111,6 +111,8 @@ public class pathXPanel extends JPanel {
     public void renderBackground(Graphics g)
     {
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
+        renderSprite(g, bg);
+        
         if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
             Viewport viewport = data.getViewport();
             viewport.updateViewportBoundaries();
@@ -119,11 +121,15 @@ public class pathXPanel extends JPanel {
             int x2 = x1 + viewport.getViewportWidth();
             int y2 = y1 + viewport.getViewportHeight();
             SpriteType bgST = bg.getSpriteType();
-            Image img = bgST.getStateImage(bg.getState());
-            g.drawImage(img, 0, 0, MAP_WIDTH, MAP_HEIGHT, x1, y1, x2, y2, null);
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+            Image img = game.loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
+            g.drawImage(img, 10, 90, 620, 440, x1, y1, x2, y2, null);
+            g.setColor(Color.black);
+            g.drawRect(10, 90, 610, 350);
             
             Record rec = ((pathXGame)game).getPlayerRecord();
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            //PropertiesManager props = PropertiesManager.getPropertiesManager();
             ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
             ArrayList<String> positionx = props.getPropertyOptionsList(pathXPropertyType.X_LOCATION);
             ArrayList<String> positiony = props.getPropertyOptionsList(pathXPropertyType.Y_LOCATION);
@@ -141,24 +147,27 @@ public class pathXPanel extends JPanel {
                 Boolean locked = rec.isLocked(levelName);
                 Boolean levelCompleted = rec.isLevelCompleted(levelName);
                 
-                // if use has not yet unlocked the level
-                if(locked == true){
-                    g.setColor(Color.white);
-                    g.fillOval(x, y, 20, 20);
-                    g.setColor(Color.black);
-                    g.drawOval(x, y, 20, 20);
-                } else{ // level has been unlocked
-                    if(levelCompleted == true){ // if user successfully robbed this location
-                        g.setColor(Color.green);
+                if((x>10 && x<600) && (y<420 && y>90)){
+                    // if use has not yet unlocked the level
+                    if(locked == true){
+                        g.setColor(Color.white);
                         g.fillOval(x, y, 20, 20);
-                    } else{
-                        g.setColor(Color.red);
-                        g.fillOval(x, y, 20, 20);
-                    }
+                        g.setColor(Color.black);
+                        g.drawOval(x, y, 20, 20);
+                    } else{ // level has been unlocked
+                        if(levelCompleted == true){ // if user successfully robbed this location
+                            g.setColor(Color.green);
+                            g.fillOval(x, y, 20, 20);
+                        } else{
+                            g.setColor(Color.red);
+                            g.fillOval(x, y, 20, 20);
+                        }
                     
-                    g.setColor(Color.black);
-                    g.drawOval(x, y, 20, 20);
+                        g.setColor(Color.black);
+                        g.drawOval(x, y, 20, 20);
+                    }
                 }
+                
             }
             
             for (int i = 0; i < levels.size(); i++){

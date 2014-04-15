@@ -14,7 +14,6 @@ public class Level {
     public String levelname;
     public int xposition;
     public int yposition;
-    public String state;
     public boolean locked;
     public boolean levelCompleted;
 }

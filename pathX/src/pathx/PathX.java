@@ -96,6 +96,8 @@ public class PathX {
         IMAGE_BUTTON_LEVEL,
         IMAGE_BUTTON_LEVEL_DIALOG, 
         IMAGE_BUTTON_LEVEL_DIALOG_MOUSE_OVER,
+        IMAGE_BUTTON_START,
+        IMAGE_BUTTON_SPECIALS,
         
         IMAGE_DIALOG_LEVEL,
         

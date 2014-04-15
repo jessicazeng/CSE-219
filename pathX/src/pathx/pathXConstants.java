@@ -44,6 +44,10 @@ public class pathXConstants {
     public static final String LEVEL_SELECTION_HOME_BUTTON_TYPE = "LEVEL_SELECTION_HOME_SPEED_BUTTON_TYPE";
     public static final String LEVEL_BUTTON_TYPE = "LEVEL_BUTTON_TYPE";
     public static final String LEVEL_DIALOG_TYPE = "LEVEL_DIALOG_TYPE";
+    public static final String SPECIALS_BUTTON_TYPE = "SPECIALS_BUTTON_TYPE";
+    public static final String START_BUTTON_TYPE = "START_BUTTON_TYPE";
+    public static final String GAME_CLOSE_BUTTON_TYPE = "GAME_CLOSE_BUTTON_TYPE";
+    public static final String GAME_HOME_BUTTON_TYPE = "GAME_HOME_BUTTON_TYPE";
     
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;
@@ -52,14 +56,14 @@ public class pathXConstants {
     public static final int MENU_BUTTON_Y = 385;
     public static final int CLOSE_BUTTON_X = 585;
     public static final int CLOSE_BUTTON_Y = 8;
-    public static final int DOWN_BUTTON_X = 40;
-    public static final int DOWN_BUTTON_Y = 415;
-    public static final int UP_BUTTON_X = 40;
-    public static final int UP_BUTTON_Y = 385;
-    public static final int LEFT_BUTTON_X = 10;
-    public static final int LEFT_BUTTON_Y = 400;
-    public static final int RIGHT_BUTTON_X = 75;
-    public static final int RIGHT_BUTTON_Y = 400;
+    public static final int DOWN_BUTTON_X = 55;
+    public static final int DOWN_BUTTON_Y = 405;
+    public static final int UP_BUTTON_X = 55;
+    public static final int UP_BUTTON_Y = 375;
+    public static final int LEFT_BUTTON_X = 25;
+    public static final int LEFT_BUTTON_Y = 390;
+    public static final int RIGHT_BUTTON_X = 90;
+    public static final int RIGHT_BUTTON_Y = 390;
     public static final int MAP_WIDTH = 635;
     public static final int MAP_HEIGHT = 500;
     public static final int MAP_X = 0;

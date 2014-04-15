@@ -2,9 +2,12 @@ package pathx.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFrame;
 import mini_game.MiniGame;
@@ -57,6 +60,10 @@ public class pathXGame  extends MiniGame{
         
     }
     
+    public void displayDialogs(){
+        
+    }
+    
     public void scroll(String buttontype){
         Viewport viewport = data.getViewport();
         
@@ -84,6 +91,9 @@ public class pathXGame  extends MiniGame{
     public void switchToMenuScreen(){
          // CHANGE THE BACKGROUND
         guiDecor.get(BACKGROUND_TYPE).setState(MENU_SCREEN_STATE);
+        
+        // MAKE THE CURRENT SCREEN THE MENU SCREEN
+        currentScreenState = MENU_SCREEN_STATE;
         
         // ACTIVATE THE MENU BUTTONS
         // DEACTIVATE THE MENU BUTTONS
@@ -116,14 +126,12 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setEnabled(false);
         
-        // MAKE THE CURRENT SCREEN THE MENU SCREEN
-        currentScreenState = MENU_SCREEN_STATE;
-        
         // AND UPDATE THE DATA GAME STATE
         data.setGameState(MiniGameState.NOT_STARTED);
     }
     
     public void switchToLevelScreen(String levelName){
+        guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
         currentScreenState = GAME_SCREEN_STATE;
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -145,14 +153,6 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(SCROLL_UP_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(RESET_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -276,6 +276,13 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(CLOSE_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(CLOSE_BUTTON_TYPE).setEnabled(true);
+        
+        ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
+        for (String level : levels)
+        {
+            guiButtons.get(level).setState(pathXStates.VISIBLE_STATE.toString());
+            guiButtons.get(level).setEnabled(true);
+        }        
     }
     
     @Override
@@ -355,6 +362,30 @@ public class pathXGame  extends MiniGame{
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToSwitchToHelpScreenRequest();     }
         });
+        
+        // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
+        this.setKeyListener(new KeyAdapter(){
+            public void keyPressed(KeyEvent ke)
+            {   
+                eventHandler.respondToKeyPress(ke.getKeyCode());    
+            }
+        });
+        
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
+        for (String levelFile : levels)
+        {
+            Sprite levelButton = guiButtons.get(levelFile);
+            levelButton.setActionCommand(PATH_DATA + levelFile);
+            levelButton.setActionListener(new ActionListener(){
+                Sprite s;
+                public ActionListener init(Sprite initS) 
+                {   s = initS; 
+                    return this;    }
+                public void actionPerformed(ActionEvent ae)
+                {   eventHandler.respondToSelectLevelRequest(s.getActionCommand());    }
+            }.init(levelButton));
+        }   
     }
     
     public void setClickedSoundButton(String buttontype){
@@ -399,6 +430,8 @@ public class pathXGame  extends MiniGame{
         sT.addState(SETTINGS_SCREEN_STATE, img);
         img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_HELP_BACKGROUND));
         sT.addState(HELP_SCREEN_STATE, img);
+        img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_LEVEL_BACKGROUND));
+        sT.addState(GAME_SCREEN_STATE, img);
         s = new Sprite(sT, 0, 0, 0, 0, MENU_SCREEN_STATE);
         guiDecor.put(BACKGROUND_TYPE, s);
         
@@ -556,6 +589,30 @@ public class pathXGame  extends MiniGame{
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, HOME_BUTTON_X, HOME_BUTTON_Y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
         guiButtons.put(SETTINGS_HOME_BUTTON_TYPE, s);
+        
+        ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
+        ArrayList<String> positionx = props.getPropertyOptionsList(pathXPropertyType.X_LOCATION);
+        ArrayList<String> positiony = props.getPropertyOptionsList(pathXPropertyType.Y_LOCATION);
+        for (int i = 0; i < levels.size(); i++){
+            sT = new SpriteType(LEVEL_BUTTON_TYPE);
+            String levelName = levels.get(i);
+            x = record.getLevelPositionX(levelName) - viewport.getViewportX();
+            y = record.getLevelPositionY(levelName) - viewport.getViewportY();
+            s = new Sprite(sT, x, y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+            guiButtons.put(levels.get(i), s);
+        }
+        
+        // NOW ADD THE DIALOGS
+        
+        // AND THE STATS DISPLAY
+        String statsDialog = props.getProperty(pathXPropertyType.IMAGE_DIALOG_LEVEL);
+        sT = new SpriteType(LEVEL_DIALOG_TYPE);
+        img = loadImageWithColorKey(imgPath + statsDialog, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        x = (viewport.getScreenWidth()/2) - (img.getWidth(null)/2);
+        y = (viewport.getScreenHeight()/2) - (img.getHeight(null)/2);
+        s = new Sprite(sT, x, y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiDialogs.put(LEVEL_DIALOG_TYPE, s);
     }
     
     /**

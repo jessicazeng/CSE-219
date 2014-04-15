@@ -18,6 +18,8 @@ public class pathXDataModel extends MiniGameDataModel {
     // CAN NOTIFY IT TO UPDATE THE DISPLAY WHEN THE DATA MODEL CHANGES
     private MiniGame miniGame;
     
+    
+    
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER

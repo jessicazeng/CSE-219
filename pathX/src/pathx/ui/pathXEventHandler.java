@@ -6,8 +6,9 @@ import pathx.data.pathXDataModel;
 import pathx.file.pathXFileManager;;
 
 /**
- *
- * @author Jessica
+ * This class handles all the events and responds to them.
+ * 
+ * @author Jessica Zeng
  */
 public class pathXEventHandler {
     // THE SORTING HAT GAME, IT PROVIDES ACCESS TO EVERYTHING

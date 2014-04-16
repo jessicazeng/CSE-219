@@ -13,6 +13,8 @@ and open the template in the editor.
         <property name="IMAGE_MAP_BACKGROUND"                   value="./pathx/map.jpg"></property>
         <property name="IMAGE_SETTINGS_BACKGROUND"              value="./pathx/SettingsBackground.png"></property>
         <property name="IMAGE_HELP_BACKGROUND"                  value="./pathx/HelpBackground.png"></property>
+        <property name="IMAGE_LEVEL_BACKGROUND"                 value="./pathx/LevelBackground.png"></property>
+        <property name="IMAGE_LEVEL_SELECTION_BACKGROUND"       value="./pathx/LevelSelectionBackground.png"></property>
         <property name="IMAGE_BUTTON_CLOSE"                     value="./pathx/ButtonClose.png"></property>
         <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"          value="./pathx/ButtonCloseMouseOver.png"></property>
         <property name="IMAGE_BUTTON_PLAY"                      value="./pathx/ButtonPlay.png"></property>
@@ -41,6 +43,10 @@ and open the template in the editor.
         <property name="IMAGE_BUTTON_MUSIC_CLICKED"             value="./pathx/ButtonSoundClicked.png"></property>
         <property name="IMAGE_BUTTON_GAME_SPEED_MOUSE_OVER"     value="./pathx/ButtonGameSpeedMouseOver.png"></property>
         <property name="IMAGE_BUTTON_GAME_SPEED"                value="./pathx/ButtonGameSpeed.png"></property>
+        <property name="IMAGE_BUTTON_START"                     value="./pathx/ButtonStart.png"></property>
+        <property name="IMAGE_BUTTON_SPECIALS"                  value="./pathx/ButtonSpecials.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL"                     value="./pathx/ButtonLeve.png"></property>
+        <property name="IMAGE_DIALOG_LEVEL"                     value="./pathx/DialogLevel.png"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>
@@ -58,22 +64,22 @@ and open the template in the editor.
             <option>The Wall Street Circuit</option>
         </property_options>
         <property_options name="X_LOCATION">
-            <option>240</option>
-            <option>230</option>
-            <option>379</option>
-            <option>580</option>
-            <option>1279</option>
-            <option>1100</option>
-            <option>1378</option>
+            <option>225</option>
+            <option>205</option>
+            <option>349</option>
+            <option>560</option>
+            <option>1269</option>
+            <option>1080</option>
+            <option>1370</option>
         </property_options>
         <property_options name="Y_LOCATION">
             <option>600</option>
-            <option>580</option>
+            <option>520</option>
+            <option>625</option>
             <option>610</option>
-            <option>592</option>
-            <option>956</option>
-            <option>626</option>
-            <option>462</option>
+            <option>970</option>
+            <option>650</option>
+            <option>475</option>
         </property_options>
     </property_options_list>
 </properties>

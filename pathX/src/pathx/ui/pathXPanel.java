@@ -93,6 +93,8 @@ public class pathXPanel extends JPanel {
                 renderDialogs(g);
             }
             
+            renderStats(g);
+            
             // AND FINALLY, TEXT FOR DEBUGGING
             renderDebuggingText(g);
         }
@@ -236,6 +238,23 @@ public class pathXPanel extends JPanel {
                 }
                  });
             }
+        }
+    }
+    
+    /**
+     * This method renders the on-screen stats that change as
+     * the game progresses. This means things like the game time
+     * and the number of tiles remaining.
+     * 
+     * @param g the Graphics context for this panel
+     */
+    public void renderStats(Graphics g){
+        if (((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
+            g.setFont(FONT_TEXT_DISPLAY);
+            g.setColor(Color.BLACK);
+            g.drawString(BALANCE, 200, 35);
+            
+            g.drawString(GOAL, 200, 70);
         }
     }
     

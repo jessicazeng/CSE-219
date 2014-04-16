@@ -24,8 +24,9 @@ import static pathx.pathXConstants.*;
 import pathx.data.pathXDataModel;
 
 /**
- *
- * @author Jessica
+ * This class manages all the UI for the pathX game.
+ * 
+ * @author Jessica Zeng
  */
 public class pathXGame  extends MiniGame{
     // THE PLAYER RECORD FOR EACH LEVEL, WHICH LIVES BEYOND ONE SESSION

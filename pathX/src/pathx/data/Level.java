@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pathx.data;
 
 /**
- *
+ * This class represents a level in pathX. This holds the information for each 
+ * level.
+ * 
  * @author Jessica
  */
 public class Level {

@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pathx.data;
 
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
 
 /**
- *
+ * This class manages the data for the pathX game.
  * @author Jessica
  */
 public class pathXDataModel extends MiniGameDataModel {

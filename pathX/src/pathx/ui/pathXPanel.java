@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pathx.ui;
 
 import java.awt.Color;
@@ -32,8 +26,9 @@ import pathx.PathX.pathXPropertyType;
 import pathx.data.Record;
 
 /**
- *
- * @author Jessica
+ * This class handles all the rendering for the pathX game. 
+ * 
+ * @author Jessica Zeng
  */
 public class pathXPanel extends JPanel {
     // THIS IS ACTUALLY OUR Sorting Hat APP, WE NEED THIS

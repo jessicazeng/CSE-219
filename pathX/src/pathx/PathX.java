@@ -6,13 +6,11 @@ import xml_utilities.InvalidXMLFileFormatException;
 import static pathx.pathXConstants.*;
 
 /**
- *
- * @author Jessica
+ * This is the pathX game application. It starts the game.
+ * 
+ * @author Jessica Zeng
  */
 public class PathX {
-    // THIS HAS THE FULL USER INTERFACE AND ONCE IN EVENT
-    // HANDLING MODE, BASICALLY IT BECOMES THE FOCAL
-    // POINT, RUNNING THE UI AND EVERYTHING ELSE
     static pathXGame game = new pathXGame();
 
     /**
@@ -103,7 +101,6 @@ public class PathX {
         
         TEXT_TITLE_BAR_GAME,
         
-        /* TILE LOADING STUFF */
         LEVEL_OPTIONS,
         X_LOCATION,
         Y_LOCATION

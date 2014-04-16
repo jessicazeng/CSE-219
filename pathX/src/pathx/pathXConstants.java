@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pathx;
 
 import java.awt.Color;
 import java.awt.Font;
 
 /**
- *
- * @author Jessica
+ * This class stores all the constants used in pathX.
+ * 
+ * @author Jessica Zeng
  */
 public class pathXConstants {
     // WE NEED THESE CONSTANTS JUST TO GET STARTED

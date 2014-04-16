@@ -49,6 +49,9 @@ public class pathXConstants {
     public static final String GAME_CLOSE_BUTTON_TYPE = "GAME_CLOSE_BUTTON_TYPE";
     public static final String GAME_HOME_BUTTON_TYPE = "GAME_HOME_BUTTON_TYPE";
     
+    public static final String BALANCE = "Balance: ";
+    public static final String GOAL = "Goal: ";
+    
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;
     public static final int MENU_BUTTON_WIDTH = 100;
@@ -96,5 +99,6 @@ public class pathXConstants {
     public static final Color COLOR_DEBUG_TEXT = Color.BLACK;
     
     // FONTS USED DURING FOR TEXTUAL GAME DISPLAYS
+    public static final Font FONT_TEXT_DISPLAY = new Font(Font.SANS_SERIF, Font.BOLD, 28);
     public static final Font FONT_DEBUG_TEXT = new Font(Font.MONOSPACED, Font.BOLD, 14);
 }

@@ -5,7 +5,8 @@ import mini_game.MiniGameDataModel;
 
 /**
  * This class manages the data for the pathX game.
- * @author Jessica
+ * 
+ * @author Jessica Zeng
  */
 public class pathXDataModel extends MiniGameDataModel {
     // THIS CLASS HAS A REFERERENCE TO THE MINI GAME SO THAT IT

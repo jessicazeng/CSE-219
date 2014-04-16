@@ -68,18 +68,18 @@ and open the template in the editor.
             <option>205</option>
             <option>349</option>
             <option>560</option>
-            <option>1269</option>
+            <option>1262</option>
             <option>1080</option>
-            <option>1370</option>
+            <option>1360</option>
         </property_options>
         <property_options name="Y_LOCATION">
             <option>600</option>
             <option>520</option>
             <option>625</option>
             <option>610</option>
-            <option>970</option>
+            <option>920</option>
             <option>650</option>
-            <option>475</option>
+            <option>495</option>
         </property_options>
     </property_options_list>
 </properties>

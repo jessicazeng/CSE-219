@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pathx.data;
 
 import java.util.ArrayList;
@@ -12,8 +6,9 @@ import properties_manager.PropertiesManager;
 import pathx.PathX.pathXPropertyType;
 
 /**
- *
- * @author Jessica
+ * This class stores the player history and all the levels.
+ * 
+ * @author Jessica Zeng
  */
 public class Record {
     // HERE ARE ALL THE RECORDS

@@ -89,11 +89,11 @@ public class pathXGame  extends MiniGame{
      * all the appropriate UI controls visible & invisible.
      */    
     public void switchToMenuScreen(){
-         // CHANGE THE BACKGROUND
-        guiDecor.get(BACKGROUND_TYPE).setState(MENU_SCREEN_STATE);
-        
         // MAKE THE CURRENT SCREEN THE MENU SCREEN
         currentScreenState = MENU_SCREEN_STATE;
+        
+         // CHANGE THE BACKGROUND
+        guiDecor.get(BACKGROUND_TYPE).setState(MENU_SCREEN_STATE);
         
         // ACTIVATE THE MENU BUTTONS
         // DEACTIVATE THE MENU BUTTONS
@@ -141,8 +141,9 @@ public class pathXGame  extends MiniGame{
     }
     
     public void switchToLevelScreen(String levelName){
-        guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
         currentScreenState = GAME_SCREEN_STATE;
+        
+        guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -189,6 +190,8 @@ public class pathXGame  extends MiniGame{
     }
      
     public void switchToSettingsScreen(){
+        currentScreenState = SETTINGS_SCREEN_STATE;
+        
         guiDecor.get(BACKGROUND_TYPE).setState(SETTINGS_SCREEN_STATE);
         
         guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -230,6 +233,8 @@ public class pathXGame  extends MiniGame{
     }
      
     public void switchToHelpScreen(){
+        currentScreenState = HELP_SCREEN_STATE;
+        
         guiDecor.get(BACKGROUND_TYPE).setState(HELP_SCREEN_STATE);
         
         guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());

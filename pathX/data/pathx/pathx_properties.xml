@@ -75,5 +75,8 @@
             <option>650</option>
             <option>495</option>
         </property_options>
+        <property_options name="LEVEL_FILES">
+            <option>./pathx/TheCaliforniaLemonadeStandCircuit.xml</option>
+        </property_options>
     </property_options_list>
 </properties>

@@ -55,6 +55,16 @@ public class pathXGame  extends MiniGame{
     }
     
     /**
+     * Accessor method for getting the app's file manager.
+     * 
+     * @return The file manager.
+     */
+    public pathXFileManager getFileManager()
+    {
+        return fileManager;
+    }
+    
+    /**
      * This method forces the file manager to save the current player record.
      */
     public void savePlayerRecord(){
@@ -724,8 +734,8 @@ public class pathXGame  extends MiniGame{
         // INIT OUR ERROR HANDLER
         //errorHandler = new pathXErrorHandler(window);
         
-        // INIT OUR FILE MANAGER
-        //fileManager = new pathXFileManager(this);
+        //INIT OUR FILE MANAGER
+        fileManager = new pathXFileManager(this);
 
         // LOAD THE PLAYER'S RECORD FROM A FILE
         //record = fileManager.loadRecord();

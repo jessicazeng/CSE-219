@@ -1,10 +1,12 @@
 package pathx.data;
 
+import java.util.ArrayList;
+
 /**
  * This class represents a level in pathX. This holds the information for each 
  * level.
  * 
- * @author Jessica
+ * @author Jessica Zeng
  */
 public class Level {
     public String levelname;
@@ -12,4 +14,11 @@ public class Level {
     public int yposition;
     public boolean locked;
     public boolean levelCompleted;
+    public String levelImage;
+    public ArrayList<Intersection> intersections;
+    public ArrayList<Path> paths;
+    public int money;
+    public int numPolice;
+    public int numZombies;
+    public int numBandits;
 }

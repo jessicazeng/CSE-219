@@ -307,6 +307,10 @@ public class pathXGame  extends MiniGame{
         // CHANGE THE BACKGROUND
         guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
         
+        Viewport viewport = data.getViewport();
+        viewport.setViewportSize(MAP_WIDTH, MAP_HEIGHT);
+        viewport.setGameWorldSize(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
+        
         currentScreenState = LEVEL_SCREEN_STATE;
         
         // DEACTIVATE THE MENU CONTROLS

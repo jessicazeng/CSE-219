@@ -71,6 +71,10 @@ public class pathXGame  extends MiniGame{
         
     }
     
+    public void pressedLevelButton(String levelName){
+        eventHandler.respondToSelectLevelRequest(levelName);
+    }
+    
     public void closeDialog(){
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
     }
@@ -151,8 +155,13 @@ public class pathXGame  extends MiniGame{
         data.setGameState(MiniGameState.NOT_STARTED);
     }
     
-    public void switchToLevelScreen(String levelName){
+    public void switchToLevelScreen(){
         currentScreenState = GAME_SCREEN_STATE;
+        
+        Viewport viewport = data.getViewport();
+        viewport.setViewportSize(GAME_VIEWPORT_WIDTH, GAME_VIEWPORT_HEIGHT);
+        viewport.setGameWorldSize(LEVEL_GAMEWORLD_WIDTH, LEVEL_GAMEWORLD_WIDTH);
+        viewport.scroll(0-viewport.getViewportX(), 0-viewport.getViewportY());
         
         guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
         

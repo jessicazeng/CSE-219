@@ -23,6 +23,7 @@ import pathx.data.pathXDataModel;
 import properties_manager.PropertiesManager;
 import static pathx.pathXConstants.*;
 import pathx.PathX.pathXPropertyType;
+import pathx.data.Intersection;
 import pathx.data.Record;
 
 /**
@@ -188,7 +189,7 @@ public class pathXPanel extends JPanel {
                         Rectangle bounds = new Rectangle(point, new Dimension(20, 20));
                     
                         if (bounds.contains(me)) {
-                            ((pathXGame)game).switchToLevelScreen(levelName);
+                            ((pathXGame)game).pressedLevelButton(levelName);
                         }
                     }
                      });
@@ -198,10 +199,58 @@ public class pathXPanel extends JPanel {
         } else if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
             renderSprite(g, bg);
             
-            g.setColor(Color.white);
-            g.fillRect(146, 21, 478, 420);
+            Viewport viewport = data.getViewport();
+            viewport.setGameWorldSize(LEVEL_GAMEWORLD_WIDTH, LEVEL_GAMEWORLD_HEIGHT);
+            int x1 = viewport.getViewportX();
+            int y1 = viewport.getViewportY();
+            int x2 = x1 + GAME_VIEWPORT_WIDTH;
+            int y2 = y1 + GAME_VIEWPORT_HEIGHT;
+            SpriteType bgST = bg.getSpriteType();
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            
+            Record record = ((pathXGame)game).getPlayerRecord();
+            String currentLevel = data.getCurrentLevel();
+            String levelImage;
+            //if(currentLevel == null)
+                //levelImage = props.getProperty(pathXPropertyType.IMAGE_MENU_BACKGROUND);
+            //else
+                levelImage = record.getLevelImage(currentLevel);
+            
+            String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+            Image img = game.loadImage(imgPath + levelImage);
+            g.drawImage(img, 155, 20, 620, 440, x1, y1, x2, y2, null);
             g.setColor(Color.black);
-            g.drawRect(146, 21, 478, 420);
+            g.drawRect(155, 20, GAME_VIEWPORT_WIDTH, GAME_VIEWPORT_HEIGHT);
+            
+            // draw intersections for the level
+            ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+            for (int i = 0; i < intersections.size(); i++){
+                Intersection intersection = intersections.get(i);
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+                int screenPositionX2 = viewport.getViewportWidth() + screenPositionX1;
+                int screenPositionY2 = viewport.getViewportHeight() + screenPositionY1;
+                
+                int x = intersection.getX() - screenPositionX1 + 170;
+                int y = intersection.getY() - screenPositionY1;
+                
+                Boolean open = intersection.isOpen();
+                
+                if((x>155 && x<600) && (y<(screenPositionY2+10) && y>20)){
+                    // if use has not yet unlocked the level
+                    if(open == true){
+                        g.setColor(Color.green);
+                            g.fillOval(x, y, 20, 20);
+                    } else{ // level has been unlocked
+                        g.setColor(Color.red);
+                        g.fillOval(x, y, 20, 20);
+                    }
+                    
+                    g.setColor(Color.black);
+                    g.drawOval(x, y, 20, 20);
+                }
+                
+            }
         } else{
             renderSprite(g, bg);
         }

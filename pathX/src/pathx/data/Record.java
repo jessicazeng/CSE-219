@@ -13,6 +13,7 @@ import pathx.PathX.pathXPropertyType;
 public class Record {
     // HERE ARE ALL THE RECORDS
     private HashMap<String, Level> levelRecords;
+    private String lala;
     
     public Record(){
         levelRecords = new HashMap();
@@ -41,6 +42,14 @@ public class Record {
         }
     }
     
+    public void setlala(String word){
+        lala = word;
+    }
+    
+    public String getlala(){
+        return lala;
+    }
+    
     public int getLevelPositionX(String levelName){
         Level level = levelRecords.get(levelName);
         
@@ -52,6 +61,70 @@ public class Record {
         
         return level.yposition;
     }
+    
+    public String getLevelImage(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        if(level == null)
+            return props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND);
+        else
+            return level.levelImage;
+    }
+    
+    public ArrayList<Intersection> getIntersections(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.intersections;
+    }
+    
+    public ArrayList<Road> getRoads(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.roads;
+    }
+    
+    public String getStartImage(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.startImage;
+    }
+    
+    public String getEndImage(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.endImage;
+    }
+    
+    public void addIntersections(String levelName, ArrayList<Intersection> newIntersections){
+        Level level = levelRecords.get(levelName);
+        
+        level.intersections = newIntersections;
+    }
+    
+    public void addRoads(String levelName, ArrayList<Road> newRoads){
+        Level level = levelRecords.get(levelName);
+        
+        level.roads = newRoads;
+    }
+    
+    public void addStartImage(String levelName, String imagename){
+        Level level = levelRecords.get(levelName);
+        level.startImage = imagename;
+    }
+    
+    public void addEndImage(String levelName, String imagename){
+        Level level = levelRecords.get(levelName);
+        level.endImage = imagename;
+    }
+    
+    public void setLevelImage(String levelName, String imgPath){
+         Level level = levelRecords.get(levelName);
+         
+         level.levelImage = imgPath;
+    }
+    
     public boolean isLocked(String levelName){
         Level level = levelRecords.get(levelName);
         

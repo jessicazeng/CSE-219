@@ -72,7 +72,20 @@ public class pathXEventHandler {
      * Called when the user clicks a button to select a level.
      */    
     public void respondToSelectLevelRequest(String levelFile){
-        game.switchToLevelScreen(levelFile);
+        // WE ONLY LET THIS HAPPEN IF THE MENU SCREEN IS VISIBLE
+        if (game.isCurrentScreenState(LEVEL_SCREEN_STATE))
+        {
+            // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+            pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+            // UPDATE THE DATA
+            pathXFileManager fileManager = game.getFileManager();
+            fileManager.loadLevel(levelFile);
+            data.reset(game);
+
+            // GO TO THE GAME
+            game.switchToLevelScreen();
+        }      
     }
     
     /**

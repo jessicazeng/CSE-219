@@ -16,7 +16,9 @@ public class Level {
     public boolean levelCompleted;
     public String levelImage;
     public ArrayList<Intersection> intersections;
-    public ArrayList<Path> paths;
+    public ArrayList<Road> roads;
+    public String startImage;
+    public String endImage;
     public int money;
     public int numPolice;
     public int numZombies;

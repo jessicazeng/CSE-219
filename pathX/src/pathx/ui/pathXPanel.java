@@ -113,9 +113,11 @@ public class pathXPanel extends JPanel {
         Record record = ((pathXGame)game).getPlayerRecord();
         
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
-        renderSprite(g, bg);
+        //renderSprite(g, bg);
         
         if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
+            renderSprite(g, bg);
+            
             Viewport viewport = data.getViewport();
             viewport.updateViewportBoundaries();
             int x1 = viewport.getViewportX();
@@ -242,45 +244,54 @@ public class pathXPanel extends JPanel {
                 
                 g.setColor(Color.black);
                 
-                // draw line between two nodes
-                int newx1 = node1x;
-                int newy1 = node1y;
-                int newx2 = node2x;
-                int newy2 = node2y;
+                g.drawLine(node1x, node1y, node2x, node2y);
                 
-                if((node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && !(node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
-                    if(node2y > (screenPositionY2+20)){
-                        newy2 = (screenPositionY2+20);
-                    }
-                    if(node2y < 20){
-                        newy2 = 20;
-                    }
-                    if(node2x > 620){
-                        newx2 = 620;
-                    }
-                    if(node2x < 156){
-                        newx2 = 156;
-                    }
-                    g.drawLine(newx1, newy1, newx2, newy2);
-                }
-                if(!(node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
-                    if(node1y > (screenPositionY2+20)){
-                        newy1 = (screenPositionY2+20);
-                    }
-                    if(node1y < 20){
-                        newy1 = 20;
-                    }
-                    if(node1x > 620){
-                        newx1 = 620;
-                    }
-                    if(node1x < 156){
-                        newx1 = 156;
-                    }
-                    g.drawLine(newx1, newy1, newx2, newy2);
-                }
-                if((node1x<620 && node1x>156 && node1y<(screenPositionY2+10) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+10) && node2y>20)){
-                    g.drawLine(newx1, newy1, newx2, newy2);
-                }
+                // draw line between two nodes
+                //int newx1 = node1x;
+                //int newy1 = node1y;
+                //int newx2 = node2x;
+                //int newy2 = node2y;
+                
+                //if((node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && !(node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
+                //    int deviation = intersection2.getX()-viewport.getViewportX()+780;
+                    
+                //    if(node2y > (screenPositionY2+20)){
+                //        newy2 = (screenPositionY2+20);
+                //    }
+                //    if((node2y < node1y) && (node2x > node1x)){
+                //        newy2 = newy2 + deviation;
+                //    }
+                //    if(node2y < 20){
+                //        newy2 = 20;
+                //    }
+                //    if(node2x > 620){
+                //        newx2 = 620;
+                //    }
+                //    if(node2x < 156){
+                //        newx2 = 156;
+                //    }
+                //    g.drawLine(newx1, newy1, newx2, newy2);
+                //}
+                //if(!(node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
+                //    int deviation = (intersection1.getX()-(viewport.getViewportX()+GAME_VIEWPORT_WIDTH))/5;
+                    
+                //    if(node1y > (screenPositionY2+20)){
+                //        newy1 = (screenPositionY2+20);
+                //    }
+                //    if(node1y < 20){
+                //        newy1 = 20;
+                //    }
+                //    if(node1x > 620){
+                //        newx1 = 620;
+                //    }
+                //    if(node1x < 156){
+                //        newx1 = 156;
+                //    }
+                //    g.drawLine(newx1, newy1, newx2, newy2);
+                //}
+                //if((node1x<620 && node1x>156 && node1y<(screenPositionY2+10) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+10) && node2y>20)){
+                //    g.drawLine(newx1, newy1, newx2, newy2);
+                //}
                 
                 
             }
@@ -309,9 +320,9 @@ public class pathXPanel extends JPanel {
                         int newX = x-imageWidth;
                         int newY = y-(imageHeight/2);
                         
-                        if((x>(155+imageWidth) && x<(600+imageWidth)) && (y<(screenPositionY2+5) && y>20)){
+                        //if((x>(155+imageWidth) && x<(600+imageWidth)) && (y<(screenPositionY2+5) && y>20)){
                             g.drawImage(img, newX, newY, null);
-                        }
+                        //}
                 } else if(i == 1){
                         levelImage = record.getEndImage(currentLevel);
             
@@ -319,12 +330,12 @@ public class pathXPanel extends JPanel {
                         img = game.loadImage(imgPath + levelImage);
                         int imageHeight = img.getHeight(null);
                         int imageWidth = img.getWidth(null);
-                        int newX = x;
+                        int newX = x+(imageWidth/2);
                         int newY = y-(imageHeight/2);
                         
-                        if((x>155 && x<(620-imageWidth)) && (y<(screenPositionY2+5) && y>20)){
+                        //if((x>155 && x<(620-imageWidth)) && (y<(screenPositionY2+5) && y>20)){
                             g.drawImage(img, newX, newY, null);
-                        }
+                        //}
                 }else{
                     if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
                      //else{
@@ -343,6 +354,7 @@ public class pathXPanel extends JPanel {
                 }
                 }
             }
+            renderSprite(g, bg);
         } else{
             renderSprite(g, bg);
         }

@@ -103,6 +103,18 @@ public class Record {
         return level.levelname;
     }
     
+    public int getMoney(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.money;
+    }
+    
+    public void setMoney(String levelName, int newMoney){
+        Level level = levelRecords.get(levelName);
+        
+        level.money = newMoney;
+    }
+    
     public void addIntersections(String levelName, ArrayList<Intersection> newIntersections){
         Level level = levelRecords.get(levelName);
         

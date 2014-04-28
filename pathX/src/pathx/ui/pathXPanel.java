@@ -312,8 +312,19 @@ public class pathXPanel extends JPanel {
                         if((x>(155+imageWidth) && x<(600+imageWidth)) && (y<(screenPositionY2+5) && y>20)){
                             g.drawImage(img, newX, newY, null);
                         }
-                //} else if(i == 1){
+                } else if(i == 1){
+                        levelImage = record.getEndImage(currentLevel);
+            
+                        imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                        img = game.loadImage(imgPath + levelImage);
+                        int imageHeight = img.getHeight(null);
+                        int imageWidth = img.getWidth(null);
+                        int newX = x;
+                        int newY = y-(imageHeight/2);
                         
+                        if((x>155 && x<(620-imageWidth)) && (y<(screenPositionY2+5) && y>20)){
+                            g.drawImage(img, newX, newY, null);
+                        }
                 }else{
                     if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
                      //else{
@@ -343,13 +354,27 @@ public class pathXPanel extends JPanel {
      * @param g This panel's graphics context.
      */
     public void renderDialogs(Graphics g){
+        Record record = ((pathXGame)game).getPlayerRecord();
+        
         Collection<Sprite> dialogSprites = game.getGUIDialogs().values();
         for (Sprite s : dialogSprites)
         {
             // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
             renderSprite(g, s);
             
-            if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
+            if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.isPaused()){
+                // display stats
+                String currentLevel = data.getCurrentLevel();
+                String levelDescription = "Rob the " + record.getLevelName(currentLevel);
+                String levelDescription2 = "and make your getaway to";
+                int money = record.getMoney(currentLevel);
+                String levelDescription3 = "to earn $" + money + ".";
+                g.setFont(FONT_GAME_STATS);
+                g.drawString(currentLevel, GAME_STATS_X, GAME_STATS_Y);
+                g.drawString(levelDescription, GAME_STATS_X, GAME_STATS_Y+50);
+                g.drawString(levelDescription2, GAME_STATS_X, GAME_STATS_Y+80);
+                g.drawString(levelDescription3, GAME_STATS_X, GAME_STATS_Y+110);
+                
                 final Point point = new Point(273, 346);
                 addMouseListener(new MouseAdapter(){
                 @Override
@@ -359,6 +384,7 @@ public class pathXPanel extends JPanel {
                     
                     if (bounds.contains(me)) {
                         ((pathXGame)game).closeDialog();
+                        data.unpause();
                     }
                 }
                  });

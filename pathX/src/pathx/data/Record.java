@@ -97,6 +97,12 @@ public class Record {
         return level.endImage;
     }
     
+    public String getLevelName(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.levelname;
+    }
+    
     public void addIntersections(String levelName, ArrayList<Intersection> newIntersections){
         Level level = levelRecords.get(levelName);
         
@@ -117,6 +123,12 @@ public class Record {
     public void addEndImage(String levelName, String imagename){
         Level level = levelRecords.get(levelName);
         level.endImage = imagename;
+    }
+    
+    public void setLevelName(String levelName, String name){
+        Level level = levelRecords.get(levelName);
+        
+        level.levelname = name;
     }
     
     public void setLevelImage(String levelName, String imgPath){

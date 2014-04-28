@@ -25,6 +25,7 @@ import static pathx.pathXConstants.*;
 import pathx.PathX.pathXPropertyType;
 import pathx.data.Intersection;
 import pathx.data.Record;
+import pathx.data.Road;
 
 /**
  * This class handles all the rendering for the pathX game. 
@@ -108,6 +109,9 @@ public class pathXPanel extends JPanel {
      */
     public void renderBackground(Graphics g)
     {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        Record record = ((pathXGame)game).getPlayerRecord();
+        
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
         renderSprite(g, bg);
         
@@ -119,7 +123,6 @@ public class pathXPanel extends JPanel {
             int x2 = x1 + viewport.getViewportWidth();
             int y2 = y1 + viewport.getViewportHeight();
             SpriteType bgST = bg.getSpriteType();
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
             String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
             Image img = game.loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
             g.drawImage(img, 10, 90, 620, 440, x1, y1, x2, y2, null);
@@ -206,9 +209,6 @@ public class pathXPanel extends JPanel {
             int x2 = x1 + GAME_VIEWPORT_WIDTH;
             int y2 = y1 + GAME_VIEWPORT_HEIGHT;
             SpriteType bgST = bg.getSpriteType();
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
-            
-            Record record = ((pathXGame)game).getPlayerRecord();
             String currentLevel = data.getCurrentLevel();
             String levelImage;
             //if(currentLevel == null)
@@ -221,6 +221,69 @@ public class pathXPanel extends JPanel {
             g.drawImage(img, 155, 20, 620, 440, x1, y1, x2, y2, null);
             g.setColor(Color.black);
             g.drawRect(155, 20, GAME_VIEWPORT_WIDTH, GAME_VIEWPORT_HEIGHT);
+            
+            // draw roads
+            ArrayList<Road> roads = record.getRoads(currentLevel);
+            for (int i = 0; i < roads.size(); i++){
+                Road road = roads.get(i);
+                Intersection intersection1 = road.getNode1();
+                Intersection intersection2 = road.getNode2();
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+                int screenPositionX2 = viewport.getViewportWidth() + screenPositionX1;
+                int screenPositionY2 = viewport.getViewportHeight() + screenPositionY1;
+                
+                // get coordinates for the nodes
+                int node1x = intersection1.getX() - screenPositionX1 + 170 + 15;
+                int node1y = intersection1.getY() - screenPositionY1 + 15;
+                int node2x = intersection2.getX() - screenPositionX1 + 170 + 15;
+                int node2y = intersection2.getY() - screenPositionY1 + 15;
+                
+                g.setColor(Color.black);
+                
+                // draw line between two nodes
+                int newx1 = node1x;
+                int newy1 = node1y;
+                int newx2 = node2x;
+                int newy2 = node2y;
+                
+                if((node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && !(node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
+                    if(node2y > (screenPositionY2+20)){
+                        newy2 = (screenPositionY2+20);
+                    }
+                    if(node2y < 20){
+                        newy2 = 20;
+                    }
+                    if(node2x > 620){
+                        newx2 = 620;
+                    }
+                    if(node2x < 156){
+                        newx2 = 156;
+                    }
+                    g.drawLine(newx1, newy1, newx2, newy2);
+                }
+                if(!(node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
+                    if(node1y > (screenPositionY2+20)){
+                        newy1 = (screenPositionY2+20);
+                    }
+                    if(node1y < 20){
+                        newy1 = 20;
+                    }
+                    if(node1x > 620){
+                        newx1 = 620;
+                    }
+                    if(node1x < 156){
+                        newx1 = 156;
+                    }
+                    g.drawLine(newx1, newy1, newx2, newy2);
+                }
+                if((node1x<620 && node1x>156 && node1y<(screenPositionY2+10) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+10) && node2y>20)){
+                    g.drawLine(newx1, newy1, newx2, newy2);
+                }
+                
+                
+            }
             
             // draw intersections for the level
             ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
@@ -236,20 +299,38 @@ public class pathXPanel extends JPanel {
                 
                 Boolean open = intersection.isOpen();
                 
-                if((x>155 && x<600) && (y<(screenPositionY2+10) && y>20)){
-                    // if use has not yet unlocked the level
-                    if(open == true){
-                        g.setColor(Color.green);
-                            g.fillOval(x, y, 20, 20);
-                    } else{ // level has been unlocked
-                        g.setColor(Color.red);
-                        g.fillOval(x, y, 20, 20);
-                    }
+                if(i == 0){
+                        levelImage = record.getStartImage(currentLevel);
+            
+                        imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                        img = game.loadImage(imgPath + levelImage);
+                        int imageHeight = img.getHeight(null);
+                        int imageWidth = img.getWidth(null);
+                        int newX = x-imageWidth;
+                        int newY = y-(imageHeight/2);
+                        
+                        if((x>(155+imageWidth) && x<(600+imageWidth)) && (y<(screenPositionY2+5) && y>20)){
+                            g.drawImage(img, newX, newY, null);
+                        }
+                //} else if(i == 1){
+                        
+                }else{
+                    if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
+                     //else{
+                        // if use has not yet unlocked the level
+                        if(open == true){
+                            g.setColor(Color.green);
+                            g.fillOval(x, y, 30, 30);
+                        } else{ // level has been unlocked
+                            g.setColor(Color.red);
+                            g.fillOval(x, y, 30, 30);
+                        }
                     
-                    g.setColor(Color.black);
-                    g.drawOval(x, y, 20, 20);
+                        g.setColor(Color.black);
+                        g.drawOval(x, y, 30, 30);
+                    //}
                 }
-                
+                }
             }
         } else{
             renderSprite(g, bg);

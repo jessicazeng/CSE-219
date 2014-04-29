@@ -13,12 +13,25 @@ public class pathXDataModel extends MiniGameDataModel {
     // CAN NOTIFY IT TO UPDATE THE DISPLAY WHEN THE DATA MODEL CHANGES
     private MiniGame miniGame;
     
-    
+    // LEVEL
+    private String currentLevel;
     
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
         miniGame = initMiniGame;
+    }
+    
+    // ACCESSOR METHODS
+    public String getCurrentLevel()
+    {
+        return currentLevel;
+    }
+    
+    // MUTATOR METHODS
+    public void setCurrentLevel(String initCurrentLevel)
+    {
+        currentLevel = initCurrentLevel;
     }
     
     /**

@@ -102,6 +102,7 @@ public class PathX {
         TEXT_TITLE_BAR_GAME,
         
         LEVEL_OPTIONS,
+        LEVEL_FILES,
         X_LOCATION,
         Y_LOCATION
     }

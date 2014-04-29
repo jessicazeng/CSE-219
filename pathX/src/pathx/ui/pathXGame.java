@@ -164,6 +164,7 @@ public class pathXGame  extends MiniGame{
         viewport.scroll(0-viewport.getViewportX(), 0-viewport.getViewportY());
         
         guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
+        data.pause();
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -514,7 +515,8 @@ public class pathXGame  extends MiniGame{
         sT.addState(SETTINGS_SCREEN_STATE, img);
         img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_HELP_BACKGROUND));
         sT.addState(HELP_SCREEN_STATE, img);
-        img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_LEVEL_BACKGROUND));
+        //img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_LEVEL_BACKGROUND));
+        img = loadImageWithColorKey(imgPath + props.getProperty(pathXPropertyType.IMAGE_LEVEL_BACKGROUND), COLOR_KEY);
         sT.addState(GAME_SCREEN_STATE, img);
         s = new Sprite(sT, 0, 0, 0, 0, MENU_SCREEN_STATE);
         guiDecor.put(BACKGROUND_TYPE, s);

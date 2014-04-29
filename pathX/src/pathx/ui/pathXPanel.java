@@ -1,8 +1,10 @@
 package pathx.ui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -225,6 +227,8 @@ public class pathXPanel extends JPanel {
             g.drawRect(155, 20, GAME_VIEWPORT_WIDTH, GAME_VIEWPORT_HEIGHT);
             
             // draw roads
+            Graphics2D g2 = (Graphics2D) g;
+            
             ArrayList<Road> roads = record.getRoads(currentLevel);
             for (int i = 0; i < roads.size(); i++){
                 Road road = roads.get(i);
@@ -242,62 +246,17 @@ public class pathXPanel extends JPanel {
                 int node2x = intersection2.getX() - screenPositionX1 + 170 + 15;
                 int node2y = intersection2.getY() - screenPositionY1 + 15;
                 
-                g.setColor(Color.black);
+                int speed = road.getSpeedLimit();
+                g2.setColor(Color.black);
+                g2.setStroke(new BasicStroke(speed/5));
                 
-                g.drawLine(node1x, node1y, node2x, node2y);
-                
-                // draw line between two nodes
-                //int newx1 = node1x;
-                //int newy1 = node1y;
-                //int newx2 = node2x;
-                //int newy2 = node2y;
-                
-                //if((node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && !(node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
-                //    int deviation = intersection2.getX()-viewport.getViewportX()+780;
-                    
-                //    if(node2y > (screenPositionY2+20)){
-                //        newy2 = (screenPositionY2+20);
-                //    }
-                //    if((node2y < node1y) && (node2x > node1x)){
-                //        newy2 = newy2 + deviation;
-                //    }
-                //    if(node2y < 20){
-                //        newy2 = 20;
-                //    }
-                //    if(node2x > 620){
-                //        newx2 = 620;
-                //    }
-                //    if(node2x < 156){
-                //        newx2 = 156;
-                //    }
-                //    g.drawLine(newx1, newy1, newx2, newy2);
-                //}
-                //if(!(node1x<620 && node1x>156 && node1y<(screenPositionY2+20) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+20) && node2y>20)){
-                //    int deviation = (intersection1.getX()-(viewport.getViewportX()+GAME_VIEWPORT_WIDTH))/5;
-                    
-                //    if(node1y > (screenPositionY2+20)){
-                //        newy1 = (screenPositionY2+20);
-                //    }
-                //    if(node1y < 20){
-                //        newy1 = 20;
-                //    }
-                //    if(node1x > 620){
-                //        newx1 = 620;
-                //    }
-                //    if(node1x < 156){
-                //        newx1 = 156;
-                //    }
-                //    g.drawLine(newx1, newy1, newx2, newy2);
-                //}
-                //if((node1x<620 && node1x>156 && node1y<(screenPositionY2+10) && node1y>20) && (node2x<620 && node2x>156 && node2y<(screenPositionY2+10) && node2y>20)){
-                //    g.drawLine(newx1, newy1, newx2, newy2);
-                //}
-                
+                g2.drawLine(node1x, node1y, node2x, node2y);
                 
             }
             
             // draw intersections for the level
             ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+            g2.setStroke(new BasicStroke(3));
             for (int i = 0; i < intersections.size(); i++){
                 Intersection intersection = intersections.get(i);
                 int screenPositionX1 = viewport.getViewportX();
@@ -418,6 +377,16 @@ public class pathXPanel extends JPanel {
             g.drawString(BALANCE, 200, 35);
             
             g.drawString(GOAL, 200, 70);
+        }
+        if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && !data.isPaused()){
+            Record record = ((pathXGame)game).getPlayerRecord();
+            String currentLevel = data.getCurrentLevel();
+            String levelName = record.getLevelName(currentLevel);
+            g.setFont(FONT_GAME_STATS);
+            g.drawString(levelName, 165, 50);
+            
+            String money = "$" + record.getMoney(currentLevel);
+            g.drawString(money, 165, 80);
         }
     }
     

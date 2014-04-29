@@ -109,10 +109,36 @@ public class Record {
         return level.money;
     }
     
+    public int getNumPolice(String levelName){
+        Level level = levelRecords.get(levelName);
+        return level.numPolice;
+    }
+    
+    public int getNumZombies(String levelName, int num){
+        Level level = levelRecords.get(levelName);
+        
+        return level.numZombies;
+    }
+    
+    public void setNumZombies(String levelName, int num){
+        Level level = levelRecords.get(levelName);
+        level.numZombies = num;
+    }
+    
+    public void setNumBandits(String levelName, int num){
+        Level level = levelRecords.get(levelName);
+        level.numBandits = num;
+    }
+    
     public void setMoney(String levelName, int newMoney){
         Level level = levelRecords.get(levelName);
         
         level.money = newMoney;
+    }
+    
+    public void setNumPolice(String levelName, int num){
+        Level level = levelRecords.get(levelName);
+        level.numPolice = num;
     }
     
     public void addIntersections(String levelName, ArrayList<Intersection> newIntersections){

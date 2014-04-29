@@ -49,6 +49,10 @@ public class pathXConstants {
     
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;
+    public static final int GAME_VIEWPORT_WIDTH = 466;
+    public static final int GAME_VIEWPORT_HEIGHT = 421;
+    public static final int LEVEL_GAMEWORLD_WIDTH = 984;
+    public static final int LEVEL_GAMEWORLD_HEIGHT = 551;
     public static final int MENU_BUTTON_WIDTH = 100;
     public static final int MENU_BUTTON_MARGIN = 15;
     public static final int MENU_BUTTON_Y = 385;
@@ -79,6 +83,8 @@ public class pathXConstants {
     public static final int HOME_BUTTON_Y = 8;
     public static final int LEVEL_DIALOG_X = 120;
     public static final int LEVEL_DIALOG_Y = 30;
+    public static final int GAME_STATS_X = 150;
+    public static final int GAME_STATS_Y = 100;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";
@@ -96,4 +102,5 @@ public class pathXConstants {
     // FONTS USED DURING FOR TEXTUAL GAME DISPLAYS
     public static final Font FONT_TEXT_DISPLAY = new Font(Font.SANS_SERIF, Font.BOLD, 28);
     public static final Font FONT_DEBUG_TEXT = new Font(Font.MONOSPACED, Font.BOLD, 14);
+    public static final Font FONT_GAME_STATS = new Font(Font.SANS_SERIF, Font.BOLD, 28);
 }

@@ -1,7 +1,9 @@
 package pathx.data;
 
+import java.util.ArrayList;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
+import pathx.ui.pathXGame;
 
 /**
  * This class manages the data for the pathX game.
@@ -13,6 +15,8 @@ public class pathXDataModel extends MiniGameDataModel {
     // CAN NOTIFY IT TO UPDATE THE DISPLAY WHEN THE DATA MODEL CHANGES
     private MiniGame miniGame;
     
+    ArrayList<Bandit> bandits;
+    
     // LEVEL
     private String currentLevel;
     
@@ -20,6 +24,8 @@ public class pathXDataModel extends MiniGameDataModel {
     {
         // KEEP THE GAME FOR LATER
         miniGame = initMiniGame;
+        
+        bandits = new ArrayList();
     }
     
     // ACCESSOR METHODS
@@ -28,10 +34,26 @@ public class pathXDataModel extends MiniGameDataModel {
         return currentLevel;
     }
     
+    public ArrayList<Bandit> getBandits(){
+        return bandits;
+    }
+    
     // MUTATOR METHODS
     public void setCurrentLevel(String initCurrentLevel)
     {
         currentLevel = initCurrentLevel;
+    }
+    
+    public void loadBandits(){
+        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        int numBandits = record.getNumBandits(currentLevel);
+        for(int i=0; i<numBandits; i++){
+            int node = (int) (2 + (Math.random() * (intersections.size() - 2)));
+            Bandit newBandit = new Bandit(node);
+            bandits.add(newBandit);
+        }
     }
     
     /**

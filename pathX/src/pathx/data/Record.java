@@ -42,12 +42,10 @@ public class Record {
         }
     }
     
-    public void setlala(String word){
-        lala = word;
-    }
-    
-    public String getlala(){
-        return lala;
+    public String getCity(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.city;
     }
     
     public int getLevelPositionX(String levelName){
@@ -134,6 +132,12 @@ public class Record {
         Level level = levelRecords.get(levelName);
         
         level.money = newMoney;
+    }
+    
+    public void setCity(String levelName, String newCity){
+        Level level = levelRecords.get(levelName);
+        
+        level.city = newCity;
     }
     
     public void setNumPolice(String levelName, int num){

@@ -22,6 +22,8 @@ public class Record {
         ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
         ArrayList<String> positionx = props.getPropertyOptionsList(pathXPropertyType.X_LOCATION);
         ArrayList<String> positiony = props.getPropertyOptionsList(pathXPropertyType.Y_LOCATION);
+        ArrayList<String> files = props.getPropertyOptionsList(pathXPropertyType.LEVEL_FILES);
+        
         for (int i = 0; i < levels.size(); i++){
             Level level = new Level();
             String levelFile = levels.get(i);
@@ -30,11 +32,13 @@ public class Record {
             level.xposition = x;
             int y = Integer.parseInt(positiony.get(i));
             level.yposition = y;
+            String file = files.get(i);
+            level.fileName = file;
             
             if(i == 0){
                 level.locked = false;
             } else{
-                level.locked = true;
+                level.locked = false;
             }
             level.levelCompleted = false;
             
@@ -112,10 +116,16 @@ public class Record {
         return level.numPolice;
     }
     
-    public int getNumZombies(String levelName, int num){
+    public int getNumZombies(String levelName){
         Level level = levelRecords.get(levelName);
         
         return level.numZombies;
+    }
+    
+    public String getFileName(String levelname){
+        Level level = levelRecords.get(levelname);
+        
+        return level.fileName;
     }
     
     public void setNumZombies(String levelName, int num){

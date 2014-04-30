@@ -16,6 +16,7 @@ public class pathXDataModel extends MiniGameDataModel {
     private MiniGame miniGame;
     
     ArrayList<Bandit> bandits;
+    ArrayList<Police> police;
     
     // LEVEL
     private String currentLevel;
@@ -26,6 +27,7 @@ public class pathXDataModel extends MiniGameDataModel {
         miniGame = initMiniGame;
         
         bandits = new ArrayList();
+        police = new ArrayList();
     }
     
     // ACCESSOR METHODS
@@ -53,6 +55,18 @@ public class pathXDataModel extends MiniGameDataModel {
             int node = (int) (2 + (Math.random() * (intersections.size() - 2)));
             Bandit newBandit = new Bandit(node);
             bandits.add(newBandit);
+        }
+    }
+    
+    public void loadPolice(){
+        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        int numPolice = record.getNumPolice(currentLevel);
+        for(int i=0; i<numPolice; i++){
+            int node = (int) (2 + (Math.random() * (intersections.size() - 2)));
+            Police newPolice = new Police(node);
+            police.add(newPolice);
         }
     }
     

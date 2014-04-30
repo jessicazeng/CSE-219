@@ -50,13 +50,13 @@ public class pathXFileManager {
         try{
             PropertiesManager props = PropertiesManager.getPropertiesManager();
             ArrayList<String> levels = props.getPropertyOptionsList(PathX.pathXPropertyType.LEVEL_OPTIONS);
-            ArrayList<String> levelFiles = props.getPropertyOptionsList(PathX.pathXPropertyType.LEVEL_FILES);
             Record record = miniGame.getPlayerRecord();
             
             //find the level
             for (int i = 0; i < levels.size(); i++){ 
                 if((levels.get(i)).matches(levelFile)){
-                    String levelFileName = PATH_DATA + "./pathx/" + levelFiles.get(i) + ".bin";
+                    String file = record.getFileName(levels.get(i));
+                    String levelFileName = PATH_DATA + "./pathx/" + file + ".bin";
                     
                     File fileToOpen = new File(levelFileName);
                     byte[] bytes = new byte[Long.valueOf(fileToOpen.length()).intValue()];
@@ -163,6 +163,8 @@ public class pathXFileManager {
                     
                     pathXDataModel dataModel = (pathXDataModel)miniGame.getDataModel();
                     dataModel.setCurrentLevel(levelFile);
+                    
+                    dis.close();
                 }
             }
         } catch(IOException e){

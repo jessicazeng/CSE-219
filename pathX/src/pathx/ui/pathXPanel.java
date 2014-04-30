@@ -25,6 +25,7 @@ import pathx.data.pathXDataModel;
 import properties_manager.PropertiesManager;
 import static pathx.pathXConstants.*;
 import pathx.PathX.pathXPropertyType;
+import pathx.data.Bandit;
 import pathx.data.Intersection;
 import pathx.data.Record;
 import pathx.data.Road;
@@ -134,17 +135,12 @@ public class pathXPanel extends JPanel {
             g.drawRect(10, 90, 610, 350);
             
             Record rec = ((pathXGame)game).getPlayerRecord();
-            //PropertiesManager props = PropertiesManager.getPropertiesManager();
             ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
-            ArrayList<String> positionx = props.getPropertyOptionsList(pathXPropertyType.X_LOCATION);
-            ArrayList<String> positiony = props.getPropertyOptionsList(pathXPropertyType.Y_LOCATION);
             for (int i = 0; i < levels.size(); i++){
                 String levelName = levels.get(i);
                 
                 int screenPositionX1 = viewport.getViewportX();
                 int screenPositionY1 = viewport.getViewportY();
-                int screenPositionX2 = viewport.getViewportWidth() + screenPositionX1;
-                int screenPositionY2 = viewport.getViewportHeight() + screenPositionY1;
                 
                 int x = rec.getLevelPositionX(levelName) - screenPositionX1;
                 int y = rec.getLevelPositionY(levelName) - screenPositionY1;
@@ -156,20 +152,20 @@ public class pathXPanel extends JPanel {
                     // if use has not yet unlocked the level
                     if(locked == true){
                         g.setColor(Color.white);
-                        g.fillOval(x, y, 20, 20);
+                        g.fillOval(x, y, 17, 17);
                         g.setColor(Color.black);
-                        g.drawOval(x, y, 20, 20);
+                        g.drawOval(x, y, 17, 17);
                     } else{ // level has been unlocked
                         if(levelCompleted == true){ // if user successfully robbed this location
                             g.setColor(Color.green);
-                            g.fillOval(x, y, 20, 20);
+                            g.fillOval(x, y, 17, 17);
                         } else{
                             g.setColor(Color.red);
-                            g.fillOval(x, y, 20, 20);
+                            g.fillOval(x, y, 17, 17);
                         }
                     
                         g.setColor(Color.black);
-                        g.drawOval(x, y, 20, 20);
+                        g.drawOval(x, y, 17, 17);
                     }
                 }
                 
@@ -182,8 +178,6 @@ public class pathXPanel extends JPanel {
                 if(locked == false){
                     int screenPositionX1 = viewport.getViewportX();
                     int screenPositionY1 = viewport.getViewportY();
-                    int screenPositionX2 = viewport.getViewportWidth() + screenPositionX1;
-                    int screenPositionY2 = viewport.getViewportHeight() + screenPositionY1;
                     
                     int x = rec.getLevelPositionX(levelName) - screenPositionX1;
                     int y = rec.getLevelPositionY(levelName) - screenPositionY1;
@@ -193,7 +187,7 @@ public class pathXPanel extends JPanel {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         Point me = e.getPoint();
-                        Rectangle bounds = new Rectangle(point, new Dimension(20, 20));
+                        Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
                     
                         if (bounds.contains(me)) {
                             ((pathXGame)game).pressedLevelButton(levelName);
@@ -214,11 +208,7 @@ public class pathXPanel extends JPanel {
             int y2 = y1 + GAME_VIEWPORT_HEIGHT;
             SpriteType bgST = bg.getSpriteType();
             String currentLevel = data.getCurrentLevel();
-            String levelImage;
-            //if(currentLevel == null)
-                //levelImage = props.getProperty(pathXPropertyType.IMAGE_MENU_BACKGROUND);
-            //else
-                levelImage = record.getLevelImage(currentLevel);
+            String levelImage = record.getLevelImage(currentLevel);
             
             String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
             Image img = game.loadImage(imgPath + levelImage);
@@ -273,32 +263,24 @@ public class pathXPanel extends JPanel {
                         levelImage = record.getStartImage(currentLevel);
             
                         imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
-                        img = game.loadImage(imgPath + levelImage);
+                        img = game.loadImageWithColorKey(imgPath+levelImage, COLOR_KEY);
                         int imageHeight = img.getHeight(null);
-                        int imageWidth = img.getWidth(null);
-                        int newX = x-imageWidth;
-                        int newY = y-(imageHeight/2);
+                        int newX = x;
+                        int newY = y - (imageHeight/2);
                         
-                        //if((x>(155+imageWidth) && x<(600+imageWidth)) && (y<(screenPositionY2+5) && y>20)){
-                            g.drawImage(img, newX, newY, null);
-                        //}
+                        g.drawImage(img, newX, newY, null);
                 } else if(i == 1){
                         levelImage = record.getEndImage(currentLevel);
             
                         imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
-                        img = game.loadImage(imgPath + levelImage);
+                        img = game.loadImageWithColorKey(imgPath+levelImage, COLOR_KEY);
                         int imageHeight = img.getHeight(null);
-                        int imageWidth = img.getWidth(null);
-                        int newX = x+(imageWidth/2);
-                        int newY = y-(imageHeight/2);
+                        int newX = x;
+                        int newY = y - (imageHeight/2);
                         
-                        //if((x>155 && x<(620-imageWidth)) && (y<(screenPositionY2+5) && y>20)){
-                            g.drawImage(img, newX, newY, null);
-                        //}
+                        g.drawImage(img, newX, newY, null);
                 }else{
                     if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
-                     //else{
-                        // if use has not yet unlocked the level
                         if(open == true){
                             g.setColor(Color.green);
                             g.fillOval(x, y, 30, 30);
@@ -309,15 +291,46 @@ public class pathXPanel extends JPanel {
                     
                         g.setColor(Color.black);
                         g.drawOval(x, y, 30, 30);
-                    //}
                 }
                 }
             }
+            Intersection intersection = intersections.get(0);
+            int screenPositionX1 = viewport.getViewportX();
+            int screenPositionY1 = viewport.getViewportY();
+            int x = intersection.getX() - screenPositionX1 + 170;
+            int y = intersection.getY() - screenPositionY1;
+            
+            imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+            img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_GETAWAY_CAR), COLOR_KEY);
+            int imageHeight = img.getHeight(null);
+            int imageWidth = img.getWidth(null);
+            int newX = x + imageWidth;
+            int newY = y - imageHeight;
+                        
+            g.drawImage(img, newX, newY, null);
+            
+            ArrayList<Bandit> bandits = data.getBandits();
+            for(int n=0; n<bandits.size(); n++){
+                int node = bandits.get(n).getNode();
+                intersection = intersections.get(node);
+                x = intersection.getX() - viewport.getViewportX() + 170;
+                y = intersection.getY() - viewport.getViewportY();
+                
+                imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_BANDIT), COLOR_KEY);
+                imageHeight = img.getHeight(null);
+                imageWidth = img.getWidth(null);
+                
+                g.drawImage(img, x, y, null);
+            }
+                        
             renderSprite(g, bg);
         } else{
             renderSprite(g, bg);
         }
     }
+    
+    
     
      /**
      * Renders the game dialog boxes.
@@ -381,7 +394,7 @@ public class pathXPanel extends JPanel {
         if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && !data.isPaused()){
             Record record = ((pathXGame)game).getPlayerRecord();
             String currentLevel = data.getCurrentLevel();
-            String levelName = record.getLevelName(currentLevel);
+            String levelName = record.getCity(currentLevel);
             g.setFont(FONT_GAME_STATS);
             g.drawString(levelName, 165, 50);
             

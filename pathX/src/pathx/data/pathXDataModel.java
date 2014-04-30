@@ -40,6 +40,10 @@ public class pathXDataModel extends MiniGameDataModel {
         return bandits;
     }
     
+    public ArrayList<Police> getPolice(){
+        return police;
+    }
+    
     // MUTATOR METHODS
     public void setCurrentLevel(String initCurrentLevel)
     {

@@ -354,12 +354,7 @@ public class pathXGame  extends MiniGame{
         
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         
-        ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
-        for (String level : levels)
-        {
-            guiButtons.get(level).setState(pathXStates.VISIBLE_STATE.toString());
-            guiButtons.get(level).setEnabled(true);
-        }        
+        data.setGameState(MiniGameState.NOT_STARTED);
     }
     
     @Override

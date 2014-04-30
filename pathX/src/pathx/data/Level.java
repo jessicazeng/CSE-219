@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Level {
     public String levelname;
+    public String city;
     public int xposition;
     public int yposition;
     public boolean locked;

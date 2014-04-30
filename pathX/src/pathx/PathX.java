@@ -96,6 +96,10 @@ public class PathX {
         IMAGE_BUTTON_LEVEL_DIALOG_MOUSE_OVER,
         IMAGE_BUTTON_START,
         IMAGE_BUTTON_SPECIALS,
+        IMAGE_GETAWAY_CAR,
+        IMAGE_BANDIT,
+        IMAGE_POLICE,
+        IMAGE_ZOMBIE,
         
         IMAGE_DIALOG_LEVEL,
         

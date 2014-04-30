@@ -84,6 +84,7 @@ public class pathXEventHandler {
             data.reset(game);
             data.loadBandits();
             data.loadPolice();
+            data.loadZombies();
 
             // GO TO THE GAME
             game.switchToLevelScreen();

@@ -41,6 +41,10 @@
         <property name="IMAGE_BUTTON_SPECIALS"                  value="./pathx/ButtonSpecials.png"></property>
         <property name="IMAGE_BUTTON_LEVEL"                     value="./pathx/ButtonLeve.png"></property>
         <property name="IMAGE_DIALOG_LEVEL"                     value="./pathx/DialogLevel.png"></property>
+        <property name="IMAGE_GETAWAY_CAR"                      value="./pathx/getawaycar.png"></property>
+        <property name="IMAGE_BANDIT"                           value="./pathx/bandit.png"></property>
+        <property name="IMAGE_POLICE"                           value="./pathx/police.png"></property>
+        <property name="IMAGE_ZOMBIE"                           value="./pathx/zombie.png"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>
@@ -49,34 +53,92 @@
     <!-- PLAYABLE LEVELS CREATED WITH THE LEVEL EDITOR -->
     <property_options_list>
         <property_options name="LEVEL_OPTIONS">
-            <option>The California Lemonade Stand Circuit</option>
-            <option>The Silicon Valley Tech Circuit</option>
-            <option>The Nevada Casino Circuit</option>
-            <option>The Old West Bank Circuit</option>
-            <option>The Florida Retirees Circuit</option>
-            <option>The I-95 Corridor Circuit</option>
-            <option>The Wall Street Circuit</option>
+            <option>Los Angeles, CA</option>
+            <!--<option>San Diego, CA</option>
+            <option>Fresno, CA</option>-->
+            <option>San Jose, CA</option>
+            <!--<option>San Francisco, CA</option>
+            <option>Sacramento, CA</option>-->
+            <option>Las Vegas, NV</option>
+            <!--<option>Laughlin, NV</option>
+            <option>Reno, NV</option>-->
+            <option>Dodge City, KS</option>
+            <!--<option>Cheyenne, WY</option>
+            <option>Sioux Falls, SD</option>-->
+            <option>Miami, FL</option>
+            <!--<option>Fort Lauderdale, FL</option>
+            <option>Fort Myers, FL</option>-->
+            <!--<option>Fort Knox, KY</option>
+            <option>Washington, DC</option>-->
+            <option>Richmond, VA</option>
+            <option>Wall Street, NY</option>
+            <option>Poughkeepsie, NY</option>
         </property_options>
         <property_options name="X_LOCATION">
-            <option>225</option>
-            <option>205</option>
-            <option>349</option>
-            <option>560</option>
-            <option>1262</option>
+            <option>280</option>
+            <!--<option>290</option>
+            <option>260</option>-->
+            <option>215</option>
+            <!--<option>195</option>
+            <option>220</option>-->
+            <option>340</option>
+            <!--<option>350</option>
+            <option>285</option>-->
+            <option>740</option>
+            <!--<option>600</option>
+            <option>800</option>-->
+            <option>1280</option>
+            <!--<option>1265</option>
+            <option>1230</option>
             <option>1080</option>
+            <option>1320</option>-->
+            <option>1290</option>
             <option>1360</option>
+            <option>1340</option>
         </property_options>
         <property_options name="Y_LOCATION">
-            <option>600</option>
-            <option>520</option>
-            <option>625</option>
+            <option>670</option>
+            <!--<option>700</option>
+            <option>620</option>-->
+            <option>570</option>
+            <!--<option>535</option>
+            <option>515</option>-->
             <option>610</option>
+            <!--<option>630</option>
+            <option>530</option>-->
+            <option>610</option>
+            <!--<option>500</option>
+            <option>470</option>-->
+            <option>960</option>
+            <!--<option>935</option>
             <option>920</option>
             <option>650</option>
-            <option>495</option>
+            <option>560</option>-->
+            <option>600</option>
+            <option>480</option>
+            <option>440</option>
         </property_options>
         <property_options name="LEVEL_FILES">
-            <option>./pathx/TheCaliforniaLemonadeStandCircuit.xml</option>
+            <option>lemonade stands in Los Angeles</option>
+            <!--<option>lemonade stands in San Diego</option>
+            <option>lemonade stands in Fresno</option>-->
+            <option>tech firm in San Jose</option>
+            <!--<option>tech firm in San Francisco</option>
+            <option>tech firm in Sacramento</option>-->
+            <option>Las Vegas casino</option>
+            <!--<option>Laughlin casino</option>
+            <option>Reno casino</option>-->
+            <option>Dodge City bank</option>
+            <!--<option>Cheyenne bank</option>
+            <option>Sioux Falls bank</option>-->
+            <option>retirement community in Miami</option>
+            <!--<option>retirement community in Fort Lauderdale</option>
+            <option>retirement community in Fort Myers</option>
+            <option>houses in Fort Knox</option>
+            <option>museum in Washington, DC</option>-->
+            <option>ice cream trucks in Richmond</option>
+            <option>investment houses in Wall Street</option>
+            <option>investment houses in Poughkeepsie</option>
         </property_options>
     </property_options_list>
 </properties>

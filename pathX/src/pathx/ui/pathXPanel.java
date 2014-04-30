@@ -27,6 +27,7 @@ import static pathx.pathXConstants.*;
 import pathx.PathX.pathXPropertyType;
 import pathx.data.Bandit;
 import pathx.data.Intersection;
+import pathx.data.Police;
 import pathx.data.Record;
 import pathx.data.Road;
 
@@ -323,7 +324,22 @@ public class pathXPanel extends JPanel {
                 
                 g.drawImage(img, x, y, null);
             }
-                        
+             
+            ArrayList<Police> police = data.getPolice();
+            for(int n=0; n<police.size(); n++){
+                int node = police.get(n).getNode();
+                intersection = intersections.get(node);
+                x = intersection.getX() - viewport.getViewportX() + 170;
+                y = intersection.getY() - viewport.getViewportY();
+                
+                imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_POLICE), COLOR_KEY);
+                imageHeight = img.getHeight(null);
+                imageWidth = img.getWidth(null);
+                
+                g.drawImage(img, x, y, null);
+            }
+            
             renderSprite(g, bg);
         } else{
             renderSprite(g, bg);

@@ -82,6 +82,7 @@ public class pathXEventHandler {
             pathXFileManager fileManager = game.getFileManager();
             fileManager.loadLevel(levelFile);
             data.reset(game);
+            data.loadBandits();
 
             // GO TO THE GAME
             game.switchToLevelScreen();

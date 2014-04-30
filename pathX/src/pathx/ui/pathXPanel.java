@@ -30,6 +30,7 @@ import pathx.data.Intersection;
 import pathx.data.Police;
 import pathx.data.Record;
 import pathx.data.Road;
+import pathx.data.Zombie;
 
 /**
  * This class handles all the rendering for the pathX game. 
@@ -334,6 +335,21 @@ public class pathXPanel extends JPanel {
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                 img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_POLICE), COLOR_KEY);
+                imageHeight = img.getHeight(null);
+                imageWidth = img.getWidth(null);
+                
+                g.drawImage(img, x, y, null);
+            }
+            
+            ArrayList<Zombie> zombies = data.getZombies();
+            for(int n=0; n<zombies.size(); n++){
+                int node = zombies.get(n).getNode();
+                intersection = intersections.get(node);
+                x = intersection.getX() - viewport.getViewportX() + 170;
+                y = intersection.getY() - viewport.getViewportY();
+                
+                imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE), COLOR_KEY);
                 imageHeight = img.getHeight(null);
                 imageWidth = img.getWidth(null);
                 

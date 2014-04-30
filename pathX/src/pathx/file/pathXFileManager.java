@@ -56,7 +56,7 @@ public class pathXFileManager {
             //find the level
             for (int i = 0; i < levels.size(); i++){ 
                 if((levels.get(i)).matches(levelFile)){
-                    String levelFileName = PATH_DATA + levelFiles.get(i);
+                    String levelFileName = PATH_DATA + "./pathx/" + levelFiles.get(i) + ".bin";
                     
                     File fileToOpen = new File(levelFileName);
                     byte[] bytes = new byte[Long.valueOf(fileToOpen.length()).intValue()];
@@ -156,6 +156,10 @@ public class pathXFileManager {
                     
                     // set level background image
                     record.setLevelImage(levelFile, bgImageName);
+                    
+                    record.setLevelName(levelFile, levelName);
+                    
+                    record.setCity(levelFile, levels.get(i));
                     
                     pathXDataModel dataModel = (pathXDataModel)miniGame.getDataModel();
                     dataModel.setCurrentLevel(levelFile);

@@ -182,7 +182,7 @@ public class pathXDataModel extends MiniGameDataModel {
                 selectedNode = intersection2;
                 selectedNodeIndex = i;
                 
-                //movePlayer(player, i);
+                movePlayer(player.getCurrentNode(), i);
             }
         }
         }
@@ -221,7 +221,22 @@ public class pathXDataModel extends MiniGameDataModel {
      */
     @Override
     public void updateAll(MiniGame game){
-        
+        try
+        {
+            // MAKE SURE THIS THREAD HAS EXCLUSIVE ACCESS TO THE DATA
+            game.beginUsingData();
+            
+            // Go through each tile. If its state is visible, check if we are entering a button
+            //change it to mouseover state
+            
+            // WE ONLY NEED TO UPDATE AND MOVE THE MOVING TILES
+            player.update(miniGame);
+        } finally
+        {
+            // MAKE SURE WE RELEASE THE LOCK WHETHER THERE IS
+            // AN EXCEPTION THROWN OR NOT
+            game.endUsingData();
+        }
     }
     
      /**

@@ -19,6 +19,9 @@ public class Player extends Sprite{
     private int startX;
     private int startY;
     
+    // CURRENT NODE
+    private int currentNode;
+    
     // THE TARGET COORDINATES IN WHICH IT IS CURRENTLY HEADING
     private int targetX;
     private int targetY;
@@ -27,11 +30,13 @@ public class Player extends Sprite{
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
     
-    public Player(    SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
+    public Player(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState)
     {
         // SEND ALL THE Sprite DATA TO A Sprite CONSTRUCTOR
         super(initSpriteType, initX, initY, initVx, initVy, initState);
+        
+        currentNode = 0;
     }
     
     // ACCESSOR METHODS

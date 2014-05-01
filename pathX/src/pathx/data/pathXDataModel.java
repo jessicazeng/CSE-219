@@ -3,7 +3,9 @@ package pathx.data;
 import java.util.ArrayList;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
+import mini_game.SpriteType;
 import pathx.ui.pathXGame;
+import pathx.ui.pathXStates;
 
 /**
  * This class manages the data for the pathX game.
@@ -19,6 +21,10 @@ public class pathXDataModel extends MiniGameDataModel {
     ArrayList<Police> police;
     ArrayList<Zombie> zombies;
     
+    // THIS IS THE TILE THE USER IS DRAGGING
+    private Intersection selectedNode;
+    private int selectedNodeIndex;
+    
     // LEVEL
     private String currentLevel;
     
@@ -30,6 +36,10 @@ public class pathXDataModel extends MiniGameDataModel {
         bandits = new ArrayList();
         police = new ArrayList();
         zombies = new ArrayList();
+        
+        SpriteType sT = new SpriteType("Player");
+        addSpriteType(sT);
+        Player player = new Player(sT, 0, 0, 0, 0, pathXStates.INVISIBLE_STATE.toString());
     }
     
     // ACCESSOR METHODS
@@ -48,6 +58,10 @@ public class pathXDataModel extends MiniGameDataModel {
     
     public ArrayList<Zombie> getZombies(){
         return zombies;
+    }
+    
+    public Intersection getSelectedNode(){
+        return selectedNode;
     }
     
     // MUTATOR METHODS

@@ -11,6 +11,8 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -48,6 +50,10 @@ public class pathXPanel extends JPanel {
     // WE'LL USE THIS TO FORMAT SOME TEXT FOR DISPLAY PURPOSES
     private NumberFormat numberFormatter;
     
+    int triangleXPoints[] = {-ONE_WAY_TRIANGLE_WIDTH/2,  -ONE_WAY_TRIANGLE_WIDTH/2,  ONE_WAY_TRIANGLE_WIDTH/2};
+    int triangleYPoints[] = {ONE_WAY_TRIANGLE_WIDTH/2, -ONE_WAY_TRIANGLE_WIDTH/2, 0};
+    GeneralPath recyclableTriangle;
+    
     /**
      * This constructor stores the game and data references,
      * which we'll need for rendering.
@@ -64,6 +70,16 @@ public class pathXPanel extends JPanel {
         numberFormatter = NumberFormat.getNumberInstance();
         numberFormatter.setMinimumFractionDigits(3);
         numberFormatter.setMaximumFractionDigits(3);
+        
+        // MAKING THE TRIANGLE FOR ONE WAY STREETS IS A LITTLE MORE INVOLVED
+        recyclableTriangle =  new GeneralPath(   GeneralPath.WIND_EVEN_ODD,
+                                                triangleXPoints.length);
+        recyclableTriangle.moveTo(triangleXPoints[0], triangleYPoints[0]);
+        for (int index = 1; index < triangleXPoints.length; index++) 
+        {
+            recyclableTriangle.lineTo(triangleXPoints[index], triangleYPoints[index]);
+        };
+        recyclableTriangle.closePath();
     }
     
     /**
@@ -229,8 +245,6 @@ public class pathXPanel extends JPanel {
                 
                 int screenPositionX1 = viewport.getViewportX();
                 int screenPositionY1 = viewport.getViewportY();
-                int screenPositionX2 = viewport.getViewportWidth() + screenPositionX1;
-                int screenPositionY2 = viewport.getViewportHeight() + screenPositionY1;
                 
                 // get coordinates for the nodes
                 int node1x = intersection1.getX() - screenPositionX1 + 170 + 15;
@@ -244,6 +258,38 @@ public class pathXPanel extends JPanel {
                 
                 g2.drawLine(node1x, node1y, node2x, node2y);
                 
+                boolean isOneWay = road.isOneWay();
+                if(isOneWay == true){
+                    // CALCULATE THE ROAD LINE SLOPE
+                    double diffX = node2x - node1x;
+                    double diffY = node2y - node1y;
+                    double slope = diffY/diffX;
+        
+                    // AND THEN FIND THE LINE MIDPOINT
+                    double midX = (node1x + node2x)/2.0;
+                    double midY = (node1y + node2y)/2.0;
+
+                    // GET THE RENDERING TRANSFORM, WE'LL RETORE IT BACK
+                    // AT THE END
+                    AffineTransform oldAt = g2.getTransform();
+
+                    // CALCULATE THE ROTATION ANGLE
+                    double theta = Math.atan(slope);
+                    if (node2x < node1x)
+                    theta = (theta + Math.PI);
+        
+                    AffineTransform at = new AffineTransform();        
+                    at.setToIdentity();
+                    at.translate(midX, midY);
+                    at.rotate(theta);
+                    g2.setTransform(at);
+        
+                    // AND RENDER AS A SOLID TRIANGLE
+                    g2.fill(recyclableTriangle);
+
+                    // RESTORE THE OLD TRANSFORM SO EVERYTHING DOESN'T END UP ROTATED 0
+                    g2.setTransform(oldAt);
+                }
             }
             
             // draw intersections for the level
@@ -360,6 +406,11 @@ public class pathXPanel extends JPanel {
         } else{
             renderSprite(g, bg);
         }
+        
+        //int[] xPoints = {30, 40, 50};
+        //int[] yPoints = {100, 80, 100};
+        //g.fillPolygon(xPoints, yPoints, 3);
+        //g.drawPolygon(xPoints, yPoints, 3);
     }
     
     

@@ -66,6 +66,10 @@ public class pathXDataModel extends MiniGameDataModel {
         return currentLevel;
     }
     
+    public Player getplayer(){
+        return player;
+    }
+    
     public ArrayList<Bandit> getBandits(){
         return bandits;
     }
@@ -127,24 +131,26 @@ public class pathXDataModel extends MiniGameDataModel {
     /**
      * Moves player
      */
-    public void movePlayer(int index1, int index2)
+    public void movePlayer(int index2)
     {
         Record record = ((pathXGame) miniGame).getPlayerRecord();
-        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
         
         // GET THE TILES
-        Intersection intersection1 = intersections.get(index1);
-        Intersection intersection2 = intersections.get(index2);
+        Intersection intersection2 = record.getIntersections(currentLevel).get(index2);
+        
+        int screenPositionX1 = viewport.getViewportX();
+        int screenPositionY1 = viewport.getViewportY();
         
         // GET THE TILE TWO LOCATION
-        int tile2x = intersection2.getX();
-        int tile2y = intersection2.getY();
+        int tile2x = intersection2.getX() - screenPositionX1-60;
+        int tile2y = intersection2.getY() - screenPositionY1+30;
 
         // THEN MOVE PLAYER
         player.setTarget(tile2x, tile2y);
 
         // SEND THEM TO THEIR DESTINATION
         player.startMovingToTarget(NORMAL_VELOCITY);
+        player.setCurrentNode(index2);
     }
     
     /**
@@ -161,30 +167,30 @@ public class pathXDataModel extends MiniGameDataModel {
     @Override
     public void checkMousePressOnSprites(MiniGame game, int x, int y){
         Record record = ((pathXGame) miniGame).getPlayerRecord();
-        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
         
-        if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && !isPaused()){
+        if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE) && !isPaused()){
+            ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
             for(int i=0; i<intersections.size(); i++){
-            Intersection intersection2 = intersections.get(i);
+                Intersection intersection2 = intersections.get(i);
             
-            int screenPositionX1 = viewport.getViewportX();
-            int screenPositionY1 = viewport.getViewportY();
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
             
-            // position of intersection on node
-            int node2x = intersection2.getX() - screenPositionX1 + 170 + 15;
-            int node2y = intersection2.getY() - screenPositionY1 + 15;
+                // position of intersection on node
+                int node2x = intersection2.getX() - screenPositionX1 + 170 + 15;
+                int node2y = intersection2.getY() - screenPositionY1 + 15;
             
-            Point point = new Point(intersection2.getX(), intersection2.getY());
-            Point point2 = new Point(x, y);
-            Rectangle bounds = new Rectangle(point, new Dimension(30, 30));
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(30, 30));
                     
-            if (bounds.contains(point2)) {
-                selectedNode = intersection2;
-                selectedNodeIndex = i;
+                if (bounds.contains(point2)) {
+                    selectedNode = intersection2;
+                    selectedNodeIndex = i;
                 
-                movePlayer(player.getCurrentNode(), i);
+                    movePlayer(i);
+                }
             }
-        }
         }
     }
     

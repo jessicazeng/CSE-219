@@ -1,5 +1,7 @@
 package pathx.data;
 
+import java.util.ArrayList;
+
 /**
  * This class represents an intersection in a level.
  * 
@@ -13,6 +15,8 @@ public class Intersection {
     // IS IT OPEN OR NOT
     public boolean open;
     
+    ArrayList<Intersection> adjacentIntersections;
+    
     /**
      * Constructor allows for a custom location, note that all
      * intersections start as open.
@@ -22,12 +26,17 @@ public class Intersection {
         x = initX;
         y = initY;
         open = true;
+        adjacentIntersections = new ArrayList();
     }
     
     // ACCESSOR METHODS
     public int getX()       {   return x;       }
     public int getY()       {   return y;       }
     public boolean isOpen() {   return open;    }
+    
+    public ArrayList<Intersection> getAdjacentIntersections(){
+        return adjacentIntersections;
+    }
     
     // MUTATOR METHODS
     public void setX(int x)
@@ -36,4 +45,8 @@ public class Intersection {
     {   this.y = y;         }
     public void setOpen(boolean open)
     {   this.open = open;   }
+    
+    public void addAdjacentIntersection(Intersection intersection){
+        adjacentIntersections.add(intersection);
+    }
 }

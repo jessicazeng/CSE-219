@@ -6,6 +6,7 @@
 
 package pathx.data;
 
+import java.util.ArrayList;
 import mini_game.MiniGame;
 import mini_game.Sprite;
 import mini_game.SpriteType;
@@ -29,6 +30,11 @@ public class Player extends Sprite{
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
+    
+    private boolean inPath;
+    
+    private ArrayList<Intersection> path;
+    private int pathIndex;
     
     public Player(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState)
@@ -56,6 +62,10 @@ public class Player extends Sprite{
         return targetY;
     }
     
+    public int getCurrentNode(){
+        return currentNode;
+    }
+    
     public boolean isMovingToTarget(){
         return movingToTarget;
     }
@@ -69,6 +79,10 @@ public class Player extends Sprite{
     public void setTarget(int x, int y){
         targetX = x;
         targetY = y;
+    }
+    
+    public void setCurrentNode(int index){
+        currentNode = index;
     }
     
     /**
@@ -127,6 +141,44 @@ public class Player extends Sprite{
         if ((diffY > 0) && (vY < 0)) vY *= -1;
     }
     
+    public void initPath(ArrayList<Intersection> initPath){
+        path = initPath;
+        inPath = true;
+        pathIndex = 0;
+    }
+    
+    public void updatePath(MiniGame game){
+        if (calculateDistanceToTarget() < 5)
+        {
+            // AND TARGET THE NEXT NODE IN THE PATH
+            Intersection target = path.get(pathIndex);
+            int x1 = startX;
+            int y1 = startY;
+            int x2 = target.getX();
+            int y2 = target.getY();
+            
+            targetX = x2-60; 
+            targetY = y2+30;
+            
+            // START THE TILE MOVING AGAIN AND RANDOMIZE IT'S SPEED
+            startMovingToTarget(5);
+            startX = targetX;
+            startY = targetY;
+            setCurrentNode(target.getID());
+            
+            // AND ON TO THE NEXT PATH FOR THE NEXT TIME WE PICK A TARGET
+            pathIndex += 1;
+            if(pathIndex == path.size())
+                inPath = false;
+        }
+        // JUST A NORMAL PATHING UPDATE
+        else
+        {
+            // THIS WILL SIMPLY UPDATE THIS TILE'S POSITION USING ITS CURRENT VELOCITY
+            super.update(game);
+        }  
+    }
+    
     /**
      * Called each frame, this method ensures that this tile is updated
      * according to the path it is on.
@@ -136,8 +188,12 @@ public class Player extends Sprite{
     @Override
     public void update(MiniGame game)
     {
+        if (inPath == true)
+        {
+            updatePath(game);
+        }
         // GO TO THE TARGET AND THEN STOP MOVING
-        if (calculateDistanceToTarget() < 20)
+        if (calculateDistanceToTarget() < 5)
         {
             vX = 0;
             vY = 0;

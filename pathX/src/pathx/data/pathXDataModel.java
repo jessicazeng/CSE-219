@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
 import mini_game.SpriteType;
+import pathx.PathX;
 import static pathx.pathXConstants.*;
 import pathx.ui.pathXGame;
 import pathx.ui.pathXStates;
+import properties_manager.PropertiesManager;
 
 /**
  * This class manages the data for the pathX game.
@@ -136,21 +138,31 @@ public class pathXDataModel extends MiniGameDataModel {
         Record record = ((pathXGame) miniGame).getPlayerRecord();
         
         // GET THE TILES
+        int currentNode = player.getCurrentNode();
         Intersection intersection2 = record.getIntersections(currentLevel).get(index2);
         
         int screenPositionX1 = viewport.getViewportX();
         int screenPositionY1 = viewport.getViewportY();
         
         // GET THE TILE TWO LOCATION
-        int tile2x = intersection2.getX() - screenPositionX1-60;
-        int tile2y = intersection2.getY() - screenPositionY1+30;
+        int x1 = player.getStartX();
+        int y1 = player.getStartY();
+        int tile2x = intersection2.getX();
+        int tile2y = intersection2.getY();
+        
+        int differenceX = tile2x - x1 - 60;
+        int differenceY = tile2y - y1 + 20;
+        
+        int newX = x1+differenceX;
+        int newY = y1+differenceY;
 
         // THEN MOVE PLAYER
-        player.setTarget(tile2x, tile2y);
+        player.setTarget(newX, newY);
 
         // SEND THEM TO THEIR DESTINATION
         player.startMovingToTarget(NORMAL_VELOCITY);
         player.setCurrentNode(index2);
+        player.setStartingPos(x1+tile2x, y1+tile2y);
     }
     
     /**
@@ -166,29 +178,54 @@ public class pathXDataModel extends MiniGameDataModel {
      */
     @Override
     public void checkMousePressOnSprites(MiniGame game, int x, int y){
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
         Record record = ((pathXGame) miniGame).getPlayerRecord();
         
-        if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE) && !isPaused()){
-            ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
-            for(int i=0; i<intersections.size(); i++){
-                Intersection intersection2 = intersections.get(i);
+        if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE)){
+            if(!isPaused()){
+                ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+                for(int i=0; i<intersections.size(); i++){
+                    Intersection intersection2 = intersections.get(i);
+                    
+                    int screenPositionX1 = viewport.getViewportX();
+                    int screenPositionY1 = viewport.getViewportY();
             
+                    // position of intersection on node
+                    int node2x = intersection2.getX() - screenPositionX1 + 170;
+                    int node2y = intersection2.getY() - screenPositionY1;
+
+                    Point point = new Point(node2x, node2y);
+                    Point point2 = new Point(x, y);
+                    Rectangle bounds = new Rectangle(point, new Dimension(30, 30));
+
+                    if (bounds.contains(point2)) {
+                        selectedNode = intersection2;
+                        selectedNodeIndex = i;
+
+                        movePlayer(i);
+                    }
+                }
+            }
+            
+        }
+        
+        else if(((pathXGame)miniGame).isCurrentScreenState(LEVEL_SCREEN_STATE)){
+            ArrayList<String> levels = props.getPropertyOptionsList(PathX.pathXPropertyType.LEVEL_OPTIONS);
+            for (int i = 0; i < levels.size(); i++){
+                String levelName = levels.get(i);
+                
                 int screenPositionX1 = viewport.getViewportX();
                 int screenPositionY1 = viewport.getViewportY();
-            
-                // position of intersection on node
-                int node2x = intersection2.getX() - screenPositionX1 + 170 + 15;
-                int node2y = intersection2.getY() - screenPositionY1 + 15;
-            
-                Point point = new Point(node2x, node2y);
-                Point point2 = new Point(x, y);
-                Rectangle bounds = new Rectangle(point, new Dimension(30, 30));
-                    
-                if (bounds.contains(point2)) {
-                    selectedNode = intersection2;
-                    selectedNodeIndex = i;
                 
-                    movePlayer(i);
+                int levelX = record.getLevelPositionX(levelName) - screenPositionX1;
+                int levelY = record.getLevelPositionY(levelName) - screenPositionY1;
+                
+                Point point = new Point(levelX, levelY);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
+                
+                if(bounds.contains(point2)){
+                    ((pathXGame)miniGame).pressedLevelButton(levelName);
                 }
             }
         }

@@ -54,88 +54,88 @@
     <property_options_list>
         <property_options name="LEVEL_OPTIONS">
             <option>Los Angeles, CA</option>
-            <!--<option>San Diego, CA</option>
-            <option>Fresno, CA</option>-->
+            <option>San Diego, CA</option>
+            <option>Fresno, CA</option>
             <option>San Jose, CA</option>
-            <!--<option>San Francisco, CA</option>
-            <option>Sacramento, CA</option>-->
+            <option>San Francisco, CA</option>
+            <option>Sacramento, CA</option>
             <option>Las Vegas, NV</option>
-            <!--<option>Laughlin, NV</option>
-            <option>Reno, NV</option>-->
+            <option>Laughlin, NV</option>
+            <option>Reno, NV</option>
             <option>Dodge City, KS</option>
-            <!--<option>Cheyenne, WY</option>
-            <option>Sioux Falls, SD</option>-->
+            <option>Cheyenne, WY</option>
+            <option>Sioux Falls, SD</option>
             <option>Miami, FL</option>
-            <!--<option>Fort Lauderdale, FL</option>
-            <option>Fort Myers, FL</option>-->
-            <!--<option>Fort Knox, KY</option>
-            <option>Washington, DC</option>-->
+            <option>Fort Lauderdale, FL</option>
+            <option>Fort Myers, FL</option>
+            <option>Fort Knox, KY</option>
+            <option>Washington, DC</option>
             <option>Richmond, VA</option>
             <option>Wall Street, NY</option>
             <option>Poughkeepsie, NY</option>
         </property_options>
         <property_options name="X_LOCATION">
-            <option>280</option>
-            <!--<option>290</option>
-            <option>260</option>-->
+            <option>260</option>
+            <option>290</option>
+            <option>260</option>
             <option>215</option>
-            <!--<option>195</option>
-            <option>220</option>-->
+            <option>195</option>
+            <option>220</option>
             <option>340</option>
-            <!--<option>350</option>
-            <option>285</option>-->
+            <option>350</option>
+            <option>285</option>
             <option>740</option>
-            <!--<option>600</option>
-            <option>800</option>-->
+            <option>600</option>
+            <option>800</option>
             <option>1280</option>
-            <!--<option>1265</option>
+            <option>1265</option>
             <option>1230</option>
             <option>1080</option>
-            <option>1320</option>-->
+            <option>1320</option>
             <option>1290</option>
             <option>1360</option>
             <option>1340</option>
         </property_options>
         <property_options name="Y_LOCATION">
+            <option>720</option>
+            <option>750</option>
             <option>670</option>
-            <!--<option>700</option>
-            <option>620</option>-->
-            <option>570</option>
-            <!--<option>535</option>
-            <option>515</option>-->
-            <option>610</option>
-            <!--<option>630</option>
-            <option>530</option>-->
-            <option>610</option>
-            <!--<option>500</option>
-            <option>470</option>-->
-            <option>960</option>
-            <!--<option>935</option>
-            <option>920</option>
+            <option>620</option>
+            <option>585</option>
+            <option>565</option>
+            <option>660</option>
+            <option>680</option>
+            <option>580</option>
             <option>650</option>
-            <option>560</option>-->
-            <option>600</option>
-            <option>480</option>
-            <option>440</option>
+            <option>550</option>
+            <option>520</option>
+            <option>1020</option>
+            <option>985</option>
+            <option>970</option>
+            <option>700</option>
+            <option>610</option>
+            <option>650</option>
+            <option>550</option>
+            <option>490</option>
         </property_options>
         <property_options name="LEVEL_FILES">
             <option>lemonade stands in Los Angeles</option>
-            <!--<option>lemonade stands in San Diego</option>
-            <option>lemonade stands in Fresno</option>-->
+            <option>lemonade stands in San Diego</option>
+            <option>lemonade stands in Fresno</option>
             <option>tech firm in San Jose</option>
-            <!--<option>tech firm in San Francisco</option>
-            <option>tech firm in Sacramento</option>-->
+            <option>tech firm in San Francisco</option>
+            <option>tech firm in Sacramento</option>
             <option>Las Vegas casino</option>
-            <!--<option>Laughlin casino</option>
-            <option>Reno casino</option>-->
+            <option>Laughlin casino</option>
+            <option>Reno casino</option>
             <option>Dodge City bank</option>
-            <!--<option>Cheyenne bank</option>
-            <option>Sioux Falls bank</option>-->
+            <option>Cheyenne bank</option>
+            <option>Sioux Falls bank</option>
             <option>retirement community in Miami</option>
-            <!--<option>retirement community in Fort Lauderdale</option>
+            <option>retirement community in Fort Lauderdale</option>
             <option>retirement community in Fort Myers</option>
             <option>houses in Fort Knox</option>
-            <option>museum in Washington, DC</option>-->
+            <option>museum in Washington, DC</option>
             <option>ice cream trucks in Richmond</option>
             <option>investment houses in Wall Street</option>
             <option>investment houses in Poughkeepsie</option>

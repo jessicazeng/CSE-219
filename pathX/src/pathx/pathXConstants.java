@@ -32,6 +32,10 @@ public class pathXConstants {
     public static final String SCROLL_UP_BUTTON_TYPE = "SCROLL_UP_BUTTON_TYPE";
     public static final String SCROLL_LEFT_BUTTON_TYPE = "SCROLL_LEFT_BUTTON_TYPE";
     public static final String SCROLL_RIGHT_BUTTON_TYPE = "SCROLL_RIGHT_BUTTON_TYPE";
+    public static final String LEVEL_SCROLL_DOWN_BUTTON_TYPE = "LEVEL_SCROLL_DOWN_BUTTON_TYPE";
+    public static final String LEVEL_SCROLL_UP_BUTTON_TYPE = "LEVEL_SCROLL_UP_BUTTON_TYPE";
+    public static final String LEVEL_SCROLL_LEFT_BUTTON_TYPE = "LEVEL_SCROLL_LEFT_BUTTON_TYPE";
+    public static final String LEVEL_SCROLL_RIGHT_BUTTON_TYPE = "LEVEL_SCROLL_RIGHT_BUTTON_TYPE";
     public static final String SOUND_BUTTON_TYPE = "SOUND_BUTTON_TYPE";
     public static final String MUSIC_BUTTON_TYPE = "MUSIC_BUTTON_TYPE";
     public static final String GAME_SPEED_BUTTON_TYPE = "GAME_SPEED_BUTTON_TYPE";
@@ -43,6 +47,7 @@ public class pathXConstants {
     public static final String START_BUTTON_TYPE = "START_BUTTON_TYPE";
     public static final String GAME_CLOSE_BUTTON_TYPE = "GAME_CLOSE_BUTTON_TYPE";
     public static final String GAME_HOME_BUTTON_TYPE = "GAME_HOME_BUTTON_TYPE";
+    public static final String PAUSE_BUTTON_TYPE = "PAUSE_BUTTON_TYPE";
     
     public static final String BALANCE = "Balance: ";
     public static final String GOAL = "Goal: ";
@@ -85,6 +90,9 @@ public class pathXConstants {
     public static final int LEVEL_DIALOG_Y = 30;
     public static final int GAME_STATS_X = 150;
     public static final int GAME_STATS_Y = 100;
+    public static final int ONE_WAY_TRIANGLE_HEIGHT = 10;
+    public static final int ONE_WAY_TRIANGLE_WIDTH = 30;
+    public static final int NORMAL_VELOCITY = 10;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";
@@ -97,6 +105,7 @@ public class pathXConstants {
     // COLOR KEY, WHICH REFERS TO THE COLOR TO IGNORE WHEN
     // LOADING ART.
     public static final Color COLOR_KEY = new Color(255, 174, 201);
+    public static final Color COLOR_KEY2 = new Color(239, 228, 176);
     public static final Color COLOR_DEBUG_TEXT = Color.BLACK;
     
     // FONTS USED DURING FOR TEXTUAL GAME DISPLAYS

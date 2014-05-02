@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author Jessica
  */
 public class Intersection {
+    public int ID;
     // INTERSECTION LOCATION
     public int x;
     public int y;
@@ -24,8 +25,9 @@ public class Intersection {
      * Constructor allows for a custom location, note that all
      * intersections start as open.
      */
-    public Intersection(int initX, int initY)
+    public Intersection(int initID, int initX, int initY)
     {
+        ID = initID;
         x = initX;
         y = initY;
         open = true;
@@ -33,6 +35,7 @@ public class Intersection {
     }
     
     // ACCESSOR METHODS
+    public int getID()      {   return ID;      }
     public int getX()       {   return x;       }
     public int getY()       {   return y;       }
     public boolean isOpen() {   return open;    }

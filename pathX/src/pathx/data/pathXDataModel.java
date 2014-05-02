@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Random;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
 import mini_game.SpriteType;
@@ -36,6 +37,8 @@ public class pathXDataModel extends MiniGameDataModel {
     // LEVEL
     private String currentLevel;
     
+    Record record;
+    
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
@@ -47,14 +50,14 @@ public class pathXDataModel extends MiniGameDataModel {
         
         selectedNode = null;
         
-        
+        record = ((pathXGame) miniGame).getPlayerRecord();
     }
     
     public void initPlayer(){
         SpriteType sT = new SpriteType("Player");
         addSpriteType(sT);
         
-        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         Intersection intersection = record.getIntersections(currentLevel).get(0);
         int x = intersection.getX();
         int y = intersection.getY();
@@ -95,7 +98,7 @@ public class pathXDataModel extends MiniGameDataModel {
     }
     
     public void loadBandits(){
-        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
         
         int numBandits = record.getNumBandits(currentLevel);
@@ -107,7 +110,7 @@ public class pathXDataModel extends MiniGameDataModel {
     }
     
     public void loadPolice(){
-        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
         
         int numPolice = record.getNumPolice(currentLevel);
@@ -119,7 +122,7 @@ public class pathXDataModel extends MiniGameDataModel {
     }
     
     public void loadZombies(){
-        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
         
         int numZombies = record.getNumZombies(currentLevel);
@@ -130,39 +133,114 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     }
     
+    public void setAdjacentIntersections(){
+        ArrayList<Road> roads = record.getRoads(currentLevel);
+        for (int i = 0; i < roads.size(); i++){
+            Road road = roads.get(i);
+            Intersection intersection1 = road.getNode1();
+            Intersection intersection2 = road.getNode2();
+            Boolean isOneWay = road.isOneWay();
+            
+            if(isOneWay == true){
+                intersection1.addAdjacentIntersection(intersection2);
+            } else{
+                intersection1.addAdjacentIntersection(intersection2);
+                intersection2.addAdjacentIntersection(intersection1);
+            }
+        }
+    }
+    
+    public Road findRoad(Intersection from, Intersection to){
+        Road road = null;
+        ArrayList<Road> roads = record.getRoads(currentLevel);
+        for (int i = 0; i < roads.size(); i++){
+            road = roads.get(i);
+            Intersection intersection1 = road.getNode1();
+            Intersection intersection2 = road.getNode2();
+            
+            if(from.equals(intersection1) && to.equals(intersection2))
+                return road;
+        }
+        return road;
+    }
+    
+    public ArrayList<Intersection> findPath(Intersection from, Intersection to){
+        // LIST OF CONSECUTIVE INTERSECTIONS TO REACH
+        ArrayList<Intersection> path = new ArrayList();
+        Intersection start = from;
+        Intersection end = to;
+        
+        // has path to destination been found?
+        Boolean found = false;
+        
+        while(found == false){
+            ArrayList<Intersection> adjacentNodes = start.getAdjacentIntersections();
+            
+            // check if to is adjacent to from
+            for(int i=0; i<adjacentNodes.size(); i++){
+                Intersection intersection = adjacentNodes.get(i);
+
+                if(intersection.equals(end)){
+                    path.add(intersection);
+                    found = true;
+                }
+            }
+            
+            if(found == false){
+                int size = adjacentNodes.size();
+                Random rand = new Random();
+                int randomNode = rand.nextInt(size); 
+                Intersection newNode = adjacentNodes.get(randomNode);
+                path.add(newNode);
+                start = newNode;
+            }
+        }
+        
+        return path;
+    }
+    
     /**
      * Moves player
      */
     public void movePlayer(int index2)
     {
-        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         
         // GET THE TILES
         int currentNode = player.getCurrentNode();
+        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
         Intersection intersection2 = record.getIntersections(currentLevel).get(index2);
         
-        int screenPositionX1 = viewport.getViewportX();
-        int screenPositionY1 = viewport.getViewportY();
+        Boolean isAdjacent = intersection1.isAdjacent(intersection2);
         
-        // GET THE TILE TWO LOCATION
-        int x1 = player.getStartX();
-        int y1 = player.getStartY();
-        int tile2x = intersection2.getX();
-        int tile2y = intersection2.getY();
-        
-        int differenceX = tile2x - x1 - 60;
-        int differenceY = tile2y - y1 + 20;
-        
-        int newX = x1+differenceX;
-        int newY = y1+differenceY;
+        if(isAdjacent == true){
+            int screenPositionX1 = viewport.getViewportX();
+            int screenPositionY1 = viewport.getViewportY();
 
-        // THEN MOVE PLAYER
-        player.setTarget(newX, newY);
+            // GET THE TILE TWO LOCATION
+            int x1 = player.getStartX();
+            int y1 = player.getStartY();
+            int tile2x = intersection2.getX();
+            int tile2y = intersection2.getY();
 
-        // SEND THEM TO THEIR DESTINATION
-        player.startMovingToTarget(NORMAL_VELOCITY);
-        player.setCurrentNode(index2);
-        player.setStartingPos(x1+tile2x, y1+tile2y);
+            int differenceX = tile2x - x1 - 60;
+            int differenceY = tile2y - y1 + 20;
+
+            int newX = x1+differenceX;
+            int newY = y1+differenceY;
+
+            // THEN MOVE PLAYER
+            player.setTarget(newX, newY);
+            
+            // FIND SPEED LIMIT OF ROAD
+            Road road = findRoad(intersection1, intersection2);
+            int speedLimit = (road.getSpeedLimit())/10;
+
+            // SEND THEM TO THEIR DESTINATION
+            player.startMovingToTarget(speedLimit);
+            player.setCurrentNode(index2);
+            player.setStartingPos(x1+tile2x, y1+tile2y);
+        }
     }
     
     /**
@@ -179,7 +257,7 @@ public class pathXDataModel extends MiniGameDataModel {
     @Override
     public void checkMousePressOnSprites(MiniGame game, int x, int y){
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        Record record = ((pathXGame) miniGame).getPlayerRecord();
+        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         
         if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE)){
             if(!isPaused()){

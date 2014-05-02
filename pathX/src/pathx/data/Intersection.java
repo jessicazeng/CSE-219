@@ -15,6 +15,9 @@ public class Intersection {
     // IS IT OPEN OR NOT
     public boolean open;
     
+    // LIST OF INTERSECTIONS THAT ARE ONE AWAY FROM THIS NODE.
+    // PLAYER CAN ONLY MOVE TO ONE OF THESE NODES FROM CURRENT 
+    // INTERSECTION
     ArrayList<Intersection> adjacentIntersections;
     
     /**
@@ -48,5 +51,14 @@ public class Intersection {
     
     public void addAdjacentIntersection(Intersection intersection){
         adjacentIntersections.add(intersection);
+    }
+    
+    public Boolean isAdjacent(Intersection intersection){
+        for(int i=0; i<adjacentIntersections.size(); i++){
+            Intersection listIntersection = adjacentIntersections.get(i);
+            if(listIntersection.equals(intersection))
+                return true;
+        }
+        return false;
     }
 }

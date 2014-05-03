@@ -239,7 +239,15 @@ public class pathXDataModel extends MiniGameDataModel {
             int node = rand.nextInt(intersections.size());
             while(node==0 || node==1)
                 node = rand.nextInt(intersections.size());
-            Zombie newZombie = new Zombie(node);
+            
+            Intersection intersection = intersections.get(node);
+            int x = intersection.getX();
+            int y = intersection.getY();
+            SpriteType sT = new SpriteType("Zombie" + i);
+            addSpriteType(sT);
+            Zombie newZombie = new Zombie(sT, x, y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+            newZombie.setID(i);
+            newZombie.setNode(node);
             zombies.add(newZombie);
         }
     }

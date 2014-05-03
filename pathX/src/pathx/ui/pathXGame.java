@@ -525,6 +525,12 @@ public class pathXGame  extends MiniGame{
             {   eventHandler.respondToSwitchToHelpScreenRequest();     }
         });
         
+        //
+        guiButtons.get(PAUSE_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToPauseRequest();     }
+        });
+        
         // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
         this.setKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent ke)

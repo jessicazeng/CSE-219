@@ -252,6 +252,47 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     }
     
+    public void moveZombie(int ID)
+    {
+        Zombie zombieSprite = zombies.get(ID);
+        int currentNode = zombieSprite.getNode();
+        
+        Random rand = new Random();
+        int node = rand.nextInt(record.getIntersections(currentLevel).size());
+        while(node==0 || node==1)
+            node = rand.nextInt(record.getIntersections(currentLevel).size());
+            
+        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
+        Intersection intersection2 = record.getIntersections(currentLevel).get(node);
+        
+        Boolean isAdjacent = intersection1.isAdjacent(intersection2);
+        
+        if(isAdjacent == true){
+            // GET THE TILE TWO LOCATION
+            int x1 = zombieSprite.getStartX();
+            int y1 = zombieSprite.getStartY();
+            int tile2x = intersection2.getX() + 50;
+            int tile2y = intersection2.getY() - 30;
+
+            int differenceX = tile2x - x1 - 60;
+            int differenceY = tile2y - y1 + 20;
+
+            int newX = x1+differenceX;
+            int newY = y1+differenceY;
+
+            // THEN MOVE PLAYER
+            zombieSprite.setTarget(newX, newY);
+            
+            // FIND SPEED LIMIT OF ROAD
+            Road road = findRoad(intersection1, intersection2);
+            int speedLimit = (road.getSpeedLimit())/10;
+
+            // SEND THEM TO THEIR DESTINATION
+            zombieSprite.startMovingToTarget(speedLimit);
+            zombieSprite.setNode(node);
+        } 
+    } 
+    
     public void setAdjacentIntersections(){
         ArrayList<Road> roads = record.getRoads(currentLevel);
         for (int i = 0; i < roads.size(); i++){

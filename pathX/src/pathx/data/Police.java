@@ -29,8 +29,6 @@ public class Police extends Sprite{
     int startX;
     int startY;
     
-    ArrayList<Intersection> intersections;
-    
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;

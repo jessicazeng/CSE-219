@@ -19,7 +19,7 @@ public class Intersection {
     // LIST OF INTERSECTIONS THAT ARE ONE AWAY FROM THIS NODE.
     // PLAYER CAN ONLY MOVE TO ONE OF THESE NODES FROM CURRENT 
     // INTERSECTION
-    ArrayList<Intersection> adjacentIntersections;
+    ArrayList<Intersection  > adjacentIntersections;
     
     public boolean visited;
     

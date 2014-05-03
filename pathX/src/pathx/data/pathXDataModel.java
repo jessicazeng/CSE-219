@@ -109,7 +109,15 @@ public class pathXDataModel extends MiniGameDataModel {
             while(node==0 || node==1)
                 node = rand.nextInt(intersections.size());
             
-            Bandit newBandit = new Bandit(node);
+            Intersection intersection = intersections.get(node);
+            int x = intersection.getX();
+            int y = intersection.getY();
+            
+            SpriteType sT = new SpriteType("Bandit" + i);
+            addSpriteType(sT);
+            Bandit newBandit = new Bandit(sT, x, y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+            newBandit.setID(i);
+            newBandit.setNode(node);
             bandits.add(newBandit);
         }
     }

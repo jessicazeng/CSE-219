@@ -167,7 +167,7 @@ public class pathXPanel extends JPanel {
                 Boolean locked = rec.isLocked(levelName);
                 Boolean levelCompleted = rec.isLevelCompleted(levelName);
                 
-                if((x>10 && x<610) && (y<430 && y>90)){
+                if((x>10 && x<600) && (y<430 && y>90)){
                     // if use has not yet unlocked the level
                     if(locked == true){
                         g.setColor(Color.white);

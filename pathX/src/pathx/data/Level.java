@@ -12,8 +12,11 @@ public class Level {
     public String levelname;
     public String fileName;
     public String city;
+    
+    // position of the level node on map
     public int xposition;
     public int yposition;
+    
     public boolean locked;
     public boolean levelCompleted;
     public String levelImage;

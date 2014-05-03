@@ -29,6 +29,7 @@ import static pathx.pathXConstants.*;
 import pathx.PathX.pathXPropertyType;
 import pathx.data.Bandit;
 import pathx.data.Intersection;
+import pathx.data.Player;
 import pathx.data.Police;
 import pathx.data.Record;
 import pathx.data.Road;
@@ -144,7 +145,7 @@ public class pathXPanel extends JPanel {
             int x1 = viewport.getViewportX();
             int y1 = viewport.getViewportY();
             int x2 = x1 + viewport.getViewportWidth();
-            int y2 = y1 + viewport.getViewportHeight();
+            int y2 = y1 + viewport.getViewportHeight()-95;
             SpriteType bgST = bg.getSpriteType();
             String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
             Image img = game.loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MAP_BACKGROUND));
@@ -155,7 +156,7 @@ public class pathXPanel extends JPanel {
             Record rec = ((pathXGame)game).getPlayerRecord();
             ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
             for (int i = 0; i < levels.size(); i++){
-                String levelName = levels.get(i);
+                final String levelName = levels.get(i);
                 
                 int screenPositionX1 = viewport.getViewportX();
                 int screenPositionY1 = viewport.getViewportY();
@@ -166,7 +167,7 @@ public class pathXPanel extends JPanel {
                 Boolean locked = rec.isLocked(levelName);
                 Boolean levelCompleted = rec.isLevelCompleted(levelName);
                 
-                if((x>10 && x<600) && (y<420 && y>90)){
+                if((x>10 && x<610) && (y<430 && y>90)){
                     // if use has not yet unlocked the level
                     if(locked == true){
                         g.setColor(Color.white);
@@ -184,36 +185,21 @@ public class pathXPanel extends JPanel {
                     
                         g.setColor(Color.black);
                         g.drawOval(x, y, 17, 17);
-                    }
-                }
-                
-            }
-            
-            for (int i = 0; i < levels.size(); i++){
-                final String levelName = levels.get(i);
-                boolean locked = rec.isLocked(levelName);
-                
-                if(locked == false){
-                    int screenPositionX1 = viewport.getViewportX();
-                    int screenPositionY1 = viewport.getViewportY();
+                        
+                        final Point point = new Point(x, y);
+                        addMouseListener(new MouseAdapter(){
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            Point me = e.getPoint();
+                            Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
                     
-                    int x = rec.getLevelPositionX(levelName) - screenPositionX1;
-                    int y = rec.getLevelPositionY(levelName) - screenPositionY1;
-                
-                    final Point point = new Point(x, y);
-                    addMouseListener(new MouseAdapter(){
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        Point me = e.getPoint();
-                        Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
-                    
-                        if (bounds.contains(me)) {
-                            ((pathXGame)game).pressedLevelButton(levelName);
+                            if (bounds.contains(me)) {
+                                ((pathXGame)game).pressedLevelButton(levelName);
+                            }
                         }
+                        });
                     }
-                     });
                 }
-                
             }
         } else if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
             renderSprite(g, bg);
@@ -312,8 +298,9 @@ public class pathXPanel extends JPanel {
             
                         imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                         img = game.loadImageWithColorKey(imgPath+levelImage, COLOR_KEY);
+                        int imageWidth = img.getWidth(null);
                         int imageHeight = img.getHeight(null);
-                        int newX = x;
+                        int newX = x - (imageWidth/2);
                         int newY = y - (imageHeight/2);
                         
                         g.drawImage(img, newX, newY, null);
@@ -322,8 +309,9 @@ public class pathXPanel extends JPanel {
             
                         imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                         img = game.loadImageWithColorKey(imgPath+levelImage, COLOR_KEY);
+                        int imageWidth = img.getWidth(null);
                         int imageHeight = img.getHeight(null);
-                        int newX = x;
+                        int newX = x - (imageWidth/2);
                         int newY = y - (imageHeight/2);
                         
                         g.drawImage(img, newX, newY, null);
@@ -342,11 +330,11 @@ public class pathXPanel extends JPanel {
                 }
                 }
             }
-            Intersection intersection = intersections.get(0);
+            Player player = data.getplayer();
             int screenPositionX1 = viewport.getViewportX();
             int screenPositionY1 = viewport.getViewportY();
-            int x = intersection.getX() - screenPositionX1 + 170;
-            int y = intersection.getY() - screenPositionY1;
+            int x = (int)(player.getX()) - screenPositionX1 + 170;
+            int y = (int)(player.getY()) - screenPositionY1;
             
             imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
             img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_GETAWAY_CAR), COLOR_KEY);
@@ -357,12 +345,12 @@ public class pathXPanel extends JPanel {
                         
             g.drawImage(img, newX, newY, null);
             
+            Intersection intersection;
             ArrayList<Bandit> bandits = data.getBandits();
             for(int n=0; n<bandits.size(); n++){
-                int node = bandits.get(n).getNode();
-                intersection = intersections.get(node);
-                x = intersection.getX() - viewport.getViewportX() + 170;
-                y = intersection.getY() - viewport.getViewportY();
+                Bandit banditSprite = bandits.get(n);
+                x = (int)(banditSprite.getX()) - viewport.getViewportX() + 170;
+                y = (int)(banditSprite.getY()) - viewport.getViewportY();
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                 img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_BANDIT), COLOR_KEY);
@@ -374,10 +362,9 @@ public class pathXPanel extends JPanel {
              
             ArrayList<Police> police = data.getPolice();
             for(int n=0; n<police.size(); n++){
-                int node = police.get(n).getNode();
-                intersection = intersections.get(node);
-                x = intersection.getX() - viewport.getViewportX() + 170;
-                y = intersection.getY() - viewport.getViewportY();
+                Police policeSprite = police.get(n);
+                x = (int)(policeSprite.getX()) - viewport.getViewportX() + 170;
+                y = (int)(policeSprite.getY()) - viewport.getViewportY();
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                 img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_POLICE), COLOR_KEY);
@@ -396,7 +383,7 @@ public class pathXPanel extends JPanel {
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                 img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE), COLOR_KEY);
-                imageHeight = img.getHeight(null);
+               imageHeight = img.getHeight(null);
                 imageWidth = img.getWidth(null);
                 
                 g.drawImage(img, x, y, null);
@@ -406,11 +393,6 @@ public class pathXPanel extends JPanel {
         } else{
             renderSprite(g, bg);
         }
-        
-        //int[] xPoints = {30, 40, 50};
-        //int[] yPoints = {100, 80, 100};
-        //g.fillPolygon(xPoints, yPoints, 3);
-        //g.drawPolygon(xPoints, yPoints, 3);
     }
     
     
@@ -432,15 +414,24 @@ public class pathXPanel extends JPanel {
             if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.isPaused()){
                 // display stats
                 String currentLevel = data.getCurrentLevel();
-                String levelDescription = "Rob the " + record.getLevelName(currentLevel);
-                String levelDescription2 = "and make your getaway to";
                 int money = record.getMoney(currentLevel);
-                String levelDescription3 = "to earn $" + money + ".";
+                String levelDescription = "Rob the " + record.getLevelName(currentLevel) + " and make your getaway to earn $" + money + ".";
                 g.setFont(FONT_GAME_STATS);
                 g.drawString(currentLevel, GAME_STATS_X, GAME_STATS_Y);
-                g.drawString(levelDescription, GAME_STATS_X, GAME_STATS_Y+50);
-                g.drawString(levelDescription2, GAME_STATS_X, GAME_STATS_Y+80);
-                g.drawString(levelDescription3, GAME_STATS_X, GAME_STATS_Y+110);
+                
+                // wrap text
+                int i = 0;
+                int start = 0;
+                int position = GAME_STATS_Y+50;
+                while(i != levelDescription.length()){
+                    if((i%24 == 0) && (i != 0)){
+                        g.drawString(levelDescription.substring(start, i), GAME_STATS_X, position);
+                        position += 25;
+                        start = i;
+                    }
+                    i++;
+                }
+                g.drawString(levelDescription.substring(start), GAME_STATS_X, position);
                 
                 final Point point = new Point(273, 346);
                 addMouseListener(new MouseAdapter(){

@@ -7,15 +7,19 @@
 package pathx.data;
 
 import java.util.ArrayList;
+import java.util.Random;
 import mini_game.MiniGame;
 import mini_game.Sprite;
 import mini_game.SpriteType;
+import pathx.ui.pathXGame;
 
 /**
  *
  * @author Jessica
  */
 public class Police extends Sprite{
+    int ID;
+    
     // the current node this sprite is in
     int Node;
     
@@ -25,14 +29,11 @@ public class Police extends Sprite{
     int startX;
     int startY;
     
+    ArrayList<Intersection> intersections;
+    
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
-    
-    private boolean inPath;
-    
-    private ArrayList<Intersection> path;
-    private int pathIndex;
     
     public Police(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState)
@@ -47,8 +48,53 @@ public class Police extends Sprite{
         return Node;
     }
     
+    public int getStartX(){
+        return startX;
+    }
+    
+    public int getStartY(){
+        return startY;
+    }
+    
+    // MUTATOR METHODS
+    public void setID(int initID){
+        ID = initID;
+    }
+    
+    public void setStartingPos(int x, int y){
+        startX = x;
+        startY = y;
+    }
+    
+    public void setTarget(int x, int y){
+        targetX = x;
+        targetY = y;
+    }
+    
     public void setNode(int newNode){
         Node = newNode;
+    }
+    
+    /**
+     * This method calculates the distance from the player's current location
+     * to the target coordinates on a direct line.
+     * 
+     * @return The total distance on a direct line from where the tile is
+     * currently, to where its target is.
+     */
+    public float calculateDistanceToTarget()
+    {
+        // GET THE X-AXIS DISTANCE TO GO
+        float diffX = targetX - x;
+        
+        // AND THE Y-AXIS DISTANCE TO GO
+        float diffY = targetY - y;
+        
+        // AND EMPLOY THE PYTHAGOREAN THEOREM TO CALCULATE THE DISTANCE
+        float distance = (float)Math.sqrt((diffX * diffX) + (diffY * diffY));
+        
+        // AND RETURN THE DISTANCE
+        return distance;
     }
     
     /**
@@ -94,6 +140,39 @@ public class Police extends Sprite{
     @Override
     public void update(MiniGame game)
     {
-        
+        if(movingToTarget == false){
+            Record record = ((pathXGame)game).getPlayerRecord();
+            String currentLevel = ((pathXDataModel)(game.getDataModel())).getCurrentLevel();
+            Random rand = new Random();
+            int node = rand.nextInt(record.getIntersections(currentLevel).size());
+            while(node==0 || node==1)
+                node = rand.nextInt(record.getIntersections(currentLevel).size());
+            
+            ((pathXDataModel)(game.getDataModel())).movePolice(ID);
+            
+            //Intersection intersection = record.getIntersections(currentLevel).get(node);
+            //int targetX = intersection.getX();
+            //int targetY = intersection.getY();
+            
+            //startMovingToTarget(5);
+            //Node = node;
+            //((pathXDataModel)(game.getDataModel())).updateAll(game);
+        }
+        // GO TO THE TARGET AND THEN STOP MOVING
+        else if (calculateDistanceToTarget() < 5)
+        {
+            vX = 0;
+            vY = 0;
+            x = targetX;
+            y = targetY;
+            movingToTarget = false;
+            //((pathXDataModel)(game.getDataModel())).movePolice(ID);
+        }
+        // OTHERWISE, JUST DO A NORMAL UPDATE, WHICH WILL CHANGE ITS POSITION
+        // USING ITS CURRENT VELOCITY.
+        else
+        {
+            super.update(game);
+        }
     }
 }

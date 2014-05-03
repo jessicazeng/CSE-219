@@ -479,6 +479,12 @@ public class pathXDataModel extends MiniGameDataModel {
                 //movePolice(i);
                 policeSprite.update(miniGame);
             }
+            
+            for(int i=0; i<bandits.size(); i++){
+                Bandit banditSprite = bandits.get(i);
+                //movePolice(i);
+                banditSprite.update(miniGame);
+            }
         } finally
         {
             // MAKE SURE WE RELEASE THE LOCK WHETHER THERE IS

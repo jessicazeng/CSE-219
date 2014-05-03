@@ -376,10 +376,9 @@ public class pathXPanel extends JPanel {
             
             ArrayList<Zombie> zombies = data.getZombies();
             for(int n=0; n<zombies.size(); n++){
-                int node = zombies.get(n).getNode();
-                intersection = intersections.get(node);
-                x = intersection.getX() - viewport.getViewportX() + 170;
-                y = intersection.getY() - viewport.getViewportY();
+                Zombie zombieSprite = zombies.get(n);
+                x = (int)(zombieSprite.getX()) - viewport.getViewportX() + 170;
+                y = (int)(zombieSprite.getY()) - viewport.getViewportY();
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
                 img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE), COLOR_KEY);

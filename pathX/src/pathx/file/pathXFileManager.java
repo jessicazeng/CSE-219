@@ -91,7 +91,7 @@ public class pathXFileManager {
                         boolean isOpen = dis.readBoolean();
                         
                         // NOW MAKE AND ADD THE INTERSECTION
-                        Intersection newIntersection = new Intersection(x, y);
+                        Intersection newIntersection = new Intersection(j, x, y);
                         newIntersection.setOpen(isOpen);
                         intersections.add(newIntersection);
                     }

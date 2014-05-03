@@ -137,15 +137,7 @@ public class Zombie extends Sprite{
             while(node==0 || node==1)
                 node = rand.nextInt(record.getIntersections(currentLevel).size());
             
-            ((pathXDataModel)(game.getDataModel())).movePolice(ID);
-            
-            //Intersection intersection = record.getIntersections(currentLevel).get(node);
-            //int targetX = intersection.getX();
-            //int targetY = intersection.getY();
-            
-            //startMovingToTarget(5);
-            //Node = node;
-            //((pathXDataModel)(game.getDataModel())).updateAll(game);
+            ((pathXDataModel)(game.getDataModel())).moveZombie(ID);
         }
         // GO TO THE TARGET AND THEN STOP MOVING
         else if (calculateDistanceToTarget() < 5)

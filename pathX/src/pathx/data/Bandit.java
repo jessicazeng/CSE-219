@@ -144,7 +144,7 @@ public class Bandit extends Sprite{
             while(node==0 || node==1)
                 node = rand.nextInt(record.getIntersections(currentLevel).size());
             
-            ((pathXDataModel)(game.getDataModel())).movePolice(ID);
+            ((pathXDataModel)(game.getDataModel())).moveBandit(ID);
             
             //Intersection intersection = record.getIntersections(currentLevel).get(node);
             //int targetX = intersection.getX();

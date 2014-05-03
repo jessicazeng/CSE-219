@@ -21,6 +21,8 @@ public class Intersection {
     // INTERSECTION
     ArrayList<Intersection> adjacentIntersections;
     
+    public boolean visited;
+    
     /**
      * Constructor allows for a custom location, note that all
      * intersections start as open.
@@ -32,6 +34,7 @@ public class Intersection {
         y = initY;
         open = true;
         adjacentIntersections = new ArrayList();
+        visited = false;
     }
     
     // ACCESSOR METHODS

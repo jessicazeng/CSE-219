@@ -13,7 +13,6 @@ import pathx.PathX.pathXPropertyType;
 public class Record {
     // HERE ARE ALL THE RECORDS
     private HashMap<String, Level> levelRecords;
-    private String lala;
     
     public Record(){
         levelRecords = new HashMap();
@@ -126,6 +125,12 @@ public class Record {
         Level level = levelRecords.get(levelname);
         
         return level.fileName;
+    }
+    
+    public int getNumBandits(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        return level.numBandits;
     }
     
     public void setNumZombies(String levelName, int num){

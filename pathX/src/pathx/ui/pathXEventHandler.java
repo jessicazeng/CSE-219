@@ -1,6 +1,7 @@
 package pathx.ui;
 
 import java.awt.event.KeyEvent;
+import mini_game.MiniGameDataModel;
 import static pathx.pathXConstants.*;
 import pathx.data.pathXDataModel;
 import pathx.file.pathXFileManager;;
@@ -89,6 +90,16 @@ public class pathXEventHandler {
             // GO TO THE GAME
             game.switchToLevelScreen();
         }      
+    }
+    
+    public void respondToPauseRequest(){
+        MiniGameDataModel data = game.getDataModel();
+        
+        if(data.isPaused() == true){
+            data.unpause();
+        } else{
+            data.pause();
+        }
     }
     
     /**

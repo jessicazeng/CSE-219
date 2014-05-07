@@ -26,11 +26,14 @@ public class Zombie extends Sprite{
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
     
+    int counter;
+    
     public Zombie(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState){
         super(initSpriteType, initX, initY, initVx, initVy, initState);
         
         Node = 0;
+        counter = 1;
     }
     
     public int getNode(){
@@ -45,9 +48,20 @@ public class Zombie extends Sprite{
         return startY;
     }
     
+    public int getCounter(){
+        return counter;
+    }
+    
     // MUTATOR METHODS
     public void setID(int initID){
         ID = initID;
+    }
+    
+    public void incCounter(){
+        if(counter == 4)
+            counter = 1;
+        else
+            counter++;
     }
     
     public void setStartingPos(int x, int y){

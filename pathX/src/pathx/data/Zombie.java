@@ -161,7 +161,6 @@ public class Zombie extends Sprite{
             x = targetX;
             y = targetY;
             movingToTarget = false;
-            //((pathXDataModel)(game.getDataModel())).movePolice(ID);
         }
         // OTHERWISE, JUST DO A NORMAL UPDATE, WHICH WILL CHANGE ITS POSITION
         // USING ITS CURRENT VELOCITY.

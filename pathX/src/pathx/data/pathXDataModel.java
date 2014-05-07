@@ -248,7 +248,7 @@ public class pathXDataModel extends MiniGameDataModel {
             Zombie newZombie = new Zombie(sT, x, y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
             newZombie.setID(i);
             newZombie.setNode(node);
-            ArrayList<Intersection> path = generateZombiePath(newZombie);
+            //ArrayList<Intersection> path = generateZombiePath(newZombie);
             zombies.add(newZombie);
         }
     }

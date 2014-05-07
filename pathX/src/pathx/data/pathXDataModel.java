@@ -248,8 +248,47 @@ public class pathXDataModel extends MiniGameDataModel {
             Zombie newZombie = new Zombie(sT, x, y, 0, 0, pathXStates.INVISIBLE_STATE.toString());
             newZombie.setID(i);
             newZombie.setNode(node);
+            ArrayList<Intersection> path = generateZombiePath(newZombie);
             zombies.add(newZombie);
         }
+    }
+    
+    public ArrayList<Intersection> generateZombiePath(Zombie zombie){
+        ArrayList<Intersection> path = new ArrayList();
+        
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        ArrayList<Intersection> adjacentNodes;
+        Intersection start = intersections.get(zombie.getNode());
+        while(path.size() == 0){
+            Random rand = new Random();
+            
+            adjacentNodes = start.getAdjacentIntersections();
+            int node1 = rand.nextInt(adjacentNodes.size());
+            Intersection uno = adjacentNodes.get(node1);
+            path.add(uno);
+            
+            adjacentNodes = uno.getAdjacentIntersections();
+            int node2 = rand.nextInt(adjacentNodes.size());
+            Intersection dos = adjacentNodes.get(node2);
+            path.add(dos);
+            
+            adjacentNodes = dos.getAdjacentIntersections();
+            Intersection tres;
+            int i = 0;
+            boolean found = false;
+            while(i != adjacentNodes.size()){
+                Intersection random = adjacentNodes.get(i);
+                if(random.isAdjacent(start)){
+                    found = true;
+                    tres = random;
+                    path.add(tres);
+                }
+                i++;
+            }
+            if(found == false)
+                path = new ArrayList();
+        }
+        return path;
     }
     
     public void moveZombie(int ID)
@@ -345,6 +384,7 @@ public class pathXDataModel extends MiniGameDataModel {
     public ArrayList<Intersection> findPath(Intersection from, Intersection to){
         ArrayList<Intersection> path = new ArrayList();
         Intersection startNode = from;
+        //startNode.visited = true;
         
         Boolean found = false;
         while(found == false){
@@ -354,13 +394,35 @@ public class pathXDataModel extends MiniGameDataModel {
             } else{
                 ArrayList<Intersection> intersections = startNode.getAdjacentIntersections();
                 int size = intersections.size();
-                Random rand = new Random();
-                int random = rand.nextInt(size);
-                Intersection randomIntersection = intersections.get(random);
-                path.add(randomIntersection);
-                startNode = randomIntersection;
+                
+                Intersection add = null;
+                for(int i=0; i<intersections.size(); i++){
+                    Intersection next = intersections.get(i);
+                    if(next.isAdjacent(to)){
+                        add = next;
+                    }
+                }
+                if(add != null){
+                    path.add(add);
+                    startNode = add;
+                } else{
+                    Random rand = new Random();
+                    int random = rand.nextInt(size);
+                    Intersection randomIntersection = intersections.get(random);
+                    
+                    //if(randomIntersection.visited == false){
+                        path.add(randomIntersection);
+                        startNode = randomIntersection;
+                        //startNode.visited = true;
+                    //}
+                }
             }
         }
+        //for(int i=0; i<path.size(); i++){
+        //    Intersection intersection = path.get(i);
+        //    intersection.visited = false;
+        //}
+        //from.visited = false;
         
         return path;
     }
@@ -457,26 +519,26 @@ public class pathXDataModel extends MiniGameDataModel {
             
         }
         
-        //else if(((pathXGame)miniGame).isCurrentScreenState(LEVEL_SCREEN_STATE)){
-        //    ArrayList<String> levels = props.getPropertyOptionsList(PathX.pathXPropertyType.LEVEL_OPTIONS);
-        //    for (int i = 0; i < levels.size(); i++){
-        //        String levelName = levels.get(i);
+        else if(((pathXGame)miniGame).isCurrentScreenState(LEVEL_SCREEN_STATE)){
+            ArrayList<String> levels = props.getPropertyOptionsList(PathX.pathXPropertyType.LEVEL_OPTIONS);
+            for (int i = 0; i < levels.size(); i++){
+                String levelName = levels.get(i);
                 
-        //        int screenPositionX1 = viewport.getViewportX();
-        //        int screenPositionY1 = viewport.getViewportY();
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
                 
-        //        int levelX = record.getLevelPositionX(levelName) - screenPositionX1;
-        //        int levelY = record.getLevelPositionY(levelName) - screenPositionY1;
+                int levelX = record.getLevelPositionX(levelName) - screenPositionX1;
+                int levelY = record.getLevelPositionY(levelName) - screenPositionY1;
                 
-        //        Point point = new Point(levelX, levelY);
-        //        Point point2 = new Point(x, y);
-        //        Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
-        //        
-        //        if(bounds.contains(point2)){
-        //            ((pathXGame)miniGame).pressedLevelButton(levelName);
-        //        }
-        //    }
-        //}
+                Point point = new Point(levelX, levelY);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
+                
+                if(bounds.contains(point2)){
+                    ((pathXGame)miniGame).pressedLevelButton(levelName);
+                }
+            }
+        }
     }
     
     /**
@@ -516,9 +578,6 @@ public class pathXDataModel extends MiniGameDataModel {
         {
             // MAKE SURE THIS THREAD HAS EXCLUSIVE ACCESS TO THE DATA
             game.beginUsingData();
-            
-            // Go through each tile. If its state is visible, check if we are entering a button
-            //change it to mouseover state
             
             // WE ONLY NEED TO UPDATE AND MOVE THE MOVING TILES
             player.update(miniGame);

@@ -342,23 +342,21 @@ public class pathXGame  extends MiniGame{
     }
      
     public void switchToLevelSelectionScreen(){
+        currentScreenState = LEVEL_SCREEN_STATE;
+        
         BufferedImage img;
         SpriteType sT;
         Sprite s;
-        
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        
-        String imgPath = props.getProperty(pathXPropertyType.PATH_IMG);   
-        
-        // CHANGE THE BACKGROUND
-        guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
         
         Viewport viewport = data.getViewport();
         viewport.setViewportSize(MAP_WIDTH, MAP_HEIGHT);
         viewport.setGameWorldSize(GAME_WORLD_WIDTH, GAME_WORLD_HEIGHT);
         viewport.scroll(0-viewport.getViewportX(), 0-viewport.getViewportY());
         
-        currentScreenState = LEVEL_SCREEN_STATE;
+        // CHANGE THE BACKGROUND
+        guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
+        
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
         
         // DEACTIVATE THE MENU CONTROLS
         guiButtons.get(PLAY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());

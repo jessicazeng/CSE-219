@@ -138,7 +138,7 @@ public class pathXPanel extends JPanel {
         //renderSprite(g, bg);
         
         if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
-            renderSprite(g, bg);
+            //renderSprite(g, bg);
             
             Viewport viewport = data.getViewport();
             viewport.updateViewportBoundaries();
@@ -186,23 +186,24 @@ public class pathXPanel extends JPanel {
                         g.setColor(Color.black);
                         g.drawOval(x, y, 17, 17);
                         
-                        final Point point = new Point(x, y);
-                        addMouseListener(new MouseAdapter(){
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            Point me = e.getPoint();
-                            Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
+                        //final Point point = new Point(x, y);
+                        //addMouseListener(new MouseAdapter(){
+                        //@Override
+                        //public void mouseClicked(MouseEvent e) {
+                        //    Point me = e.getPoint();
+                        //    Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
                     
-                            if (bounds.contains(me)) {
-                                ((pathXGame)game).pressedLevelButton(levelName);
-                            }
-                        }
-                        });
+                        //    if (bounds.contains(me)) {
+                        //        ((pathXGame)game).pressedLevelButton(levelName);
+                        //    }
+                        //}
+                        //});
                     }
                 }
             }
-        } else if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
             renderSprite(g, bg);
+        } else if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE)){
+            //renderSprite(g, bg);
             
             Viewport viewport = data.getViewport();
             viewport.setGameWorldSize(LEVEL_GAMEWORLD_WIDTH, LEVEL_GAMEWORLD_HEIGHT);

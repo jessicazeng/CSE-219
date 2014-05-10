@@ -78,6 +78,7 @@ public class pathXGame  extends MiniGame{
     
     public void closeDialog(){
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        data.setGameState(MiniGameState.IN_PROGRESS);
     }
     
     public void scroll(String buttontype){
@@ -177,7 +178,7 @@ public class pathXGame  extends MiniGame{
         viewport.scroll(0-viewport.getViewportX(), 0-viewport.getViewportY());
         
         guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
-        data.pause();
+        //data.pause();
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         guiButtons.get(SPECIALS_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -230,7 +231,7 @@ public class pathXGame  extends MiniGame{
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         
         // AND UPDATE THE DATA GAME STATE
-        data.setGameState(MiniGameState.IN_PROGRESS);
+        //data.setGameState(MiniGameState.IN_PROGRESS);
         ((pathXDataModel)data).initPlayer();
         ((pathXDataModel)data).setAdjacentIntersections();
     }

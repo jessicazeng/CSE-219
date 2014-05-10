@@ -81,6 +81,10 @@ public class pathXGame  extends MiniGame{
         data.setGameState(MiniGameState.IN_PROGRESS);
     }
     
+    public void openDialog(){
+        guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+    }
+    
     public void scroll(String buttontype){
         Viewport viewport = data.getViewport();
         Player player = ((pathXDataModel)data).getplayer();

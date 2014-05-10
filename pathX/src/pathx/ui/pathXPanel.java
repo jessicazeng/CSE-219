@@ -331,6 +331,8 @@ public class pathXPanel extends JPanel {
                 }
                 }
             }
+            
+            // draw player
             Player player = data.getplayer();
             int screenPositionX1 = viewport.getViewportX();
             int screenPositionY1 = viewport.getViewportY();
@@ -433,27 +435,36 @@ public class pathXPanel extends JPanel {
                 }
                 g.drawString(levelDescription.substring(start), GAME_STATS_X, position);
                 
-                //final Point point = new Point(273, 346);
-                //addMouseListener(new MouseAdapter(){
-                //@Override
-                //public void mouseClicked(MouseEvent e) {
-                //    Point me = e.getPoint();
-                //    Rectangle bounds = new Rectangle(point, new Dimension(120, 145));
-                //    
-                //    if (bounds.contains(me)) {
-                //        ((pathXGame)game).closeDialog();
-                //        //data.unpause();
-                //    }
-                //}
-                // });
-                
                 Collection<Sprite> buttonSprites = game.getGUIButtons().values();
                 for (Sprite sp : buttonSprites)
                 {
                     if (sp.getSpriteType().getSpriteTypeID() == CLOSE_DIALOG_BUTTON_TYPE)
                         renderSprite(g, sp);
-                    }
                 }
+            }
+            
+            if(data.won()){
+                // display stats
+                String currentLevel = data.getCurrentLevel();
+                int money = record.getMoney(currentLevel);
+                String levelDescription = "Rob the " + record.getLevelName(currentLevel) + " and make your getaway to earn $" + money + ".";
+                g.setFont(FONT_GAME_STATS);
+                g.drawString(currentLevel, GAME_STATS_X, GAME_STATS_Y);
+                
+                // wrap text
+                int i = 0;
+                int start = 0;
+                int position = GAME_STATS_Y+50;
+                while(i != levelDescription.length()){
+                    if((i%24 == 0) && (i != 0)){
+                        g.drawString(levelDescription.substring(start, i), GAME_STATS_X, position);
+                        position += 25;
+                        start = i;
+                    }
+                    i++;
+                }
+                g.drawString(levelDescription.substring(start), GAME_STATS_X, position);
+            }
         }
     }
     

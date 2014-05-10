@@ -433,20 +433,27 @@ public class pathXPanel extends JPanel {
                 }
                 g.drawString(levelDescription.substring(start), GAME_STATS_X, position);
                 
-                final Point point = new Point(273, 346);
-                addMouseListener(new MouseAdapter(){
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Point me = e.getPoint();
-                    Rectangle bounds = new Rectangle(point, new Dimension(120, 145));
-                    
-                    if (bounds.contains(me)) {
-                        ((pathXGame)game).closeDialog();
-                        //data.unpause();
+                //final Point point = new Point(273, 346);
+                //addMouseListener(new MouseAdapter(){
+                //@Override
+                //public void mouseClicked(MouseEvent e) {
+                //    Point me = e.getPoint();
+                //    Rectangle bounds = new Rectangle(point, new Dimension(120, 145));
+                //    
+                //    if (bounds.contains(me)) {
+                //        ((pathXGame)game).closeDialog();
+                //        //data.unpause();
+                //    }
+                //}
+                // });
+                
+                Collection<Sprite> buttonSprites = game.getGUIButtons().values();
+                for (Sprite sp : buttonSprites)
+                {
+                    if (sp.getSpriteType().getSpriteTypeID() == CLOSE_DIALOG_BUTTON_TYPE)
+                        renderSprite(g, sp);
                     }
                 }
-                 });
-            }
         }
     }
     
@@ -496,7 +503,8 @@ public class pathXPanel extends JPanel {
         Collection<Sprite> buttonSprites = game.getGUIButtons().values();
         for (Sprite s : buttonSprites)
         {
-            renderSprite(g, s);
+            if (s.getSpriteType().getSpriteTypeID() != CLOSE_DIALOG_BUTTON_TYPE)
+                renderSprite(g, s);
         }
     }
     

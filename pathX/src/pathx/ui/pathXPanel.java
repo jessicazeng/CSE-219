@@ -107,10 +107,10 @@ public class pathXPanel extends JPanel {
             renderGUIControls(g);
             
             // ONLY RENDER THIS STUFF IF WE'RE ACTUALLY IN-GAME
-            if (!data.notStarted())
-            {
+            //if (!data.notStarted())
+            //{
                 renderDialogs(g);
-            }
+            //}
             
             renderStats(g);
             
@@ -411,7 +411,7 @@ public class pathXPanel extends JPanel {
             // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
             renderSprite(g, s);
             
-            if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.isPaused()){
+            if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.notStarted()){
                 // display stats
                 String currentLevel = data.getCurrentLevel();
                 int money = record.getMoney(currentLevel);
@@ -442,7 +442,7 @@ public class pathXPanel extends JPanel {
                     
                     if (bounds.contains(me)) {
                         ((pathXGame)game).closeDialog();
-                        data.unpause();
+                        //data.unpause();
                     }
                 }
                  });
@@ -465,7 +465,7 @@ public class pathXPanel extends JPanel {
             
             g.drawString(GOAL, 200, 70);
         }
-        if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && !data.isPaused()){
+        if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.inProgress()){
             Record record = ((pathXGame)game).getPlayerRecord();
             String currentLevel = data.getCurrentLevel();
             String levelName = record.getCity(currentLevel);

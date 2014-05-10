@@ -471,6 +471,24 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     } 
     
+    public boolean reachedDestination(){
+        int x = player.getStartX();
+        int y = player.getStartY();
+        
+        Intersection destination = record.getIntersections(currentLevel).get(1);
+        int screenPositionX1 = viewport.getViewportX();
+        int screenPositionY1 = viewport.getViewportY();
+        
+        Point point = new Point(destination.getX() - screenPositionX1 + 170, destination.getY() - screenPositionY1);
+        Point point2 = new Point(x, y);
+        Rectangle bounds = new Rectangle(point, new Dimension(50, 50));
+        if ((player.getCurrentNode()==1) && !(player.isMovingToTarget())) {
+            return true;
+        }
+        
+        return false;
+    }
+    
     /**
      * This method provides a custom game response for handling mouse clicks on
      * the game screen. We'll use this to close game dialogs as well as to
@@ -547,7 +565,10 @@ public class pathXDataModel extends MiniGameDataModel {
      */
     @Override
     public void endGameAsWin(){
+        // UPDATE THE GAME STATE USING THE INHERITED FUNCTIONALITY
+        super.endGameAsWin();
         
+        ((pathXGame)miniGame).openDialog();
     }
     
     /**
@@ -598,6 +619,10 @@ public class pathXDataModel extends MiniGameDataModel {
                 Zombie zombieSprite = zombies.get(i);
                 //movePolice(i);
                 zombieSprite.update(miniGame);
+            }
+            
+            if(reachedDestination() == true){
+                endGameAsWin();
             }
         } finally
         {

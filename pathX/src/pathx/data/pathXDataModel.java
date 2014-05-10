@@ -488,7 +488,7 @@ public class pathXDataModel extends MiniGameDataModel {
         //Record record = ((pathXGame) miniGame).getPlayerRecord();
         
         if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE)){
-            if(!isPaused()){
+            if(inProgress()){
                 ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
                 for(int i=0; i<intersections.size(); i++){
                     Intersection intersection2 = intersections.get(i);

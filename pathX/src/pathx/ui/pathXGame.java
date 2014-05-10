@@ -162,6 +162,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(LEVEL_SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setEnabled(false);
         
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         
@@ -199,6 +201,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(LEVEL_SCROLL_LEFT_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setEnabled(true);
         
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(false);
@@ -287,6 +291,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(LEVEL_SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setEnabled(false);
     }
      
     public void switchToHelpScreen(){
@@ -340,6 +346,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(LEVEL_SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setEnabled(false);
     }
      
     public void switchToLevelSelectionScreen(){
@@ -392,6 +400,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(LEVEL_SCROLL_LEFT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(LEVEL_SCROLL_RIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setEnabled(false);
         
         //ACTIVATE LEVEL SELECTION SCREEN BUTTONS
         guiButtons.get(SCROLL_DOWN_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -528,6 +538,11 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(PAUSE_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToPauseRequest();     }
+        });
+        
+        guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToCloseDialogRequest();     }
         });
         
         // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
@@ -851,6 +866,16 @@ public class pathXGame  extends MiniGame{
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, 30, 95, 0, 0, pathXStates.INVISIBLE_STATE.toString());
         guiButtons.put(GAME_HOME_BUTTON_TYPE, s);
+        
+        String closeDialogHomeButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSE_DIALOG);
+        sT = new SpriteType(CLOSE_DIALOG_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + closeDialogHomeButton, COLOR_KEY);
+        sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
+        String closeDialogMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSE_DIALOG_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + closeDialogMouseOverButton, COLOR_KEY);
+        sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 270, 350, 0, 0, pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.put(CLOSE_DIALOG_BUTTON_TYPE, s);
         
         ArrayList<String> levels = props.getPropertyOptionsList(pathXPropertyType.LEVEL_OPTIONS);
         ArrayList<String> positionx = props.getPropertyOptionsList(pathXPropertyType.X_LOCATION);

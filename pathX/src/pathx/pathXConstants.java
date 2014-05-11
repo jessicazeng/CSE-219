@@ -55,6 +55,7 @@ public class pathXConstants {
     public static final String BALANCE = "Balance: ";
     public static final String GOAL = "Goal: ";
     public static final String WIN = "Congratulations!";
+    public static final String LOSS = "Oh shucks!";
     
     public static final int WINDOW_WIDTH = 640;
     public static final int WINDOW_HEIGHT = 480;

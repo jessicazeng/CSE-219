@@ -85,7 +85,7 @@ public class pathXGame  extends MiniGame{
         
     }
     
-    public void openWinDialog(){
+    public void openDialog(){
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setEnabled(true);
@@ -580,6 +580,14 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(LEAVE_TOWN_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToPlayRequest();     }
+        });
+        
+        guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   
+                String currentLevel = ((pathXDataModel)data).getCurrentLevel();
+                eventHandler.respondToSelectLevelRequest(currentLevel);     
+            }
         });
         
         // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES

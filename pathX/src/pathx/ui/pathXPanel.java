@@ -185,19 +185,6 @@ public class pathXPanel extends JPanel {
                     
                         g.setColor(Color.black);
                         g.drawOval(x, y, 17, 17);
-                        
-                        //final Point point = new Point(x, y);
-                        //addMouseListener(new MouseAdapter(){
-                        //@Override
-                        //public void mouseClicked(MouseEvent e) {
-                        //    Point me = e.getPoint();
-                        //    Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
-                    
-                        //    if (bounds.contains(me)) {
-                        //        ((pathXGame)game).pressedLevelButton(levelName);
-                        //    }
-                        //}
-                        //});
                     }
                 }
             }
@@ -447,23 +434,32 @@ public class pathXPanel extends JPanel {
                 // display stats
                 String currentLevel = data.getCurrentLevel();
                 int money = record.getMoney(currentLevel);
-                String levelDescription = "Rob the " + record.getLevelName(currentLevel) + " and make your getaway to earn $" + money + ".";
+                
                 g.setFont(FONT_GAME_STATS);
-                g.drawString(currentLevel, GAME_STATS_X, GAME_STATS_Y);
+                g.drawString(WIN, GAME_STATS_X, GAME_STATS_Y);
+                
+                String win = "You have successfully stolen $" + money + ".";
                 
                 // wrap text
                 int i = 0;
                 int start = 0;
                 int position = GAME_STATS_Y+50;
-                while(i != levelDescription.length()){
+                while(i != win.length()){
                     if((i%24 == 0) && (i != 0)){
-                        g.drawString(levelDescription.substring(start, i), GAME_STATS_X, position);
+                        g.drawString(win.substring(start, i), GAME_STATS_X, position);
                         position += 25;
                         start = i;
                     }
                     i++;
                 }
-                g.drawString(levelDescription.substring(start), GAME_STATS_X, position);
+                g.drawString(win.substring(start), GAME_STATS_X, position);
+                
+                Collection<Sprite> buttonSprites = game.getGUIButtons().values();
+                for (Sprite sp : buttonSprites)
+                {
+                    if ((sp.getSpriteType().getSpriteTypeID() == LEAVE_TOWN_BUTTON_TYPE) || (sp.getSpriteType().getSpriteTypeID() == TRY_AGAIN_BUTTON_TYPE))
+                        renderSprite(g, sp);
+                }
             }
         }
     }
@@ -514,7 +510,7 @@ public class pathXPanel extends JPanel {
         Collection<Sprite> buttonSprites = game.getGUIButtons().values();
         for (Sprite s : buttonSprites)
         {
-            if (s.getSpriteType().getSpriteTypeID() != CLOSE_DIALOG_BUTTON_TYPE)
+            if ((s.getSpriteType().getSpriteTypeID() != CLOSE_DIALOG_BUTTON_TYPE) && (s.getSpriteType().getSpriteTypeID() != TRY_AGAIN_BUTTON_TYPE) && (s.getSpriteType().getSpriteTypeID() != LEAVE_TOWN_BUTTON_TYPE))
                 renderSprite(g, s);
         }
     }

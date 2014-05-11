@@ -42,11 +42,7 @@ public class pathXEventHandler {
      */
     public void respondToPlayRequest(){
         // WE ONLY LET THIS HAPPEN IF THE MENU SCREEN IS VISIBLE
-        if (game.isCurrentScreenState(MENU_SCREEN_STATE))
-        {
-            // GO TO THE MAP
-            game.switchToLevelSelectionScreen();
-        }      
+        game.switchToLevelSelectionScreen();
     }
     
     /**

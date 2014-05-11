@@ -34,6 +34,12 @@
         <property name="IMAGE_BUTTON_SOUND_CLICKED"             value="./pathx/ButtonSoundClicked.png"></property>
         <property name="IMAGE_BUTTON_MUSIC"                     value="./pathx/ButtonSound.png"></property>
         <property name="IMAGE_BUTTON_MUSIC_MOUSE_OVER"          value="./pathx/ButtonSoundMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_TRY_AGAIN"                 value="./pathx/ButtonTryAgain.png"></property>
+        <property name="IMAGE_BUTTON_TRY_AGAIN_MOUSE_OVER"      value="./pathx/ButtonTryAgainMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_LEAVE_TOWN"                value="./pathx/ButtonLeaveTown.png"></property>
+        <property name="IMAGE_BUTTON_LEAVE_TOWN_MOUSE_OVER"     value="./pathx/ButtonLeaveTownMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_DIALOG"              value="./pathx/ButtonCloseDialog.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_DIALOG_MOUSE_OVER"   value="./pathx/ButtonCloseDialogMouseOver.png"></property>
         <property name="IMAGE_BUTTON_MUSIC_CLICKED"             value="./pathx/ButtonSoundClicked.png"></property>
         <property name="IMAGE_BUTTON_GAME_SPEED_MOUSE_OVER"     value="./pathx/ButtonGameSpeedMouseOver.png"></property>
         <property name="IMAGE_BUTTON_GAME_SPEED"                value="./pathx/ButtonGameSpeed.png"></property>

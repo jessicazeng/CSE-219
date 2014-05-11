@@ -575,7 +575,10 @@ public class pathXDataModel extends MiniGameDataModel {
      * Updates the player record, adding a game without a win.
      */
     public void endGameAsLoss(){
+        super.endGameAsLoss();
         
+        ((pathXGame)miniGame).openDialog();
+        pause();
     }
     
      /**
@@ -607,6 +610,14 @@ public class pathXDataModel extends MiniGameDataModel {
                 Police policeSprite = police.get(i);
                 //movePolice(i);
                 policeSprite.update(miniGame);
+                
+                Point playerPoint = new Point((int)player.getX(), (int)player.getY());
+                Rectangle player = new Rectangle(playerPoint, new Dimension(40, 10));
+                Point policePoint = new Point((int)policeSprite.getX()-50, (int)policeSprite.getY()+20);
+                Rectangle policeCar = new Rectangle(policePoint, new Dimension(40, 10));
+                if(player.intersects(policeCar)){
+                    endGameAsLoss();
+                }
             }
             
             for(int i=0; i<bandits.size(); i++){

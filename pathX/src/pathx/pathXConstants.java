@@ -48,6 +48,9 @@ public class pathXConstants {
     public static final String GAME_CLOSE_BUTTON_TYPE = "GAME_CLOSE_BUTTON_TYPE";
     public static final String GAME_HOME_BUTTON_TYPE = "GAME_HOME_BUTTON_TYPE";
     public static final String PAUSE_BUTTON_TYPE = "PAUSE_BUTTON_TYPE";
+    public static final String CLOSE_DIALOG_BUTTON_TYPE = "CLOSE_DIALOG_BUTTON_TYPE";
+    public static final String TRY_AGAIN_BUTTON_TYPE = "TRY_AGAIN_BUTTON_TYPE";
+    public static final String LEAVE_TOWN_BUTTON_TYPE = "LEAVE_TOWN_BUTTON_TYPE";
     
     public static final String BALANCE = "Balance: ";
     public static final String GOAL = "Goal: ";

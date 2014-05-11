@@ -326,6 +326,8 @@ public class pathXPanel extends JPanel {
             int x = (int)(player.getX()) - screenPositionX1 + 170;
             int y = (int)(player.getY()) - screenPositionY1;
             
+            //g.drawRect((int)player.getX(), (int)player.getY(), 50, 15);
+            
             imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
             img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_GETAWAY_CAR), COLOR_KEY);
             int imageHeight = img.getHeight(null);
@@ -362,6 +364,7 @@ public class pathXPanel extends JPanel {
                 imageWidth = img.getWidth(null);
                 
                 g.drawImage(img, x, y, null);
+                //g.drawRect((int)policeSprite.getX()-50, (int)policeSprite.getY()+30, 50, 15);
             }
             
             ArrayList<Zombie> zombies = data.getZombies();
@@ -439,6 +442,38 @@ public class pathXPanel extends JPanel {
                 g.drawString(WIN, GAME_STATS_X, GAME_STATS_Y);
                 
                 String win = "You have successfully stolen $" + money + ".";
+                
+                // wrap text
+                int i = 0;
+                int start = 0;
+                int position = GAME_STATS_Y+50;
+                while(i != win.length()){
+                    if((i%24 == 0) && (i != 0)){
+                        g.drawString(win.substring(start, i), GAME_STATS_X, position);
+                        position += 25;
+                        start = i;
+                    }
+                    i++;
+                }
+                g.drawString(win.substring(start), GAME_STATS_X, position);
+                
+                Collection<Sprite> buttonSprites = game.getGUIButtons().values();
+                for (Sprite sp : buttonSprites)
+                {
+                    if ((sp.getSpriteType().getSpriteTypeID() == LEAVE_TOWN_BUTTON_TYPE) || (sp.getSpriteType().getSpriteTypeID() == TRY_AGAIN_BUTTON_TYPE))
+                        renderSprite(g, sp);
+                }
+            }
+            
+            if(data.lost()){
+                // display stats
+                String currentLevel = data.getCurrentLevel();
+                int money = record.getMoney(currentLevel);
+                
+                g.setFont(FONT_GAME_STATS);
+                g.drawString(LOSS, GAME_STATS_X, GAME_STATS_Y);
+                
+                String win = "You lost $" + money + ". Try again next time.";
                 
                 // wrap text
                 int i = 0;

@@ -21,7 +21,7 @@ import sorting_hat.data.SnakeCell;
 import sorting_hat.data.SortingHatRecord;
 
 /**
- * This class performs all of the rendering for The Sorting Hat game application.
+ * This class performs all of the rendering for the pathX game.
  * 
  * @author Richard McKenna
  */

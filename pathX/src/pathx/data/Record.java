@@ -14,6 +14,9 @@ public class Record {
     // HERE ARE ALL THE RECORDS
     private HashMap<String, Level> levelRecords;
     
+    // total amount of money earned for all levels won
+    private int balance;
+    
     public Record(){
         levelRecords = new HashMap();
         
@@ -61,6 +64,10 @@ public class Record {
         Level level = levelRecords.get(levelName);
         
         return level.yposition;
+    }
+    
+    public int getBalance(){
+        return balance;
     }
     
     public String getLevelImage(String levelName){
@@ -158,6 +165,10 @@ public class Record {
     public void setNumPolice(String levelName, int num){
         Level level = levelRecords.get(levelName);
         level.numPolice = num;
+    }
+    
+    public void incBalance(int amt){
+        balance += amt;
     }
     
     public void addIntersections(String levelName, ArrayList<Intersection> newIntersections){

@@ -571,6 +571,7 @@ public class pathXDataModel extends MiniGameDataModel {
      */
     @Override
     public void endGameAsWin(){
+        record.incBalance(money);
         // UPDATE THE GAME STATE USING THE INHERITED FUNCTIONALITY
         super.endGameAsWin();
         
@@ -602,6 +603,8 @@ public class pathXDataModel extends MiniGameDataModel {
         loadBandits();
         loadPolice();
         loadZombies();
+        
+        zombieCollisions = 0;
     }
     
     /**
@@ -675,7 +678,8 @@ public class pathXDataModel extends MiniGameDataModel {
             }
             
             if(reachedDestination() == true){
-                endGameAsWin();
+                if(!won())
+                    endGameAsWin();
             }
         } finally
         {

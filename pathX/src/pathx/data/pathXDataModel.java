@@ -604,7 +604,14 @@ public class pathXDataModel extends MiniGameDataModel {
      */
     @Override
     public void reset(MiniGame game){
+        // CLEAR ANY WIN OR LOSS DISPLAY
+        miniGame.getGUIDialogs().get(LEVEL_DIALOG_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         
+        setCurrentLevel(currentLevel);
+        
+        loadBandits();
+        loadPolice();
+        loadZombies();
     }
     
     /**
@@ -629,9 +636,9 @@ public class pathXDataModel extends MiniGameDataModel {
                 
                 // check if player and police overlap
                 Point playerPoint = new Point((int)player.getX(), (int)player.getY());
-                Rectangle player = new Rectangle(playerPoint, new Dimension(50, 15));
+                Rectangle player = new Rectangle(playerPoint, new Dimension(50, 25));
                 Point policePoint = new Point((int)policeSprite.getX()-50, (int)policeSprite.getY()+20);
-                Rectangle policeCar = new Rectangle(policePoint, new Dimension(50, 15));
+                Rectangle policeCar = new Rectangle(policePoint, new Dimension(50, 25));
                 if(player.intersects(policeCar)){
                     endGameAsLoss();
                 }

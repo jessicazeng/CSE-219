@@ -51,6 +51,23 @@ public class pathXConstants {
     public static final String CLOSE_DIALOG_BUTTON_TYPE = "CLOSE_DIALOG_BUTTON_TYPE";
     public static final String TRY_AGAIN_BUTTON_TYPE = "TRY_AGAIN_BUTTON_TYPE";
     public static final String LEAVE_TOWN_BUTTON_TYPE = "LEAVE_TOWN_BUTTON_TYPE";
+    public static final String MAKE_GREEN_LIGHT_BUTTON_TYPE = "MAKE_GREEN_LIGHT_BUTTON_TYPE";
+    public static final String MAKE_RED_LIGHT_BUTTON_TYPE = "MAKE_RED_LIGHT_BUTTON_TYPE";
+    public static final String FREEZE_UNFREEZE_BUTTON_TYPE = "FREEZE_UNFREEZE_BUTTON_TYPE";
+    public static final String DEC_SPEED_BUTTON_TYPE = "DEC_SPEED_BUTTON_TYPE";
+    public static final String INC_SPEED_BUTTON_TYPE = "INC_SPEED_BUTTON_TYPE";
+    public static final String INC_PLAYER_SPEED_BUTTON_TYPE = "INC_PLAYER_SPEED_BUTTON_TYPE";
+    public static final String FLAT_TIRE_BUTTON_TYPE = "FLAT_TIRE_BUTTON_TYPE";
+    public static final String EMPTY_GAS_BUTTON_TYPE = "EMPTY_GAS_BUTTON_TYPE";
+    public static final String CLOSE_ROAD_BUTTON_TYPE = "CLOSE_ROAD_BUTTON_TYPE";
+    public static final String CLOSE_INTERSECTION_BUTTON_TYPE = "CLOSE_INTERSECTION_BUTTON_TYPE";
+    public static final String OPEN_INTERSECTION_BUTTON_TYPE = "OPEN_INTERSECTION_BUTTON_TYPE";
+    public static final String STEAL_BUTTON_TYPE = "STEAL_BUTTON_TYPE";
+    public static final String MIND_CONTROL_BUTTON_TYPE = "MIND_CONTROL_BUTTON_TYPE";
+    public static final String INTANGIBILITY_BUTTON_TYPE = "INTANGIBILITY_BUTTON_TYPE";
+    public static final String MINDLESS_TERROR_BUTTON_TYPE = "MINDLESS_TERROR_BUTTON_TYPE";
+    public static final String FLYING_BUTTON_TYPE = "FLYING_BUTTON_TYPE";
+    public static final String INVINCIBILITY_BUTTON_TYPE = "INVINCIBILITY_BUTTON_TYPE";
     
     public static final String BALANCE = "Balance: ";
     public static final String GOAL = "Goal: ";
@@ -98,6 +115,8 @@ public class pathXConstants {
     public static final int ONE_WAY_TRIANGLE_HEIGHT = 10;
     public static final int ONE_WAY_TRIANGLE_WIDTH = 30;
     public static final int NORMAL_VELOCITY = 10;
+    public static final int SPECIAL_BUTTON_WIDTH = 32;
+    public static final int SPECIAL_BUTTON_HEIGHT = 37;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";

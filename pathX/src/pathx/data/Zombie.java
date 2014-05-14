@@ -28,6 +28,8 @@ public class Zombie extends Sprite{
     
     int counter;
     
+    private boolean slowed;
+    
     public Zombie(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState){
         super(initSpriteType, initX, initY, initVx, initVy, initState);
@@ -52,9 +54,17 @@ public class Zombie extends Sprite{
         return counter;
     }
     
+    public boolean slowed(){
+        return slowed;
+    }
+    
     // MUTATOR METHODS
     public void setID(int initID){
         ID = initID;
+    }
+    
+    public void setSlowed(boolean value){
+        slowed = value;
     }
     
     public void incCounter(){

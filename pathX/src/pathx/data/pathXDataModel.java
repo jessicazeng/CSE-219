@@ -107,12 +107,10 @@ public class pathXDataModel extends MiniGameDataModel {
     
     /**
      * Decrements the amount of money stolen for the level.
-     * 
-     * @param amt 
-     *   The amount decremented from the current amount of money.
      */
-    public void setMoney(int amt){
-        money -= amt;
+    public void decMoney(){
+        int dec = (int) (money * 0.1);
+        money -= dec;
     }
     
     public void loadBandits(){
@@ -643,6 +641,20 @@ public class pathXDataModel extends MiniGameDataModel {
                 Bandit banditSprite = bandits.get(i);
                 //movePolice(i);
                 banditSprite.update(miniGame);
+                
+                // check if player and bandit overlap
+                Point playerPoint = new Point((int)player.getX(), (int)player.getY());
+                Rectangle player = new Rectangle(playerPoint, new Dimension(50, 25));
+                Point banditPoint = new Point((int)banditSprite.getX()-50, (int)banditSprite.getY()+20);
+                Rectangle banditCar = new Rectangle(banditPoint, new Dimension(50, 25));
+                if(player.intersects(banditCar)){
+                    if(banditSprite.robbed() == false){
+                        decMoney();
+                        banditSprite.setRobbed(true);
+                    }
+                } else{
+                    banditSprite.setRobbed(false);
+                }
             }
             
             for(int i=0; i<zombies.size(); i++){

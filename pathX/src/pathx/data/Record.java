@@ -46,6 +46,8 @@ public class Record {
             
             levelRecords.put(levelFile, level);
         }
+        
+        balance = 0;
     }
     
     public String getCity(String levelName){

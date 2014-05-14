@@ -81,8 +81,7 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setEnabled(false);
         
-        data.setGameState(MiniGameState.IN_PROGRESS);
-        
+        data.beginGame();
     }
     
     public void openDialog(){
@@ -196,7 +195,9 @@ public class pathXGame  extends MiniGame{
         viewport.scroll(0-viewport.getViewportX(), 0-viewport.getViewportY());
         
         guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
-        //data.pause();
+        
+        if(data.isPaused())
+            data.unpause();
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         guiButtons.get(SPECIALS_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -255,7 +256,7 @@ public class pathXGame  extends MiniGame{
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         
         // AND UPDATE THE DATA GAME STATE
-        //data.setGameState(MiniGameState.IN_PROGRESS);
+        data.setGameState(MiniGameState.NOT_STARTED);
         ((pathXDataModel)data).initPlayer();
         ((pathXDataModel)data).setAdjacentIntersections();
     }
@@ -585,8 +586,7 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   
-                String currentLevel = ((pathXDataModel)data).getCurrentLevel();
-                eventHandler.respondToSelectLevelRequest(currentLevel);     
+                eventHandler.respondToTryAgainRequest();     
             }
         });
         

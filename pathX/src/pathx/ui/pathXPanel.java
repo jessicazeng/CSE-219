@@ -320,8 +320,6 @@ public class pathXPanel extends JPanel {
             int x = (int)(player.getX()) - screenPositionX1 + 170;
             int y = (int)(player.getY()) - screenPositionY1;
             
-            //g.drawRect((int)player.getX(), (int)player.getY(), 50, 15);
-            
             imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
             img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_GETAWAY_CAR), COLOR_KEY);
             int imageHeight = img.getHeight(null);
@@ -431,7 +429,7 @@ public class pathXPanel extends JPanel {
             if(data.won()){
                 // display stats
                 String currentLevel = data.getCurrentLevel();
-                int money = record.getMoney(currentLevel);
+                int money = data.getMoney();
                 
                 g.setFont(FONT_GAME_STATS);
                 g.drawString(WIN, GAME_STATS_X, GAME_STATS_Y);
@@ -502,15 +500,18 @@ public class pathXPanel extends JPanel {
      * @param g the Graphics context for this panel
      */
     public void renderStats(Graphics g){
+        Record record = ((pathXGame)game).getPlayerRecord();
         if (((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
             g.setFont(FONT_TEXT_DISPLAY);
             g.setColor(Color.BLACK);
             g.drawString(BALANCE, 200, 35);
             
+            String money = "$" + record.getBalance();
+            g.drawString(money, 320, 35);
+            
             g.drawString(GOAL, 200, 70);
         }
         if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.inProgress()){
-            Record record = ((pathXGame)game).getPlayerRecord();
             String currentLevel = data.getCurrentLevel();
             String levelName = record.getCity(currentLevel);
             g.setFont(FONT_GAME_STATS);

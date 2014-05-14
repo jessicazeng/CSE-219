@@ -41,16 +41,12 @@ public class pathXDataModel extends MiniGameDataModel {
     
     private int money;
     
+    private int zombieCollisions;
+    
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
         miniGame = initMiniGame;
-        
-        bandits = new ArrayList();
-        police = new ArrayList();
-        zombies = new ArrayList();
-        
-        selectedNode = null;
         
         record = ((pathXGame) miniGame).getPlayerRecord();
     }
@@ -400,7 +396,6 @@ public class pathXDataModel extends MiniGameDataModel {
     public ArrayList<Intersection> findPath(Intersection from, Intersection to){
         ArrayList<Intersection> path = new ArrayList();
         Intersection startNode = from;
-        //startNode.visited = true;
         
         Boolean found = false;
         while(found == false){
@@ -426,19 +421,11 @@ public class pathXDataModel extends MiniGameDataModel {
                     int random = rand.nextInt(size);
                     Intersection randomIntersection = intersections.get(random);
                     
-                    //if(randomIntersection.visited == false){
-                        path.add(randomIntersection);
-                        startNode = randomIntersection;
-                        //startNode.visited = true;
-                    //}
+                    path.add(randomIntersection);
+                    startNode = randomIntersection;
                 }
             }
         }
-        //for(int i=0; i<path.size(); i++){
-        //    Intersection intersection = path.get(i);
-        //    intersection.visited = false;
-        //}
-        //from.visited = false;
         
         return path;
     }
@@ -475,7 +462,11 @@ public class pathXDataModel extends MiniGameDataModel {
             
             // FIND SPEED LIMIT OF ROAD
             Road road = findRoad(intersection1, intersection2);
-            int speedLimit = (road.getSpeedLimit())/10;
+            int initSpeed = road.getSpeedLimit();
+            int speedLimit = (int) (initSpeed - (zombieCollisions * (0.1*initSpeed)))/10;
+            
+            if(zombieCollisions == 10)
+                speedLimit = 0;
 
             // SEND THEM TO THEIR DESTINATION
             player.startMovingToTarget(speedLimit);
@@ -519,7 +510,6 @@ public class pathXDataModel extends MiniGameDataModel {
     @Override
     public void checkMousePressOnSprites(MiniGame game, int x, int y){
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        //Record record = ((pathXGame) miniGame).getPlayerRecord();
         
         if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE)){
             if(inProgress()){
@@ -668,6 +658,20 @@ public class pathXDataModel extends MiniGameDataModel {
                 Zombie zombieSprite = zombies.get(i);
                 //movePolice(i);
                 zombieSprite.update(miniGame);
+                
+                // check if player and bandit overlap
+                Point playerPoint = new Point((int)player.getX(), (int)player.getY());
+                Rectangle player = new Rectangle(playerPoint, new Dimension(50, 25));
+                Point zombiePoint = new Point((int)zombieSprite.getX()-50, (int)zombieSprite.getY()+20);
+                Rectangle banditCar = new Rectangle(zombiePoint, new Dimension(50, 25));
+                if(player.intersects(banditCar)){
+                    if(zombieSprite.slowed() == false){
+                        zombieCollisions += 1;
+                        zombieSprite.setSlowed(true);
+                    }
+                } else{
+                    zombieSprite.setSlowed(false);
+                }
             }
             
             if(reachedDestination() == true){

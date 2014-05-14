@@ -1374,6 +1374,9 @@ public class pathXGame  extends MiniGame{
             // LOAD ALL THE AUDIO
             loadAudioCue(pathXPropertyType.AUDIO_MENU);
             loadAudioCue(pathXPropertyType.AUDIO_GAME);
+            loadAudioCue(pathXPropertyType.AUDIO_LOSS);
+            loadAudioCue(pathXPropertyType.AUDIO_BANDIT);
+            loadAudioCue(pathXPropertyType.AUDIO_ZOMBIE);
 
             // PLAY THE WELCOME SCREEN SONG
             audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);

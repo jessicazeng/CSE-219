@@ -106,11 +106,7 @@ public class pathXPanel extends JPanel {
             // AND THE BUTTONS AND DECOR
             renderGUIControls(g);
             
-            // ONLY RENDER THIS STUFF IF WE'RE ACTUALLY IN-GAME
-            //if (!data.notStarted())
-            //{
-                renderDialogs(g);
-            //}
+            renderDialogs(g);
             
             renderStats(g);
             
@@ -135,10 +131,8 @@ public class pathXPanel extends JPanel {
         Record record = ((pathXGame)game).getPlayerRecord();
         
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
-        //renderSprite(g, bg);
         
         if(((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
-            //renderSprite(g, bg);
             
             Viewport viewport = data.getViewport();
             viewport.updateViewportBoundaries();
@@ -336,8 +330,8 @@ public class pathXPanel extends JPanel {
             int newY = y - imageHeight;
                         
             g.drawImage(img, newX, newY, null);
+            //g.drawRect(newX, newY, 50, 25);
             
-            Intersection intersection;
             ArrayList<Bandit> bandits = data.getBandits();
             for(int n=0; n<bandits.size(); n++){
                 Bandit banditSprite = bandits.get(n);
@@ -350,6 +344,7 @@ public class pathXPanel extends JPanel {
                 imageWidth = img.getWidth(null);
                 
                 g.drawImage(img, x, y, null);
+                //g.drawRect(x, y, 50, 25);
             }
              
             ArrayList<Police> police = data.getPolice();
@@ -468,7 +463,7 @@ public class pathXPanel extends JPanel {
             if(data.lost()){
                 // display stats
                 String currentLevel = data.getCurrentLevel();
-                int money = record.getMoney(currentLevel);
+                int money = data.getMoney();
                 
                 g.setFont(FONT_GAME_STATS);
                 g.drawString(LOSS, GAME_STATS_X, GAME_STATS_Y);
@@ -521,7 +516,7 @@ public class pathXPanel extends JPanel {
             g.setFont(FONT_GAME_STATS);
             g.drawString(levelName, 165, 50);
             
-            String money = "$" + record.getMoney(currentLevel);
+            String money = "$" + data.getMoney();
             g.drawString(money, 165, 80);
         }
     }

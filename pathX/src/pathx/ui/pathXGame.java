@@ -7,8 +7,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import mini_game.MiniGame;
 import mini_game.MiniGameState;
@@ -254,6 +259,9 @@ public class pathXGame  extends MiniGame{
         
         // AND UPDATE THE DATA GAME STATE
         data.setGameState(MiniGameState.NOT_STARTED);
+        
+        audio.stop(pathXPropertyType.AUDIO_GAME.toString()); 
+        audio.play(pathXPropertyType.AUDIO_MENU.toString(), true); 
     }
     
     public void switchToLevelScreen(){
@@ -359,6 +367,9 @@ public class pathXGame  extends MiniGame{
         data.setGameState(MiniGameState.NOT_STARTED);
         ((pathXDataModel)data).initPlayer();
         ((pathXDataModel)data).setAdjacentIntersections();
+        
+        audio.play(pathXPropertyType.AUDIO_GAME.toString(), true); 
+        audio.stop(pathXPropertyType.AUDIO_MENU.toString());
     }
      
     public void switchToSettingsScreen(){
@@ -603,6 +614,10 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INC_PLAYER_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(INC_PLAYER_SPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FLAT_TIRE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(FLAT_TIRE_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(EMPTY_GAS_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(EMPTY_GAS_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(CLOSE_ROAD_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -639,6 +654,9 @@ public class pathXGame  extends MiniGame{
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         
         data.setGameState(MiniGameState.NOT_STARTED);
+        
+        audio.stop(pathXPropertyType.AUDIO_GAME.toString()); 
+        audio.play(pathXPropertyType.AUDIO_MENU.toString(), true); 
     }
     
     @Override
@@ -1346,7 +1364,34 @@ public class pathXGame  extends MiniGame{
     
     @Override
     public void initAudioContent(){
-        
+        try
+        {
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            String audioPath = props.getProperty(pathXPropertyType.PATH_AUDIO);
+
+            // LOAD ALL THE AUDIO
+            loadAudioCue(pathXPropertyType.AUDIO_MENU);
+            loadAudioCue(pathXPropertyType.AUDIO_GAME);
+
+            // PLAY THE WELCOME SCREEN SONG
+            audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);
+        }
+        catch(UnsupportedAudioFileException | IOException | LineUnavailableException | InvalidMidiDataException | MidiUnavailableException e)
+        { }     
+    }
+    
+     /**
+     * This helper method loads the audio file associated with audioCueType,
+     * which should have been specified via an XML properties file.
+     */
+    private void loadAudioCue(pathXPropertyType audioCueType) 
+            throws  UnsupportedAudioFileException, IOException, LineUnavailableException, 
+                    InvalidMidiDataException, MidiUnavailableException
+    {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String audioPath = props.getProperty(pathXPropertyType.PATH_AUDIO);
+        String cue = props.getProperty(audioCueType.toString());
+        audio.loadAudio(audioCueType.toString(), audioPath + cue);        
     }
     
     public void reset(){

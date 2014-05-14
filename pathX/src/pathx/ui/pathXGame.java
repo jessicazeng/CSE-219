@@ -741,7 +741,7 @@ public class pathXGame  extends MiniGame{
         // MUSIC EVENT HANDLER
         guiButtons.get(MUSIC_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
-            {   eventHandler.respondToSoundPressRequest(MUSIC_BUTTON_TYPE);     }
+            {   eventHandler.respondToMusicPressRequest(MUSIC_BUTTON_TYPE);     }
         });
         
         // HOME BUTTON IN SETTINGS SCREEN EVENT HANDLER
@@ -843,11 +843,13 @@ public class pathXGame  extends MiniGame{
         });
     }
     
-    public void setClickedSoundButton(String buttontype){
+    public void setClickedMusicButton(String buttontype){
         if(guiButtons.get(buttontype).getState() == pathXStates.SELECTED_STATE.toString()){
             guiButtons.get(buttontype).setState(pathXStates.VISIBLE_STATE.toString());
+            audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);
         } else{
-            guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString());
+            guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString()); 
+            audio.stop(pathXPropertyType.AUDIO_MENU.toString()); 
         }
     }
     

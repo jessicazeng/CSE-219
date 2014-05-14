@@ -43,6 +43,10 @@ public class pathXDataModel extends MiniGameDataModel {
     
     private int zombieCollisions;
     
+    private boolean specialSelected;
+    
+    private String special;
+    
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
@@ -99,6 +103,14 @@ public class pathXDataModel extends MiniGameDataModel {
         currentLevel = initCurrentLevel;
         
         money = record.getMoney(currentLevel);
+    }
+    
+    public void setSpecialSelected(boolean value){
+        specialSelected = value;
+    }
+    
+    public void setSpecial(String string){
+        special = string;
     }
     
     /**
@@ -511,32 +523,38 @@ public class pathXDataModel extends MiniGameDataModel {
     public void checkMousePressOnSprites(MiniGame game, int x, int y){
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         
+        // mouse press in game screen
         if(((pathXGame)miniGame).isCurrentScreenState(GAME_SCREEN_STATE)){
             if(inProgress()){
                 ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
-                for(int i=0; i<intersections.size(); i++){
-                    Intersection intersection2 = intersections.get(i);
-                    
-                    int screenPositionX1 = viewport.getViewportX();
-                    int screenPositionY1 = viewport.getViewportY();
-            
-                    // position of intersection on node
-                    int node2x = intersection2.getX() - screenPositionX1 + 170;
-                    int node2y = intersection2.getY() - screenPositionY1;
+                
+                if(specialSelected == true){
+                    applySpecial(x, y);
+                } else{
+                    for(int i=0; i<intersections.size(); i++){
+                        Intersection intersection2 = intersections.get(i);
 
-                    Point point = new Point(node2x, node2y);
-                    Point point2 = new Point(x, y);
-                    Rectangle bounds;
-                    if(i == 0 || i == 1)
-                        bounds = new Rectangle(point, new Dimension(50, 50));
-                    else
-                        bounds = new Rectangle(point, new Dimension(30, 30));
+                        int screenPositionX1 = viewport.getViewportX();
+                        int screenPositionY1 = viewport.getViewportY();
 
-                    if (bounds.contains(point2)) {
-                        selectedNode = intersection2;
-                        selectedNodeIndex = i;
+                        // position of intersection on node
+                        int node2x = intersection2.getX() - screenPositionX1 + 170;
+                        int node2y = intersection2.getY() - screenPositionY1;
 
-                        movePlayer(i);
+                        Point point = new Point(node2x, node2y);
+                        Point point2 = new Point(x, y);
+                        Rectangle bounds;
+                        if(i == 0 || i == 1)
+                            bounds = new Rectangle(point, new Dimension(50, 50));
+                        else
+                            bounds = new Rectangle(point, new Dimension(30, 30));
+
+                        if (bounds.contains(point2)) {
+                            selectedNode = intersection2;
+                            selectedNodeIndex = i;
+
+                            movePlayer(i);
+                        }
                     }
                 }
             }
@@ -563,6 +581,36 @@ public class pathXDataModel extends MiniGameDataModel {
                 }
             }
         }
+    }
+    
+    public void applySpecial(int x, int y){
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        if(special.equals(MAKE_RED_LIGHT_BUTTON_TYPE) || special.equals(MAKE_GREEN_LIGHT_BUTTON_TYPE)){
+            for(int i=0; i<intersections.size(); i++){
+                Intersection intersection2 = intersections.get(i);
+
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                // position of intersection on node
+                int node2x = intersection2.getX() - screenPositionX1 + 170;
+                int node2y = intersection2.getY() - screenPositionY1;
+
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(30, 30));
+
+                if (bounds.contains(point2)) {
+                    if(special.equals(MAKE_RED_LIGHT_BUTTON_TYPE))
+                        intersection2.setOpen(false);
+                    else
+                        intersection2.setOpen(true);
+                    specialSelected = false;
+                    money -= 5;
+                }
+            }
+        } 
     }
     
     /**

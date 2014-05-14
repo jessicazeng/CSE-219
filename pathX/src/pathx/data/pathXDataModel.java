@@ -39,6 +39,8 @@ public class pathXDataModel extends MiniGameDataModel {
     
     private Record record;
     
+    private int money;
+    
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
@@ -91,10 +93,26 @@ public class pathXDataModel extends MiniGameDataModel {
         return selectedNode;
     }
     
+    public int getMoney(){
+        return money;
+    }
+    
     // MUTATOR METHODS
     public void setCurrentLevel(String initCurrentLevel)
     {
         currentLevel = initCurrentLevel;
+        
+        money = record.getMoney(currentLevel);
+    }
+    
+    /**
+     * Decrements the amount of money stolen for the level.
+     * 
+     * @param amt 
+     *   The amount decremented from the current amount of money.
+     */
+    public void setMoney(int amt){
+        money -= amt;
     }
     
     public void loadBandits(){
@@ -611,10 +629,11 @@ public class pathXDataModel extends MiniGameDataModel {
                 //movePolice(i);
                 policeSprite.update(miniGame);
                 
+                // check if player and police overlap
                 Point playerPoint = new Point((int)player.getX(), (int)player.getY());
-                Rectangle player = new Rectangle(playerPoint, new Dimension(40, 10));
+                Rectangle player = new Rectangle(playerPoint, new Dimension(50, 15));
                 Point policePoint = new Point((int)policeSprite.getX()-50, (int)policeSprite.getY()+20);
-                Rectangle policeCar = new Rectangle(policePoint, new Dimension(40, 10));
+                Rectangle policeCar = new Rectangle(policePoint, new Dimension(50, 15));
                 if(player.intersects(policeCar)){
                     endGameAsLoss();
                 }

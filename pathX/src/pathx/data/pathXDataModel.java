@@ -9,6 +9,7 @@ import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
 import mini_game.SpriteType;
 import pathx.PathX;
+import pathx.PathX.pathXPropertyType;
 import static pathx.pathXConstants.*;
 import pathx.ui.pathXGame;
 import pathx.ui.pathXStates;
@@ -44,8 +45,9 @@ public class pathXDataModel extends MiniGameDataModel {
     private int zombieCollisions;
     
     private boolean specialSelected;
-    
     private String special;
+    
+    private boolean frozen;
     
     public pathXDataModel(MiniGame initMiniGame)
     {
@@ -113,6 +115,16 @@ public class pathXDataModel extends MiniGameDataModel {
         special = string;
     }
     
+    public void freeze(){
+        if(frozen == false){
+            frozen = true;
+            pause();
+        } else{
+            frozen = false;
+            unpause();
+        }
+    }
+    
     /**
      * Decrements the amount of money stolen for the level.
      */
@@ -150,41 +162,43 @@ public class pathXDataModel extends MiniGameDataModel {
     {
         Bandit banditSprite = bandits.get(ID);
         int currentNode = banditSprite.getNode();
+        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
         
-        Random rand = new Random();
+        if(intersection1.isOpen()){
+            Random rand = new Random();
             int node = rand.nextInt(record.getIntersections(currentLevel).size());
             while(node==0 || node==1)
                 node = rand.nextInt(record.getIntersections(currentLevel).size());
             
-        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
-        Intersection intersection2 = record.getIntersections(currentLevel).get(node);
-        
-        Boolean isAdjacent = intersection1.isAdjacent(intersection2);
-        
-        if(isAdjacent == true){
-            // GET THE TILE TWO LOCATION
-            int x1 = banditSprite.getStartX();
-            int y1 = banditSprite.getStartY();
-            int tile2x = intersection2.getX() + 50;
-            int tile2y = intersection2.getY() - 30;
+            Intersection intersection2 = record.getIntersections(currentLevel).get(node);
 
-            int differenceX = tile2x - x1 - 60;
-            int differenceY = tile2y - y1 + 20;
+            Boolean isAdjacent = intersection1.isAdjacent(intersection2);
 
-            int newX = x1+differenceX;
-            int newY = y1+differenceY;
+            if(isAdjacent == true){
+                // GET THE TILE TWO LOCATION
+                int x1 = banditSprite.getStartX();
+                int y1 = banditSprite.getStartY();
+                int tile2x = intersection2.getX() + 50;
+                int tile2y = intersection2.getY() - 30;
 
-            // THEN MOVE PLAYER
-            banditSprite.setTarget(newX, newY);
-            
-            // FIND SPEED LIMIT OF ROAD
-            Road road = findRoad(intersection1, intersection2);
-            int speedLimit = (road.getSpeedLimit())/10;
+                int differenceX = tile2x - x1 - 60;
+                int differenceY = tile2y - y1 + 20;
 
-            // SEND THEM TO THEIR DESTINATION
-            banditSprite.startMovingToTarget(speedLimit);
-            banditSprite.setNode(node);
-        } 
+                int newX = x1+differenceX;
+                int newY = y1+differenceY;
+
+                // THEN MOVE PLAYER
+                banditSprite.setTarget(newX, newY);
+
+                // FIND SPEED LIMIT OF ROAD
+                Road road = findRoad(intersection1, intersection2);
+                int speedLimit = (road.getSpeedLimit())/10;
+
+                // SEND THEM TO THEIR DESTINATION
+                banditSprite.startMovingToTarget(speedLimit);
+                banditSprite.setNode(node);
+            } 
+        }
     } 
     
     public void loadPolice(){
@@ -214,42 +228,44 @@ public class pathXDataModel extends MiniGameDataModel {
     public void movePolice(int ID)
     {
         Police policeSprite = police.get(ID);
-        int currentNode = policeSprite.getNode();
+        int currentNode = policeSprite.getNode();    
+        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
         
-        Random rand = new Random();
+        if(intersection1.isOpen()){
+            Random rand = new Random();
             int node = rand.nextInt(record.getIntersections(currentLevel).size());
             while(node==0 || node==1)
                 node = rand.nextInt(record.getIntersections(currentLevel).size());
-            
-        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
-        Intersection intersection2 = record.getIntersections(currentLevel).get(node);
         
-        Boolean isAdjacent = intersection1.isAdjacent(intersection2);
-        
-        if(isAdjacent == true){
-            // GET THE TILE TWO LOCATION
-            int x1 = policeSprite.getStartX();
-            int y1 = policeSprite.getStartY();
-            int tile2x = intersection2.getX() + 50;
-            int tile2y = intersection2.getY() - 30;
+            Intersection intersection2 = record.getIntersections(currentLevel).get(node);
 
-            int differenceX = tile2x - x1 - 60;
-            int differenceY = tile2y - y1 + 20;
+            Boolean isAdjacent = intersection1.isAdjacent(intersection2);
 
-            int newX = x1+differenceX;
-            int newY = y1+differenceY;
+            if(isAdjacent == true){
+                // GET THE TILE TWO LOCATION
+                int x1 = policeSprite.getStartX();
+                int y1 = policeSprite.getStartY();
+                int tile2x = intersection2.getX() + 50;
+                int tile2y = intersection2.getY() - 30;
 
-            // THEN MOVE PLAYER
-            policeSprite.setTarget(newX, newY);
-            
-            // FIND SPEED LIMIT OF ROAD
-            Road road = findRoad(intersection1, intersection2);
-            int speedLimit = (road.getSpeedLimit())/10;
+                int differenceX = tile2x - x1 - 60;
+                int differenceY = tile2y - y1 + 20;
 
-            // SEND THEM TO THEIR DESTINATION
-            policeSprite.startMovingToTarget(speedLimit);
-            policeSprite.setNode(node);
-        } 
+                int newX = x1+differenceX;
+                int newY = y1+differenceY;
+
+                // THEN MOVE PLAYER
+                policeSprite.setTarget(newX, newY);
+
+                // FIND SPEED LIMIT OF ROAD
+                Road road = findRoad(intersection1, intersection2);
+                int speedLimit = (road.getSpeedLimit())/10;
+
+                // SEND THEM TO THEIR DESTINATION
+                policeSprite.startMovingToTarget(speedLimit);
+                policeSprite.setNode(node);
+            } 
+        }
     } 
     
     public void loadZombies(){
@@ -277,83 +293,47 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     }
     
-    public ArrayList<Intersection> generateZombiePath(Zombie zombie){
-        ArrayList<Intersection> path = new ArrayList();
-        
-        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
-        ArrayList<Intersection> adjacentNodes;
-        Intersection start = intersections.get(zombie.getNode());
-        while(path.size() == 0){
-            Random rand = new Random();
-            
-            adjacentNodes = start.getAdjacentIntersections();
-            int node1 = rand.nextInt(adjacentNodes.size());
-            Intersection uno = adjacentNodes.get(node1);
-            path.add(uno);
-            
-            adjacentNodes = uno.getAdjacentIntersections();
-            int node2 = rand.nextInt(adjacentNodes.size());
-            Intersection dos = adjacentNodes.get(node2);
-            path.add(dos);
-            
-            adjacentNodes = dos.getAdjacentIntersections();
-            Intersection tres;
-            int i = 0;
-            boolean found = false;
-            while(i != adjacentNodes.size()){
-                Intersection random = adjacentNodes.get(i);
-                if(random.isAdjacent(start)){
-                    found = true;
-                    tres = random;
-                    path.add(tres);
-                }
-                i++;
-            }
-            if(found == false)
-                path = new ArrayList();
-        }
-        return path;
-    }
-    
     public void moveZombie(int ID)
     {
         Zombie zombieSprite = zombies.get(ID);
         int currentNode = zombieSprite.getNode();
-        
-        Random rand = new Random();
-        int node = rand.nextInt(record.getIntersections(currentLevel).size());
-        while(node==0 || node==1)
-            node = rand.nextInt(record.getIntersections(currentLevel).size());
-            
         Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
-        Intersection intersection2 = record.getIntersections(currentLevel).get(node);
         
-        Boolean isAdjacent = intersection1.isAdjacent(intersection2);
-        
-        if(isAdjacent == true){
-            // GET THE TILE TWO LOCATION
-            int x1 = zombieSprite.getStartX();
-            int y1 = zombieSprite.getStartY();
-            int tile2x = intersection2.getX() + 50;
-            int tile2y = intersection2.getY() - 30;
+        if(intersection1.isOpen()){
+            Random rand = new Random();
+            int node = rand.nextInt(record.getIntersections(currentLevel).size());
+            while(node==0 || node==1)
+                node = rand.nextInt(record.getIntersections(currentLevel).size());
 
-            int differenceX = tile2x - x1 - 60;
-            int differenceY = tile2y - y1 + 20;
+            Intersection intersection2 = record.getIntersections(currentLevel).get(node);
 
-            int newX = x1+differenceX;
-            int newY = y1+differenceY;
+            Boolean isAdjacent = intersection1.isAdjacent(intersection2);
 
-            // THEN MOVE PLAYER
-            zombieSprite.setTarget(newX, newY);
-            
-            // FIND SPEED LIMIT OF ROAD
-            Road road = findRoad(intersection1, intersection2);
-            int speedLimit = (road.getSpeedLimit())/10;
+            if(isAdjacent == true){
+                // GET THE TILE TWO LOCATION
+                int x1 = zombieSprite.getStartX();
+                int y1 = zombieSprite.getStartY();
+                int tile2x = intersection2.getX() + 50;
+                int tile2y = intersection2.getY() - 30;
 
-            // SEND THEM TO THEIR DESTINATION
-            zombieSprite.startMovingToTarget(speedLimit);
-            zombieSprite.setNode(node);
-        } 
+                int differenceX = tile2x - x1 - 60;
+                int differenceY = tile2y - y1 + 20;
+
+                int newX = x1+differenceX;
+                int newY = y1+differenceY;
+
+                // THEN MOVE PLAYER
+                zombieSprite.setTarget(newX, newY);
+
+                // FIND SPEED LIMIT OF ROAD
+                Road road = findRoad(intersection1, intersection2);
+                int speedLimit = (road.getSpeedLimit())/10;
+
+                // SEND THEM TO THEIR DESTINATION
+                zombieSprite.startMovingToTarget(speedLimit);
+                zombieSprite.setNode(node);
+            } 
+        }
     } 
     
     public void setAdjacentIntersections(){
@@ -558,7 +538,6 @@ public class pathXDataModel extends MiniGameDataModel {
                     }
                 }
             }
-            
         }
         
         else if(((pathXGame)miniGame).isCurrentScreenState(LEVEL_SCREEN_STATE)){
@@ -577,7 +556,8 @@ public class pathXDataModel extends MiniGameDataModel {
                 Rectangle bounds = new Rectangle(point, new Dimension(17, 17));
                 
                 if(bounds.contains(point2)){
-                    ((pathXGame)miniGame).pressedLevelButton(levelName);
+                    if(!record.isLocked(levelName))
+                        ((pathXGame)miniGame).pressedLevelButton(levelName);
                 }
             }
         }
@@ -624,6 +604,8 @@ public class pathXDataModel extends MiniGameDataModel {
         super.endGameAsWin();
         
         ((pathXGame)miniGame).openDialog();
+        
+        record.completedLevel(currentLevel);
     }
     
     /**
@@ -634,6 +616,9 @@ public class pathXDataModel extends MiniGameDataModel {
         
         ((pathXGame)miniGame).openDialog();
         pause();
+        
+        miniGame.getAudio().stop(pathXPropertyType.AUDIO_GAME.toString());
+        miniGame.getAudio().play(pathXPropertyType.AUDIO_LOSS.toString(), false);
     }
     
      /**
@@ -699,6 +684,7 @@ public class pathXDataModel extends MiniGameDataModel {
                     if(banditSprite.robbed() == false){
                         decMoney();
                         banditSprite.setRobbed(true);
+                        miniGame.getAudio().play(pathXPropertyType.AUDIO_BANDIT.toString(), false);
                     }
                 } else{
                     banditSprite.setRobbed(false);
@@ -719,12 +705,18 @@ public class pathXDataModel extends MiniGameDataModel {
                     if(zombieSprite.slowed() == false){
                         zombieCollisions += 1;
                         zombieSprite.setSlowed(true);
+                        miniGame.getAudio().play(pathXPropertyType.AUDIO_ZOMBIE.toString(), false);
                     }
                 } else{
                     zombieSprite.setSlowed(false);
                 }
             }
             
+            if(frozen != true){
+                unpause();
+            }
+            
+            // IF PLAYER REACHES DESTINATION
             if(reachedDestination() == true){
                 if(!won())
                     endGameAsWin();

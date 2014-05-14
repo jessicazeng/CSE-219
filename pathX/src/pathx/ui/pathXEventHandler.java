@@ -57,8 +57,12 @@ public class pathXEventHandler {
         game.closeDialog();
     }
     
+    public void respondToMusicPressRequest(String buttontype){
+        game.setClickedMusicButton(buttontype);
+    }
+    
     public void respondToSoundPressRequest(String buttontype){
-        game.setClickedSoundButton(buttontype);
+        game.setClickedMusicButton(buttontype);
     }
     
     public void respondToSwitchToHomeScreenRequest(){
@@ -100,8 +104,10 @@ public class pathXEventHandler {
         
         if(data.isPaused() == true){
             data.unpause();
+            game.enableSpecials();
         } else{
             data.pause();
+            game.disableSpecials();
         }
     }
     

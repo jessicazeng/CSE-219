@@ -32,6 +32,8 @@ public class Bandit extends Sprite{
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
     
+    private boolean robbed;
+    
     public Bandit(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState){
         // SEND ALL THE Sprite DATA TO A Sprite CONSTRUCTOR
@@ -52,9 +54,17 @@ public class Bandit extends Sprite{
         return startY;
     }
     
+    public boolean robbed(){
+        return robbed;
+    }
+    
     // MUTATOR METHODS
     public void setID(int initID){
         ID = initID;
+    }
+    
+    public void setRobbed(boolean value){
+        robbed = value;
     }
     
     public void setStartingPos(int x, int y){

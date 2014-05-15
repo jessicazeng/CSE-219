@@ -52,6 +52,9 @@ public class pathXGame  extends MiniGame{
     // THE SCREEN CURRENTLY BEING PLAYED
     private String currentScreenState;
     
+    private boolean soundDisabled;
+    private boolean musicDisabled;
+    
     // Accessor Methods
     public boolean isCurrentScreenState(String testScreenState)
     {
@@ -81,6 +84,14 @@ public class pathXGame  extends MiniGame{
     
     public void pressedLevelButton(String levelName){
         eventHandler.respondToSelectLevelRequest(levelName);
+    }
+    
+    public boolean isSoundDisabled(){
+        return soundDisabled;
+    }
+    
+    public boolean isMusicDisabled(){
+        return musicDisabled;
     }
     
     public void disableSpecials(){
@@ -260,8 +271,10 @@ public class pathXGame  extends MiniGame{
         // AND UPDATE THE DATA GAME STATE
         data.setGameState(MiniGameState.NOT_STARTED);
         
-        audio.stop(pathXPropertyType.AUDIO_GAME.toString()); 
-        audio.play(pathXPropertyType.AUDIO_MENU.toString(), true); 
+        if(musicDisabled == false){
+            audio.stop(pathXPropertyType.AUDIO_GAME.toString()); 
+            audio.play(pathXPropertyType.AUDIO_MENU.toString(), true); 
+        }
     }
     
     public void switchToLevelScreen(){
@@ -368,8 +381,10 @@ public class pathXGame  extends MiniGame{
         ((pathXDataModel)data).initPlayer();
         ((pathXDataModel)data).setAdjacentIntersections();
         
-        audio.play(pathXPropertyType.AUDIO_GAME.toString(), true); 
-        audio.stop(pathXPropertyType.AUDIO_MENU.toString());
+        if(musicDisabled == false){
+            audio.play(pathXPropertyType.AUDIO_GAME.toString(), true); 
+            audio.stop(pathXPropertyType.AUDIO_MENU.toString());
+        }
     }
      
     public void switchToSettingsScreen(){
@@ -379,7 +394,12 @@ public class pathXGame  extends MiniGame{
         
         guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(true);
-        guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        
+        if(musicDisabled == true)
+            guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.SELECTED_STATE.toString());
+        else
+            guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        
         guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(true);
@@ -655,8 +675,10 @@ public class pathXGame  extends MiniGame{
         
         data.setGameState(MiniGameState.NOT_STARTED);
         
-        audio.stop(pathXPropertyType.AUDIO_GAME.toString()); 
-        audio.play(pathXPropertyType.AUDIO_MENU.toString(), true); 
+        if(musicDisabled == false){
+            audio.stop(pathXPropertyType.AUDIO_GAME.toString()); 
+            audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);
+        } 
     }
     
     @Override
@@ -835,19 +857,47 @@ public class pathXGame  extends MiniGame{
             }
         });
         
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setActionListener(new ActionListener(){
+        guiButtons.get(DEC_SPEED_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   
-                specialsHandler.freeze();     
+                specialsHandler.decSpeed();     
+            }
+        });
+        
+        guiButtons.get(INC_SPEED_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   
+                specialsHandler.incSpeed();     
+            }
+        });
+        
+        guiButtons.get(INC_PLAYER_SPEED_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   
+                specialsHandler.incPlayerSpeed();     
             }
         });
     }
     
     public void setClickedMusicButton(String buttontype){
         if(guiButtons.get(buttontype).getState() == pathXStates.SELECTED_STATE.toString()){
+            musicDisabled = false;
             guiButtons.get(buttontype).setState(pathXStates.VISIBLE_STATE.toString());
             audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);
         } else{
+            musicDisabled = true;
+            guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString()); 
+            audio.stop(pathXPropertyType.AUDIO_MENU.toString()); 
+        }
+    }
+    
+    public void setClickedSoundButton(String buttontype){
+        if(guiButtons.get(buttontype).getState() == pathXStates.SELECTED_STATE.toString()){
+            guiButtons.get(buttontype).setState(pathXStates.VISIBLE_STATE.toString());
+            soundDisabled = true;
+            audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);
+        } else{
+            soundDisabled = false;
             guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString()); 
             audio.stop(pathXPropertyType.AUDIO_MENU.toString()); 
         }
@@ -1377,6 +1427,8 @@ public class pathXGame  extends MiniGame{
             loadAudioCue(pathXPropertyType.AUDIO_LOSS);
             loadAudioCue(pathXPropertyType.AUDIO_BANDIT);
             loadAudioCue(pathXPropertyType.AUDIO_ZOMBIE);
+            loadAudioCue(pathXPropertyType.AUDIO_SPECIALS);
+            loadAudioCue(pathXPropertyType.AUDIO_WIN);
 
             // PLAY THE WELCOME SCREEN SONG
             audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);

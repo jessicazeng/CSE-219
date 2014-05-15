@@ -53,6 +53,47 @@
         <property name="IMAGE_ZOMBIE"                           value="./pathx/zombie.png"></property>
         <property name="IMAGE_BUTTON_PAUSE"                     value="./pathx/ButtonPause.png"></property>
         <property name="IMAGE_BUTTON_PAUSE_MOUSE_OVER"          value="./pathx/ButtonPauseMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_GREEN_LIGHT"               value="./pathx/ButtonMakeGreenLight.png"></property>
+        <property name="IMAGE_BUTTON_GREEN_LIGHT_MOUSE_OVER"    value="./pathx/ButtonMakeGreenLightMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RED_LIGHT"                 value="./pathx/ButtonRedLight.png"></property>
+        <property name="IMAGE_BUTTON_RED_LIGHT_MOUSE_OVER"      value="./pathx/ButtonRedLightMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FREEZE"                    value="./pathx/ButtonFreeze.png"></property>
+        <property name="IMAGE_BUTTON_FREEZE_MOUSE_OVER"         value="./pathx/ButtonFreezeMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_DEC_SPEED"                 value="./pathx/ButtonDecSpeed.png"></property>
+        <property name="IMAGE_BUTTON_DEC_SPEED_MOUSE_OVER"      value="./pathx/ButtonDecSpeedMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INC_SPEED"                 value="./pathx/ButtonIncSpeed.png"></property>
+        <property name="IMAGE_BUTTON_INC_SPEED_MOUSE_OVER"      value="./pathx/ButtonIncSpeedMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_PLAYER_SPEED"              value="./pathx/ButtonIncPlayerSpeed.png"></property>
+        <property name="IMAGE_BUTTON_PLAYER_SPEED_MOUSE_OVER"   value="./pathx/ButtonIncPlayerSpeedMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FLAT_TIRE"                 value="./pathx/ButtonFlatTire.png"></property>
+        <property name="IMAGE_BUTTON_FLAT_TIRE_MOUSE_OVER"      value="./pathx/ButtonFlatTireMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_EMPTY_GAS"                 value="./pathx/ButtonEmptyGas.png"></property>
+        <property name="IMAGE_BUTTON_EMPTY_GAS_MOUSE_OVER"      value="./pathx/ButtonEmptyGasMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_ROAD"                value="./pathx/ButtonCloseRoad.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_ROAD_MOUSE_OVER"     value="./pathx/ButtonCloseRoadMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_INTERSECTION"         value="./pathx/ButtonCloseIntersection.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_INTERSECTION_MOUSE_OVER"  value="./pathx/ButtonCloseIntersectionMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_OPEN_INTERSECTION"         value="./pathx/ButtonOpenIntersection.png"></property>
+        <property name="IMAGE_BUTTON_OPEN_INTERSECTION_MOUSE_OVER"  value="./pathx/ButtonOpenIntersectionMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_STEAL"                     value="./pathx/ButtonSteal.png"></property>
+        <property name="IMAGE_BUTTON_STEAL_MOUSE_OVER"          value="./pathx/ButtonStealMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MIND_CONTROL"              value="./pathx/ButtonMindControl.png"></property>
+        <property name="IMAGE_BUTTON_MIND_CONTROL_MOUSE_OVER"   value="./pathx/ButtonMindControlMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INTANGIBILITY"             value="./pathx/ButtonIntangibility.png"></property>
+        <property name="IMAGE_BUTTON_INTANGIBILITY_MOUSE_OVER"  value="./pathx/ButtonIntangibilityMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MINDLESS_TERROR"             value="./pathx/ButtonMindlessTerror.png"></property>
+        <property name="IMAGE_BUTTON_MINDLESS_TERROR_MOUSE_OVER"  value="./pathx/ButtonMindlessTerrorMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FLYING"                    value="./pathx/ButtonFlying.png"></property>
+        <property name="IMAGE_BUTTON_FLYING_MOUSE_OVER"         value="./pathx/ButtonFlyingMouseOver.png"></property>
+        
+        <!-- AUDIO FILES -->
+        <property name="AUDIO_GAME"                             value="./pathx/mission_impossible.mid"></property>
+        <property name="AUDIO_MENU"                             value="./pathx/smooth_criminal.mid"></property>
+        <property name="AUDIO_LOSS"                             value="./pathx/police.wav"></property>
+        <property name="AUDIO_BANDIT"                           value="./pathx/bandit.wav"></property>
+        <property name="AUDIO_ZOMBIE"                           value="./pathx/zombie.wav"></property>
+        <property name="AUDIO_SPECIALS"                         value="./pathx/specials.wav"></property>
+        <property name="AUDIO_WIN"                              value="./pathx/cheering.wav"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>

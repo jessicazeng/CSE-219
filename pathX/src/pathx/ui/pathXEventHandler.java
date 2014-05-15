@@ -1,10 +1,14 @@
 package pathx.ui;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import mini_game.MiniGameDataModel;
+import pathx.PathX;
+import pathx.data.Record;
 import static pathx.pathXConstants.*;
 import pathx.data.pathXDataModel;
-import pathx.file.pathXFileManager;;
+import pathx.file.pathXFileManager;import properties_manager.PropertiesManager;
+;
 
 /**
  * This class handles all the events and responds to them.
@@ -41,6 +45,8 @@ public class pathXEventHandler {
      * Called when the user clicks the play button in the menu
      */
     public void respondToPlayRequest(){
+        game.getAudio().stop(PathX.pathXPropertyType.AUDIO_LOSS.toString());
+        
         // WE ONLY LET THIS HAPPEN IF THE MENU SCREEN IS VISIBLE
         game.switchToLevelSelectionScreen();
     }
@@ -62,7 +68,7 @@ public class pathXEventHandler {
     }
     
     public void respondToSoundPressRequest(String buttontype){
-        game.setClickedMusicButton(buttontype);
+        //game.setClickedMusicButton(buttontype);
     }
     
     public void respondToSwitchToHomeScreenRequest(){
@@ -94,6 +100,8 @@ public class pathXEventHandler {
             
         // UPDATE THE DATA
         data.reset(game);
+        
+        game.getAudio().stop(PathX.pathXPropertyType.AUDIO_LOSS.toString());
             
         // GO TO THE GAME
         game.switchToLevelScreen();
@@ -133,6 +141,8 @@ public class pathXEventHandler {
      * Called when the user presses a key on the keyboard.
      */    
     public void respondToKeyPress(int keyCode){
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
         if (keyCode == KeyEvent.VK_LEFT){
             respondToScrollRequest(SCROLL_LEFT_BUTTON_TYPE);
         }
@@ -144,6 +154,32 @@ public class pathXEventHandler {
         }
         if (keyCode == KeyEvent.VK_RIGHT){
             respondToScrollRequest(SCROLL_RIGHT_BUTTON_TYPE);
+        }
+        if (keyCode == KeyEvent.VK_I){
+            if (game.isCurrentScreenState(GAME_SCREEN_STATE) && !data.isPaused())
+                data.incMoney(10);
+        }
+        if (keyCode == KeyEvent.VK_J){
+            Record record = game.getPlayerRecord();
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            ArrayList<String> levels = props.getPropertyOptionsList(PathX.pathXPropertyType.LEVEL_OPTIONS);
+            
+            int i = 0;
+            while(!record.isLocked(levels.get(i)) && i<(levels.size()-1)){
+                i++;
+            }
+            i--;
+            if(i < levels.size()){
+                pathXFileManager fileManager = game.getFileManager();
+                fileManager.loadLevel(levels.get(i));
+                record.unlockNextLevel(levels.get(i));
+            }
+            
+            //if(!record.isLevelCompleted(levels.get(0))){
+            //    pathXFileManager fileManager = game.getFileManager();
+            //    fileManager.loadLevel(levels.get(0));
+            //    record.unlockNextLevel(levels.get(0));
+            //}
         }
     }
 }

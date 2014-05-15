@@ -19,6 +19,8 @@ public class Level {
     
     public boolean locked;
     public boolean levelCompleted;
+    public String nextLevel;
+    
     public String levelImage;
     public ArrayList<Intersection> intersections;
     public ArrayList<Road> roads;

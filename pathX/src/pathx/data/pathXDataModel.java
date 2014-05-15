@@ -49,6 +49,12 @@ public class pathXDataModel extends MiniGameDataModel {
     
     private boolean frozen;
     
+    private boolean slowed;
+    
+    private boolean speedup;
+    
+    private int playerSpeed;
+    
     public pathXDataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
@@ -99,6 +105,10 @@ public class pathXDataModel extends MiniGameDataModel {
         return money;
     }
     
+    public boolean isFrozen(){
+        return frozen;
+    }
+    
     // MUTATOR METHODS
     public void setCurrentLevel(String initCurrentLevel)
     {
@@ -115,13 +125,36 @@ public class pathXDataModel extends MiniGameDataModel {
         special = string;
     }
     
+    public void slowSpeed(boolean value){
+        slowed = value;
+        
+        if(speedup == true)
+            speedup = false;
+    }
+    
+    public void incPlayerSpeed(){
+        playerSpeed += 1;
+        money -= 20;
+        
+        miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+    }
+    
+    public void increaseSpeed(boolean value){
+        speedup = value;
+        
+        if(slowed == true)
+            slowed = false;
+        
+        miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+    }
+    
     public void freeze(){
         if(frozen == false){
             frozen = true;
-            pause();
+            money -= 15;
+            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
         } else{
             frozen = false;
-            unpause();
         }
     }
     
@@ -131,6 +164,10 @@ public class pathXDataModel extends MiniGameDataModel {
     public void decMoney(){
         int dec = (int) (money * 0.1);
         money -= dec;
+    }
+    
+    public void incMoney(int amt){
+        money += amt;
     }
     
     public void loadBandits(){
@@ -193,6 +230,11 @@ public class pathXDataModel extends MiniGameDataModel {
                 // FIND SPEED LIMIT OF ROAD
                 Road road = findRoad(intersection1, intersection2);
                 int speedLimit = (road.getSpeedLimit())/10;
+                
+                if(slowed == true)
+                    speedLimit = speedLimit / 2;
+                if(speedup == true)
+                    speedLimit = speedLimit * 2;
 
                 // SEND THEM TO THEIR DESTINATION
                 banditSprite.startMovingToTarget(speedLimit);
@@ -260,6 +302,11 @@ public class pathXDataModel extends MiniGameDataModel {
                 // FIND SPEED LIMIT OF ROAD
                 Road road = findRoad(intersection1, intersection2);
                 int speedLimit = (road.getSpeedLimit())/10;
+                
+                if(slowed == true)
+                    speedLimit = speedLimit / 2;
+                if(speedup == true)
+                    speedLimit = speedLimit * 2;
 
                 // SEND THEM TO THEIR DESTINATION
                 policeSprite.startMovingToTarget(speedLimit);
@@ -328,6 +375,11 @@ public class pathXDataModel extends MiniGameDataModel {
                 // FIND SPEED LIMIT OF ROAD
                 Road road = findRoad(intersection1, intersection2);
                 int speedLimit = (road.getSpeedLimit())/10;
+                
+                if(slowed == true)
+                    speedLimit = speedLimit / 2;
+                if(speedup == true)
+                    speedLimit = speedLimit * 2;
 
                 // SEND THEM TO THEIR DESTINATION
                 zombieSprite.startMovingToTarget(speedLimit);
@@ -456,6 +508,16 @@ public class pathXDataModel extends MiniGameDataModel {
             Road road = findRoad(intersection1, intersection2);
             int initSpeed = road.getSpeedLimit();
             int speedLimit = (int) (initSpeed - (zombieCollisions * (0.1*initSpeed)))/10;
+            
+            if(slowed == true)
+                    speedLimit = speedLimit / 2;
+            if(speedup == true)
+                    speedLimit = speedLimit * 2;
+            if(playerSpeed > 0){
+                float inc = (int) (playerSpeed * 0.2);
+                float percentInc = 1 + inc;
+                speedLimit = (int) (speedLimit * percentInc);
+            }
             
             if(zombieCollisions == 10)
                 speedLimit = 0;
@@ -588,6 +650,8 @@ public class pathXDataModel extends MiniGameDataModel {
                         intersection2.setOpen(true);
                     specialSelected = false;
                     money -= 5;
+                    
+                    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
                 }
             }
         } 
@@ -606,6 +670,10 @@ public class pathXDataModel extends MiniGameDataModel {
         ((pathXGame)miniGame).openDialog();
         
         record.completedLevel(currentLevel);
+        
+        playerSpeed = 0;
+        
+        miniGame.getAudio().play(pathXPropertyType.AUDIO_WIN.toString(), false);
     }
     
     /**
@@ -616,6 +684,12 @@ public class pathXDataModel extends MiniGameDataModel {
         
         ((pathXGame)miniGame).openDialog();
         pause();
+        
+        int newBalance = (int) (record.getBalance() * 0.1);
+        
+        record.incBalance(0 - newBalance);
+        
+        playerSpeed = 0;
         
         miniGame.getAudio().stop(pathXPropertyType.AUDIO_GAME.toString());
         miniGame.getAudio().play(pathXPropertyType.AUDIO_LOSS.toString(), false);
@@ -640,22 +714,8 @@ public class pathXDataModel extends MiniGameDataModel {
         zombieCollisions = 0;
     }
     
-    /**
-     * Called each frame, this method updates all the game objects.
-     *
-     * @param game The Sorting Hat game to be updated.
-     */
-    @Override
-    public void updateAll(MiniGame game){
-        try
-        {
-            // MAKE SURE THIS THREAD HAS EXCLUSIVE ACCESS TO THE DATA
-            game.beginUsingData();
-            
-            // WE ONLY NEED TO UPDATE AND MOVE THE MOVING TILES
-            player.update(miniGame);
-            
-            for(int i=0; i<police.size(); i++){
+    public void updateBots(MiniGame game){
+        for(int i=0; i<police.size(); i++){
                 Police policeSprite = police.get(i);
                 //movePolice(i);
                 policeSprite.update(miniGame);
@@ -711,10 +771,25 @@ public class pathXDataModel extends MiniGameDataModel {
                     zombieSprite.setSlowed(false);
                 }
             }
+    }
+    
+    /**
+     * Called each frame, this method updates all the game objects.
+     *
+     * @param game The Sorting Hat game to be updated.
+     */
+    @Override
+    public void updateAll(MiniGame game){
+        try
+        {
+            // MAKE SURE THIS THREAD HAS EXCLUSIVE ACCESS TO THE DATA
+            game.beginUsingData();
             
-            if(frozen != true){
-                unpause();
-            }
+            // WE ONLY NEED TO UPDATE AND MOVE THE MOVING TILES
+            player.update(miniGame);
+            
+            if(frozen == false)
+                updateBots(game);
             
             // IF PLAYER REACHES DESTINATION
             if(reachedDestination() == true){

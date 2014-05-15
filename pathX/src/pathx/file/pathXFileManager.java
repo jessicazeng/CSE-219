@@ -71,7 +71,7 @@ public class pathXFileManager {
                     // NOW WE NEED TO LOAD THE DATA FROM THE BYTE ARRAY
                     DataInputStream dis = new DataInputStream(bais);
                     
-                    // FIRST READ THE ALGORITHM NAME TO USE FOR THE LEVEL
+                    // FIRST READ THE LEVEL NAME TO USE FOR THE LEVEL
                     String levelName = dis.readUTF();
                     
                     // THEN GET THE BACKGROUND IMAGE NAME
@@ -160,6 +160,9 @@ public class pathXFileManager {
                     record.setLevelName(levelFile, levelName);
                     
                     record.setCity(levelFile, levels.get(i));
+                    
+                    if(i != levels.size()-1)
+                        record.setNextLevel(levelFile, levels.get(i+1));
                     
                     pathXDataModel dataModel = (pathXDataModel)miniGame.getDataModel();
                     dataModel.setCurrentLevel(levelFile);

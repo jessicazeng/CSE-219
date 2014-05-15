@@ -68,7 +68,7 @@ public class pathXEventHandler {
     }
     
     public void respondToSoundPressRequest(String buttontype){
-        //game.setClickedMusicButton(buttontype);
+        game.setClickedSoundButton(buttontype);
     }
     
     public void respondToSwitchToHomeScreenRequest(){
@@ -88,6 +88,10 @@ public class pathXEventHandler {
             pathXFileManager fileManager = game.getFileManager();
             fileManager.loadLevel(levelFile);
             data.reset(game);
+            
+            if(data.isFrozen())
+                data.freeze();
+            data.slowSpeed(false);
 
             // GO TO THE GAME
             game.switchToLevelScreen();
@@ -108,15 +112,16 @@ public class pathXEventHandler {
     }
     
     public void respondToPauseRequest(){
-        MiniGameDataModel data = game.getDataModel();
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
         
-        if(data.isPaused() == true){
-            data.unpause();
-            game.enableSpecials();
-        } else{
-            data.pause();
-            game.disableSpecials();
-        }
+        //if(data.isPaused() == true){
+            //data.unpause();
+            //game.enableSpecials();
+            data.freeze();
+        //} else{
+            //data.pause();
+            //game.disableSpecials();
+        //}
     }
     
     /**
@@ -174,12 +179,6 @@ public class pathXEventHandler {
                 fileManager.loadLevel(levels.get(i));
                 record.unlockNextLevel(levels.get(i));
             }
-            
-            //if(!record.isLevelCompleted(levels.get(0))){
-            //    pathXFileManager fileManager = game.getFileManager();
-            //    fileManager.loadLevel(levels.get(0));
-            //    record.unlockNextLevel(levels.get(0));
-            //}
         }
     }
 }

@@ -141,6 +141,15 @@ public class PathX {
         IMAGE_POLICE,
         IMAGE_ZOMBIE,
         
+        /* AUDIO CUES */
+        AUDIO_MENU,
+        AUDIO_GAME,
+        AUDIO_LOSS,
+        AUDIO_BANDIT,
+        AUDIO_ZOMBIE,
+        AUDIO_SPECIALS,
+        AUDIO_WIN,
+        
         IMAGE_DIALOG_LEVEL,
         
         TEXT_TITLE_BAR_GAME,

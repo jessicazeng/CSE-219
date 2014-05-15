@@ -298,7 +298,7 @@ public class pathXPanel extends JPanel {
                         
                         g.drawImage(img, newX, newY, null);
                 }else{
-                    if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
+                    //if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
                         if(open == true){
                             g.setColor(Color.green);
                             g.fillOval(x, y, 30, 30);
@@ -309,7 +309,7 @@ public class pathXPanel extends JPanel {
                     
                         g.setColor(Color.black);
                         g.drawOval(x, y, 30, 30);
-                }
+                //}
                 }
             }
             

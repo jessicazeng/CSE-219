@@ -17,6 +17,8 @@ public class Record {
     // total amount of money earned for all levels won
     private int balance;
     
+    private Specials unlockedSpecials;
+    
     public Record(){
         levelRecords = new HashMap();
         
@@ -40,13 +42,14 @@ public class Record {
             if(i == 0){
                 level.locked = false;
             } else{
-                level.locked = false;
+                level.locked = true;
             }
             level.levelCompleted = false;
             
             levelRecords.put(levelFile, level);
         }
         
+        unlockedSpecials = new Specials();
         balance = 0;
     }
     
@@ -142,6 +145,12 @@ public class Record {
         return level.numBandits;
     }
     
+    public void setNextLevel(String levelName, String nextLevelName){
+        Level level = levelRecords.get(levelName);
+        
+        level.nextLevel = nextLevelName;
+    }
+    
     public void setNumZombies(String levelName, int num){
         Level level = levelRecords.get(levelName);
         level.numZombies = num;
@@ -217,5 +226,23 @@ public class Record {
         Level level = levelRecords.get(levelName);
         
         return level.levelCompleted;
+    }
+    
+    public void completedLevel(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        level.levelCompleted = true;
+        
+        String next = level.nextLevel;
+        Level nextLev = levelRecords.get(next);
+        nextLev.locked = false;
+    }
+    
+    public void unlockNextLevel(String levelName){
+        Level level = levelRecords.get(levelName);
+        
+        String next = level.nextLevel;
+        Level nextLev = levelRecords.get(next);
+        nextLev.locked = false;
     }
 }

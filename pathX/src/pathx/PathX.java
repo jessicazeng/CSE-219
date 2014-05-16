@@ -140,6 +140,9 @@ public class PathX {
         IMAGE_BANDIT,
         IMAGE_POLICE,
         IMAGE_ZOMBIE,
+        IMAGE_ZOMBIE_DEAD,
+        IMAGE_BANDIT_DEAD,
+        IMAGE_POLICE_DESTROYED,
         
         /* AUDIO CUES */
         AUDIO_MENU,
@@ -149,6 +152,7 @@ public class PathX {
         AUDIO_ZOMBIE,
         AUDIO_SPECIALS,
         AUDIO_WIN,
+        AUDIO_CRASH,
         
         IMAGE_DIALOG_LEVEL,
         

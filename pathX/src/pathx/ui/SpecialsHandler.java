@@ -55,6 +55,65 @@ public class SpecialsHandler {
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
         data.freeze();
-        data.setSpecial(FREEZE_UNFREEZE_BUTTON_TYPE);
+        data.setSpecial(PAUSE_BUTTON_TYPE);
+    }
+    
+    public void closeRoad(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(CLOSE_INTERSECTION_BUTTON_TYPE);
+    }
+    
+    public void openRoad(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(OPEN_INTERSECTION_BUTTON_TYPE);
+    }
+    
+    public void flatTire(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(FLAT_TIRE_BUTTON_TYPE);
+    }
+    
+    public void emptyGas(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(EMPTY_GAS_BUTTON_TYPE);
+    }
+    
+    public void intangible(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecial(INTANGIBILITY_BUTTON_TYPE);
+        
+        data.setIntangible();
+    }
+    
+    public void steal(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecial(STEAL_BUTTON_TYPE);
+    }
+    
+    public void invincible(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecial(INVINCIBILITY_BUTTON_TYPE);
     }
 }

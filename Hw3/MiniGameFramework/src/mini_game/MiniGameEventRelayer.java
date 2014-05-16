@@ -155,19 +155,19 @@ public class MiniGameEventRelayer implements MouseListener, MouseMotionListener,
                 {
                     game.getDataModel().activateDebugTextRendering();
                 }
-            } // THE 'P' KEY PAUSES THE GAME, WHICH MEANS 
+            //} // THE 'P' KEY PAUSES THE GAME, WHICH MEANS 
             // ALL UPDATE LOGIC GETS SKIPPED
-            else if (ke.getKeyCode() == KeyEvent.VK_P)
-            {
-                // TOGGLE THE OFF
-                if (game.getDataModel().isPaused())
-                {
-                    game.getDataModel().unpause();
-                } // TOGGLE IT ON
-                else
-                {
-                    game.getDataModel().pause();
-                }
+            //else if (ke.getKeyCode() == KeyEvent.VK_P)
+            //{
+            //    // TOGGLE THE OFF
+            //    if (game.getDataModel().isPaused())
+            //    {
+            //        game.getDataModel().unpause();
+            //    } // TOGGLE IT ON
+            //    else
+            //    {
+            //        game.getDataModel().pause();
+            //    }
             } else
             {
                 game.getKeyHandler().keyPressed(ke);

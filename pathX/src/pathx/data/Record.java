@@ -233,9 +233,11 @@ public class Record {
         
         level.levelCompleted = true;
         
-        String next = level.nextLevel;
-        Level nextLev = levelRecords.get(next);
-        nextLev.locked = false;
+        if(level.nextLevel != null){
+            String next = level.nextLevel;
+            Level nextLev = levelRecords.get(next);
+            nextLev.locked = false;
+        }
     }
     
     public void unlockNextLevel(String levelName){

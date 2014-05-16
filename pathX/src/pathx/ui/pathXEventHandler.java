@@ -180,5 +180,76 @@ public class pathXEventHandler {
                 record.unlockNextLevel(levels.get(i));
             }
         }
+        
+        // Keys for specials
+        
+        // green light
+        if (keyCode == KeyEvent.VK_G){
+            data.setSpecialSelected(true);
+
+            data.setSpecial(MAKE_GREEN_LIGHT_BUTTON_TYPE);
+        }
+        
+        // red light
+        if (keyCode == KeyEvent.VK_R){
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(MAKE_RED_LIGHT_BUTTON_TYPE);
+        }
+        
+        // dec speed
+        if (keyCode == KeyEvent.VK_Z){
+            data.slowSpeed(true);
+        }
+        
+        // inc speed
+        if (keyCode == KeyEvent.VK_X){
+            data.increaseSpeed(true);
+        }
+        
+        // inc player speed
+        if (keyCode == KeyEvent.VK_P){
+            data.incPlayerSpeed();
+        }
+        
+        // flat tire
+        if (keyCode == KeyEvent.VK_T){
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(FLAT_TIRE_BUTTON_TYPE);
+        }
+        
+        // empty gas tank
+        if (keyCode == KeyEvent.VK_E){
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(EMPTY_GAS_BUTTON_TYPE);
+        }
+        
+        // close intersection
+        if (keyCode == KeyEvent.VK_C){
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(CLOSE_INTERSECTION_BUTTON_TYPE);
+        }
+        
+        // open intersection
+        if (keyCode == KeyEvent.VK_O){
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(OPEN_INTERSECTION_BUTTON_TYPE);
+        }
+        
+        // steal
+        if (keyCode == KeyEvent.VK_Q){
+            data.setSpecial(STEAL_BUTTON_TYPE);
+        }
+        
+        // intangibility
+        if (keyCode == KeyEvent.VK_B){
+            data.setSpecial(INTANGIBILITY_BUTTON_TYPE);
+        
+            data.setIntangible();
+        }
     }
 }

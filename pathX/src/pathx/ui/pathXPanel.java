@@ -299,12 +299,17 @@ public class pathXPanel extends JPanel {
                         g.drawImage(img, newX, newY, null);
                 }else{
                     //if((x>155 && x<600) && (y<(screenPositionY2+5) && y>20)){
-                        if(open == true){
-                            g.setColor(Color.green);
-                            g.fillOval(x, y, 30, 30);
-                        } else{ // level has been unlocked
-                            g.setColor(Color.red);
-                            g.fillOval(x, y, 30, 30);
+                        if(intersection.blocked == true){
+                            g.setColor(Color.white);
+                                g.fillOval(x, y, 30, 30);
+                        } else{
+                            if(open == true){
+                                g.setColor(Color.green);
+                                g.fillOval(x, y, 30, 30);
+                            } else{ // level has been unlocked
+                                g.setColor(Color.red);
+                                g.fillOval(x, y, 30, 30);
+                            }
                         }
                     
                         g.setColor(Color.black);
@@ -337,7 +342,10 @@ public class pathXPanel extends JPanel {
                 y = (int)(banditSprite.getY()) - viewport.getViewportY();
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
-                img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_BANDIT), COLOR_KEY);
+                if(banditSprite.destroyed == false)
+                    img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_BANDIT), COLOR_KEY);
+                else
+                    img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_BANDIT_DEAD), COLOR_KEY);
                 imageHeight = img.getHeight(null);
                 imageWidth = img.getWidth(null);
                 
@@ -352,7 +360,10 @@ public class pathXPanel extends JPanel {
                 y = (int)(policeSprite.getY()) - viewport.getViewportY();
                 
                 imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
-                img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_POLICE), COLOR_KEY);
+                if(policeSprite.destroyed==false)
+                    img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_POLICE), COLOR_KEY);
+                else
+                    img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_POLICE_DESTROYED), COLOR_KEY);
                 imageHeight = img.getHeight(null);
                 imageWidth = img.getWidth(null);
                 
@@ -366,8 +377,11 @@ public class pathXPanel extends JPanel {
                 x = (int)(zombieSprite.getX()) - viewport.getViewportX() + 170;
                 y = (int)(zombieSprite.getY()) - viewport.getViewportY();
                 
-                imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
-                img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE), COLOR_KEY);
+                imgPath = props.getProperty(pathXPropertyType.PATH_IMG);
+                if(zombieSprite.destroyed==false)
+                    img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE), COLOR_KEY);
+                else
+                    img = game.loadImageWithColorKey(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE_DEAD), COLOR_KEY);
                imageHeight = img.getHeight(null);
                 imageWidth = img.getWidth(null);
                 
@@ -504,12 +518,12 @@ public class pathXPanel extends JPanel {
         if (((pathXGame)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
             g.setFont(FONT_TEXT_DISPLAY);
             g.setColor(Color.BLACK);
-            g.drawString(BALANCE, 200, 35);
+            g.drawString(BALANCE, 200, 45);
             
             String money = "$" + record.getBalance();
-            g.drawString(money, 320, 35);
+            g.drawString(money, 320, 45);
             
-            g.drawString(GOAL, 200, 70);
+            //g.drawString(GOAL, 200, 70);
         }
         if(((pathXGame)game).isCurrentScreenState(GAME_SCREEN_STATE) && data.inProgress()){
             String currentLevel = data.getCurrentLevel();

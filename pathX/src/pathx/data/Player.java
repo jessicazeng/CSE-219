@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pathx.data;
 
 import java.util.ArrayList;
@@ -32,6 +26,11 @@ public class Player extends Sprite{
     private boolean movingToTarget;
     
     private boolean inPath;
+    
+    private boolean intangible;
+    public long timer;
+    public long stealTimer;
+    public boolean invinsible;
     
     private ArrayList<Intersection> path;
     private int pathIndex;
@@ -66,11 +65,19 @@ public class Player extends Sprite{
         return currentNode;
     }
     
+    public boolean isIntangible(){
+        return intangible;
+    }
+    
     public boolean isMovingToTarget(){
         return movingToTarget;
     }
     
     // MUTATOR METHODS
+    public void setTagible(boolean value){
+        intangible = value;
+    }
+    
     public void setStartingPos(int x, int y){
         startX = x;
         startY = y;

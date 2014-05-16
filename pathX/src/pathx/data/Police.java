@@ -29,6 +29,15 @@ public class Police extends Sprite{
     int startX;
     int startY;
     
+    public boolean stopped;
+    public boolean noGas;
+    public boolean destroyed;
+    
+    public boolean steal;
+    
+    public long timer;
+    
+    
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;

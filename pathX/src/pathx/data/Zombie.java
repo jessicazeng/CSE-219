@@ -22,6 +22,14 @@ public class Zombie extends Sprite{
     int startX;
     int startY;
     
+    public boolean steal;
+    public boolean stopped;
+    public boolean noGas;
+    public boolean destroyed;
+    public boolean controlled;
+    
+    public long timer;
+    
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
@@ -161,6 +169,7 @@ public class Zombie extends Sprite{
             while(node==0 || node==1)
                 node = rand.nextInt(record.getIntersections(currentLevel).size());
             
+            if(controlled == false)
             ((pathXDataModel)(game.getDataModel())).moveZombie(ID);
         }
         // GO TO THE TARGET AND THEN STOP MOVING

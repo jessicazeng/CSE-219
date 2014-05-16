@@ -53,7 +53,6 @@ public class pathXConstants {
     public static final String LEAVE_TOWN_BUTTON_TYPE = "LEAVE_TOWN_BUTTON_TYPE";
     public static final String MAKE_GREEN_LIGHT_BUTTON_TYPE = "MAKE_GREEN_LIGHT_BUTTON_TYPE";
     public static final String MAKE_RED_LIGHT_BUTTON_TYPE = "MAKE_RED_LIGHT_BUTTON_TYPE";
-    public static final String FREEZE_UNFREEZE_BUTTON_TYPE = "FREEZE_UNFREEZE_BUTTON_TYPE";
     public static final String DEC_SPEED_BUTTON_TYPE = "DEC_SPEED_BUTTON_TYPE";
     public static final String INC_SPEED_BUTTON_TYPE = "INC_SPEED_BUTTON_TYPE";
     public static final String INC_PLAYER_SPEED_BUTTON_TYPE = "INC_PLAYER_SPEED_BUTTON_TYPE";

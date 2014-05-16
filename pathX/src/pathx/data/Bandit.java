@@ -28,11 +28,18 @@ public class Bandit extends Sprite{
     int startX;
     int startY;
     
+    int moneyStolen;
+    
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
     
     private boolean robbed;
+    public boolean stopped;
+    public boolean noGas;
+    public boolean destroyed;
+    
+    public long timer;
     
     public Bandit(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState){
@@ -54,6 +61,10 @@ public class Bandit extends Sprite{
         return startY;
     }
     
+    public int getMoneyStolen(){
+        return moneyStolen;
+    }
+    
     public boolean robbed(){
         return robbed;
     }
@@ -61,6 +72,10 @@ public class Bandit extends Sprite{
     // MUTATOR METHODS
     public void setID(int initID){
         ID = initID;
+    }
+    
+    public void setMoneyStolen(int money){
+        moneyStolen = money;
     }
     
     public void setRobbed(boolean value){

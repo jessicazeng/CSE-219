@@ -116,4 +116,22 @@ public class SpecialsHandler {
         
         data.setSpecial(INVINCIBILITY_BUTTON_TYPE);
     }
+    
+    public void flying(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(FLYING_BUTTON_TYPE);
+    }
+    
+    public void mindControl(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(MIND_CONTROL_BUTTON_TYPE);
+    }
 }

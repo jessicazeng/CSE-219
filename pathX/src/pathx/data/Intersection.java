@@ -16,6 +16,9 @@ public class Intersection {
     // IS IT OPEN OR NOT
     public boolean open;
     
+    public boolean blocked;
+    public long time;
+    
     // LIST OF INTERSECTIONS THAT ARE ONE AWAY FROM THIS NODE.
     // PLAYER CAN ONLY MOVE TO ONE OF THESE NODES FROM CURRENT 
     // INTERSECTION
@@ -53,7 +56,9 @@ public class Intersection {
     public void setY(int y)
     {   this.y = y;         }
     public void setOpen(boolean open)
-    {   this.open = open;   }
+    {   
+        this.open = open;   
+    }
     
     public void addAdjacentIntersection(Intersection intersection){
         adjacentIntersections.add(intersection);

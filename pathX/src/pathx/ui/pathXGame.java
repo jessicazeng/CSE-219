@@ -97,7 +97,7 @@ public class pathXGame  extends MiniGame{
     public void disableSpecials(){
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_PLAYER_SPEED_BUTTON_TYPE).setEnabled(false);
@@ -116,7 +116,7 @@ public class pathXGame  extends MiniGame{
     public void enableSpecials(){
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(true);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(INC_PLAYER_SPEED_BUTTON_TYPE).setEnabled(true);
@@ -237,8 +237,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -313,8 +313,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(true);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -392,15 +392,19 @@ public class pathXGame  extends MiniGame{
         
         guiDecor.get(BACKGROUND_TYPE).setState(SETTINGS_SCREEN_STATE);
         
-        guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
-        guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(true);
         
         if(musicDisabled == true)
             guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.SELECTED_STATE.toString());
         else
             guiButtons.get(MUSIC_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         
+        if(soundDisabled == true)
+            guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.SELECTED_STATE.toString());
+        else
+            guiButtons.get(SOUND_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
+        
         guiButtons.get(MUSIC_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(SOUND_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
         guiButtons.get(GAME_SPEED_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(SETTINGS_HOME_BUTTON_TYPE).setState(pathXStates.VISIBLE_STATE.toString());
@@ -451,8 +455,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -540,8 +544,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -628,8 +632,8 @@ public class pathXGame  extends MiniGame{
         guiButtons.get(MAKE_GREEN_LIGHT_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(MAKE_RED_LIGHT_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.get(FREEZE_UNFREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
         guiButtons.get(DEC_SPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INC_SPEED_BUTTON_TYPE).setState(pathXStates.INVISIBLE_STATE.toString());
@@ -794,11 +798,6 @@ public class pathXGame  extends MiniGame{
         });
         
         //
-        guiButtons.get(PAUSE_BUTTON_TYPE).setActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae)
-            {   eventHandler.respondToPauseRequest();     }
-        });
-        
         guiButtons.get(CLOSE_DIALOG_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToCloseDialogRequest();     }
@@ -877,6 +876,45 @@ public class pathXGame  extends MiniGame{
                 specialsHandler.incPlayerSpeed();     
             }
         });
+        
+        guiButtons.get(CLOSE_INTERSECTION_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   
+                specialsHandler.closeRoad();     
+            }
+        });
+        
+        guiButtons.get(OPEN_INTERSECTION_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   
+                specialsHandler.openRoad();     
+            }
+        });
+        
+        guiButtons.get(PAUSE_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.freeze();     }
+        });
+        
+        guiButtons.get(FLAT_TIRE_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.flatTire();     }
+        });
+        
+        guiButtons.get(INTANGIBILITY_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.intangible();     }
+        });
+        
+        guiButtons.get(STEAL_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.steal();     }
+        });
+        
+        guiButtons.get(EMPTY_GAS_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.emptyGas();     }
+        });
     }
     
     public void setClickedMusicButton(String buttontype){
@@ -893,13 +931,11 @@ public class pathXGame  extends MiniGame{
     
     public void setClickedSoundButton(String buttontype){
         if(guiButtons.get(buttontype).getState() == pathXStates.SELECTED_STATE.toString()){
-            guiButtons.get(buttontype).setState(pathXStates.VISIBLE_STATE.toString());
-            soundDisabled = true;
-            audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);
-        } else{
             soundDisabled = false;
-            guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString()); 
-            audio.stop(pathXPropertyType.AUDIO_MENU.toString()); 
+            guiButtons.get(buttontype).setState(pathXStates.VISIBLE_STATE.toString());
+        } else{
+            soundDisabled = true;
+            guiButtons.get(buttontype).setState(pathXStates.SELECTED_STATE.toString());
         }
     }
     
@@ -1231,15 +1267,16 @@ public class pathXGame  extends MiniGame{
         s = new Sprite(sT, 10 + SPECIAL_BUTTON_WIDTH, 200, 0, 0, pathXStates.INVISIBLE_STATE.toString());
         guiButtons.put(MAKE_RED_LIGHT_BUTTON_TYPE, s);
         
-        String freezeButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FREEZE);
-        sT = new SpriteType(FREEZE_UNFREEZE_BUTTON_TYPE);
-        img = loadImageWithColorKey(imgPath + freezeButton, COLOR_KEY);
+        //invincibility
+        String invincibilityButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FREEZE);
+        sT = new SpriteType(INVINCIBILITY_BUTTON_TYPE);
+        img = loadImageWithColorKey(imgPath + invincibilityButton, COLOR_KEY);
         sT.addState(pathXStates.VISIBLE_STATE.toString(), img);
-        String freezeMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FREEZE_MOUSE_OVER);
-        img = loadImageWithColorKey(imgPath + freezeMouseOverButton, COLOR_KEY);
+        String invincibilityMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FREEZE_MOUSE_OVER);
+        img = loadImageWithColorKey(imgPath + invincibilityMouseOverButton, COLOR_KEY);
         sT.addState(pathXStates.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, 10 + (2*SPECIAL_BUTTON_WIDTH), 200, 0, 0, pathXStates.INVISIBLE_STATE.toString());
-        guiButtons.put(FREEZE_UNFREEZE_BUTTON_TYPE, s);
+        guiButtons.put(INVINCIBILITY_BUTTON_TYPE, s);
         
         String decSpeedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_DEC_SPEED);
         sT = new SpriteType(DEC_SPEED_BUTTON_TYPE);

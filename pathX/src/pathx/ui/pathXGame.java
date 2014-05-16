@@ -915,6 +915,21 @@ public class pathXGame  extends MiniGame{
             public void actionPerformed(ActionEvent ae)
             {   specialsHandler.emptyGas();     }
         });
+        
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.invincible();     }
+        });
+        
+        guiButtons.get(FLYING_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.flying();     }
+        });
+        
+        guiButtons.get(MIND_CONTROL_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.mindControl();     }
+        });
     }
     
     public void setClickedMusicButton(String buttontype){
@@ -1466,6 +1481,7 @@ public class pathXGame  extends MiniGame{
             loadAudioCue(pathXPropertyType.AUDIO_ZOMBIE);
             loadAudioCue(pathXPropertyType.AUDIO_SPECIALS);
             loadAudioCue(pathXPropertyType.AUDIO_WIN);
+            loadAudioCue(pathXPropertyType.AUDIO_CRASH);
 
             // PLAY THE WELCOME SCREEN SONG
             audio.play(pathXPropertyType.AUDIO_MENU.toString(), true);

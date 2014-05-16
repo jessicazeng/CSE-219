@@ -251,5 +251,17 @@ public class pathXEventHandler {
         
             data.setIntangible();
         }
+        
+        // invinsible
+        if (keyCode == KeyEvent.VK_V){
+            data.setSpecial(INVINCIBILITY_BUTTON_TYPE);
+        }
+        
+        // flying
+        if (keyCode == KeyEvent.VK_V){
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(FLYING_BUTTON_TYPE);
+        }
     }
 }

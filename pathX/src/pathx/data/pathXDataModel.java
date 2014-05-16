@@ -54,6 +54,7 @@ public class pathXDataModel extends MiniGameDataModel {
     private boolean speedup;
     private int playerSpeed;
     private boolean steal;
+    private boolean selectedSprite;
     
     public pathXDataModel(MiniGame initMiniGame)
     {
@@ -128,6 +129,15 @@ public class pathXDataModel extends MiniGameDataModel {
             steal = true;
             player.stealTimer = System.currentTimeMillis() + 10000;
             money -= 30;
+            
+            specialSelected = false;
+            
+            if(((pathXGame)miniGame).isSoundDisabled() == false)
+                miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+        } else if(special.equals(INVINCIBILITY_BUTTON_TYPE)){
+            player.invinsible = true;
+            player.timer = System.currentTimeMillis() + 10000;
+            money -= 40;
             
             specialSelected = false;
             
@@ -430,6 +440,29 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     } 
     
+    public void controlZombie(Zombie zom, Intersection intersection, int node){
+        if(intersection.isOpen()){
+                // GET THE TILE TWO LOCATION
+                    int x1 = zom.getStartX();
+                    int y1 = zom.getStartY();
+                    int tile2x = intersection.getX() + 50;
+                    int tile2y = intersection.getY() - 30;
+
+                    int differenceX = tile2x - x1 - 60;
+                    int differenceY = tile2y - y1 + 20;
+
+                    int newX = x1+differenceX;
+                    int newY = y1+differenceY;
+
+                    // THEN MOVE PLAYER
+                    zom.setTarget(newX, newY);
+
+                    // SEND THEM TO THEIR DESTINATION
+                    zom.startMovingToTarget(3);
+                    zom.setNode(node);
+        }
+    }
+    
     public void setAdjacentIntersections(){
         ArrayList<Road> roads = record.getRoads(currentLevel);
         for (int i = 0; i < roads.size(); i++){
@@ -576,6 +609,43 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     } 
     
+    /**
+     * Moves player
+     */
+    public void fly(int index2)
+    {
+        int currentNode = player.getCurrentNode();
+        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
+        Intersection intersection2 = record.getIntersections(currentLevel).get(index2);
+        
+        if(intersection2.blocked == false){
+            Boolean isAdjacent = intersection1.isAdjacent(intersection2);
+        
+            int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                // GET THE TILE TWO LOCATION
+                int x1 = player.getStartX();
+                int y1 = player.getStartY();
+                int tile2x = intersection2.getX();
+                int tile2y = intersection2.getY();
+
+                int differenceX = tile2x - x1 - 60;
+                int differenceY = tile2y - y1 + 20;
+
+                int newX = x1+differenceX;
+                int newY = y1+differenceY;
+
+                // THEN MOVE PLAYER
+                player.setTarget(newX, newY);
+
+                // SEND PLAYEr TO DESTINATION
+                player.startMovingToTarget(3);
+                player.setCurrentNode(index2);
+                player.setStartingPos(x1+tile2x, y1+tile2y);
+        }
+    } 
+    
     public boolean reachedDestination(){
         int x = player.getStartX();
         int y = player.getStartY();
@@ -667,7 +737,7 @@ public class pathXDataModel extends MiniGameDataModel {
                         ((pathXGame)miniGame).pressedLevelButton(levelName);
                 }
             }
-        }
+        } 
     }
     
     public void applySpecial(int x, int y){
@@ -833,7 +903,37 @@ public class pathXDataModel extends MiniGameDataModel {
                     specialSelected = false;
                 }
             }
-        }
+        } else if(special.equals(FLYING_BUTTON_TYPE)){
+            for(int i=0; i<intersections.size(); i++){
+                Intersection intersection2 = intersections.get(i);
+
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                // position of intersection on node
+                int node2x = intersection2.getX() - screenPositionX1 + 170;
+                int node2y = intersection2.getY() - screenPositionY1;
+
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds;
+                if(i == 0 || i == 1)
+                    bounds = new Rectangle(point, new Dimension(50, 50));
+                else
+                    bounds = new Rectangle(point, new Dimension(30, 30));
+
+                if (bounds.contains(point2)) {
+                    selectedNode = intersection2;
+                    selectedNodeIndex = i;
+                    
+                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    
+                    if(i != player.getCurrentNode())
+                        fly(i);
+                }
+            }
+        } 
     }
     
     /**
@@ -907,7 +1007,7 @@ public class pathXDataModel extends MiniGameDataModel {
         for(int i=0; i<police.size(); i++){
                 Police policeSprite = police.get(i);
                 
-                if(policeSprite.noGas == false)
+                if(policeSprite.noGas == false && policeSprite.destroyed==false)
                     policeSprite.update(miniGame);
                 
                 if(System.currentTimeMillis() >= policeSprite.timer){
@@ -918,15 +1018,22 @@ public class pathXDataModel extends MiniGameDataModel {
                 if(!player.isIntangible()){
                     // check if player and police overlap
                     Point playerPoint = new Point((int)player.getX(), (int)player.getY());
-                    Rectangle player = new Rectangle(playerPoint, new Dimension(50, 25));
+                    Rectangle playa = new Rectangle(playerPoint, new Dimension(50, 25));
                     Point policePoint = new Point((int)policeSprite.getX()-50, (int)policeSprite.getY()+20);
                     Rectangle policeCar = new Rectangle(policePoint, new Dimension(50, 25));
-                    if(player.intersects(policeCar)){
-                        if(steal==true && policeSprite.steal==false){
-                            money += 10;
-                            policeSprite.steal = true;
-                        } else if(steal == false){
-                            endGameAsLoss();
+                    if(playa.intersects(policeCar)){
+                        if(player.invinsible == true && policeSprite.destroyed==false){
+                            policeSprite.destroyed = true;
+                            
+                            if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_CRASH.toString(), false);
+                        } else if(player.invinsible != true){
+                            if(steal==true && policeSprite.steal==false){
+                                money += 10;
+                                policeSprite.steal = true;
+                            } else if(steal == false){
+                                endGameAsLoss();
+                            }
                         }
                     } else{
                         policeSprite.steal = false;
@@ -937,7 +1044,7 @@ public class pathXDataModel extends MiniGameDataModel {
             for(int i=0; i<bandits.size(); i++){
                 Bandit banditSprite = bandits.get(i);
                 
-                if(banditSprite.noGas == false)
+                if(banditSprite.noGas == false && banditSprite.destroyed==false)
                     banditSprite.update(miniGame);
                 
                 if(System.currentTimeMillis() >= banditSprite.timer){
@@ -948,28 +1055,35 @@ public class pathXDataModel extends MiniGameDataModel {
                 if(!player.isIntangible()){
                     // check if player and bandit overlap
                     Point playerPoint = new Point((int)player.getX(), (int)player.getY());
-                    Rectangle player = new Rectangle(playerPoint, new Dimension(50, 25));
+                    Rectangle playa = new Rectangle(playerPoint, new Dimension(50, 25));
                     Point banditPoint = new Point((int)banditSprite.getX()-50, (int)banditSprite.getY()+20);
                     Rectangle banditCar = new Rectangle(banditPoint, new Dimension(50, 25));
-                    if(player.intersects(banditCar)){
-                        if(steal == false){
-                            if(banditSprite.robbed() == false){
-                                int stolen = (int) (money * 0.1);
-                                int banditMoney = banditSprite.getMoneyStolen() + stolen;
-                                banditSprite.setMoneyStolen(banditMoney);
-                                decMoney();
-                                banditSprite.setRobbed(true);
-                                
+                    if(playa.intersects(banditCar)){
+                        if(player.invinsible == true && banditSprite.destroyed==false){
+                            banditSprite.destroyed = true;
+                            
+                            if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_CRASH.toString(), false);
+                        } else if(player.invinsible != true){
+                            if(steal == false){
+                                if(banditSprite.robbed() == false){
+                                    int stolen = (int) (money * 0.1);
+                                    int banditMoney = banditSprite.getMoneyStolen() + stolen;
+                                    banditSprite.setMoneyStolen(banditMoney);
+                                    decMoney();
+                                    banditSprite.setRobbed(true);
+
+                                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                        miniGame.getAudio().play(pathXPropertyType.AUDIO_BANDIT.toString(), false);
+                                }
+                            } else{
+                                int banditMoney = banditSprite.getMoneyStolen();
+                                money += banditMoney;
+                                banditSprite.setMoneyStolen(0);
+
                                 if(((pathXGame)miniGame).isSoundDisabled() == false)
                                     miniGame.getAudio().play(pathXPropertyType.AUDIO_BANDIT.toString(), false);
                             }
-                        } else{
-                            int banditMoney = banditSprite.getMoneyStolen();
-                            money += banditMoney;
-                            banditSprite.setMoneyStolen(0);
-                            
-                            if(((pathXGame)miniGame).isSoundDisabled() == false)
-                                miniGame.getAudio().play(pathXPropertyType.AUDIO_BANDIT.toString(), false);
                         }
                     } else{
                         banditSprite.setRobbed(false);
@@ -980,7 +1094,7 @@ public class pathXDataModel extends MiniGameDataModel {
             for(int i=0; i<zombies.size(); i++){
                 Zombie zombieSprite = zombies.get(i);
                 
-                if(zombieSprite.noGas == false)
+                if(zombieSprite.noGas == false && zombieSprite.destroyed==false && zombieSprite.controlled==false)
                     zombieSprite.update(miniGame);
                 
                 if(System.currentTimeMillis() >= zombieSprite.timer){
@@ -991,21 +1105,28 @@ public class pathXDataModel extends MiniGameDataModel {
                 if(!player.isIntangible()){
                     // check if player and bandit overlap
                     Point playerPoint = new Point((int)player.getX(), (int)player.getY());
-                    Rectangle player = new Rectangle(playerPoint, new Dimension(50, 25));
+                    Rectangle playa = new Rectangle(playerPoint, new Dimension(50, 25));
                     Point zombiePoint = new Point((int)zombieSprite.getX()-50, (int)zombieSprite.getY()+20);
                     Rectangle banditCar = new Rectangle(zombiePoint, new Dimension(50, 25));
-                    if(player.intersects(banditCar)){
-                        if(zombieSprite.slowed() == false){
-                            zombieCollisions += 1;
-                            zombieSprite.setSlowed(true);
-                            
-                            if(steal==true && zombieSprite.steal==false){
-                                money += 10;
-                                zombieSprite.steal = true;
-                            }
+                    if(playa.intersects(banditCar)){
+                        if(player.invinsible == true && zombieSprite.destroyed==false){
+                            zombieSprite.destroyed = true;
                             
                             if(((pathXGame)miniGame).isSoundDisabled() == false)
-                                miniGame.getAudio().play(pathXPropertyType.AUDIO_ZOMBIE.toString(), false);
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_CRASH.toString(), false);
+                        } else if(player.invinsible != true){
+                            if(zombieSprite.slowed() == false){
+                                zombieCollisions += 1;
+                                zombieSprite.setSlowed(true);
+
+                                if(steal==true && zombieSprite.steal==false){
+                                    money += 10;
+                                    zombieSprite.steal = true;
+                                }
+
+                                if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_ZOMBIE.toString(), false);
+                            }
                         }
                     } else{
                         zombieSprite.setSlowed(false);
@@ -1030,8 +1151,10 @@ public class pathXDataModel extends MiniGameDataModel {
             // WE ONLY NEED TO UPDATE AND MOVE THE MOVING TILES
             player.update(miniGame);
             
-            if(System.currentTimeMillis() >= player.timer)
+            if(System.currentTimeMillis() >= player.timer){
                 player.setTagible(false);
+                player.invinsible = false;
+            }
             
             if(System.currentTimeMillis() >= player.stealTimer)
                 steal = false;

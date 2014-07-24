@@ -186,6 +186,20 @@ public class pathXDataModel extends MiniGameDataModel {
             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
+    public void closeIntersection(){
+        money -= 25;
+        
+        if(((pathXGame)miniGame).isSoundDisabled() == false)
+            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+    }
+    
+    public void openIntersection(){
+        money -= 25;
+        
+        if(((pathXGame)miniGame).isSoundDisabled() == false)
+            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+    }
+    
     public void freeze(){
         if(frozen == false){
             frozen = true;
@@ -1014,6 +1028,8 @@ public class pathXDataModel extends MiniGameDataModel {
         } else if(special.equals(DEC_SPEED_BUTTON_TYPE) || special.equals(INC_SPEED_BUTTON_TYPE)){
             specialSelected = false;
         } else if(special.equals(CLOSE_ROAD_BUTTON_TYPE)){
+            specialSelected = false;
+        } else if(special.equals(CLOSE_INTERSECTION_BUTTON_TYPE) || special.equals(OPEN_INTERSECTION_BUTTON_TYPE)){
             specialSelected = false;
         }
     }

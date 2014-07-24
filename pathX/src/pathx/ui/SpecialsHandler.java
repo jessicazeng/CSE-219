@@ -38,13 +38,19 @@ public class SpecialsHandler {
     public void decSpeed(){
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
+        data.setSpecialSelected(true);
+        data.setSpecial(DEC_SPEED_BUTTON_TYPE);
+        
         data.slowSpeed();
     }
     
     public void incSpeed(){
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
-        data.increaseSpeed(true);
+        data.setSpecialSelected(true);
+        data.setSpecial(INC_SPEED_BUTTON_TYPE);
+        
+        data.increaseSpeed();
     }
     
     public void incPlayerSpeed(){
@@ -54,7 +60,7 @@ public class SpecialsHandler {
     }
     
     public void freeze(){
-        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        // GET THE GAME'S DATA MODEL
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
         data.freeze();
@@ -62,21 +68,22 @@ public class SpecialsHandler {
     }
     
     public void closeRoad(){
-        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        // GET THE GAME'S DATA MODEL
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
         data.setSpecialSelected(true);
         
-        data.setSpecial(CLOSE_INTERSECTION_BUTTON_TYPE);
+        data.setSpecial(CLOSE_ROAD_BUTTON_TYPE);
     }
     
-    public void openRoad(){
-        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+    public void closeIntersection(){
+        // GET THE GAME'S DATA MODEL
         pathXDataModel data = (pathXDataModel)game.getDataModel();
-        
-        data.setSpecialSelected(true);
-        
-        data.setSpecial(OPEN_INTERSECTION_BUTTON_TYPE);
+    }
+    
+    public void openIntersection(){
+        // GET THE GAME'S DATA MODEL
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
     }
     
     public void flatTire(){

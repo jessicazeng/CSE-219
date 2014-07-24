@@ -52,6 +52,8 @@ public class pathXDataModel extends MiniGameDataModel {
     private boolean frozen;
     private boolean slowed;
     private boolean speedup;
+    
+    private boolean decroadspeed;
     private int playerSpeed;
     private boolean steal;
     private boolean selectedSprite;
@@ -146,12 +148,13 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     }
     
-    public void slowSpeed(boolean value){
-        slowed = value;
-        specialSelected = false;
+    public void slowSpeed(){
+        //specialSelected = true;
         
-        if(speedup == true)
-            speedup = false;
+        money -= 15;
+        
+        if(((pathXGame)miniGame).isSoundDisabled() == false)
+            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
     public void incPlayerSpeed(){
@@ -163,12 +166,21 @@ public class pathXDataModel extends MiniGameDataModel {
             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
-    public void increaseSpeed(boolean value){
-        speedup = value;
-        specialSelected = false;
+    public void increaseSpeed(){
+        //speedup = value;
+        //specialSelected = true;
         
-        if(slowed == true)
-            slowed = false;
+        money -= 15;
+        
+        //if(slowed == true)
+        //    slowed = false;
+        
+        if(((pathXGame)miniGame).isSoundDisabled() == false)
+            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+    }
+    
+    public void closeRoad(){
+        money -= 25;
         
         if(((pathXGame)miniGame).isSoundDisabled() == false)
             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
@@ -440,13 +452,15 @@ public class pathXDataModel extends MiniGameDataModel {
         }
     } 
     
-    public void controlZombie(Zombie zom, Intersection intersection, int node){
-        if(intersection.isOpen()){
-                // GET THE TILE TWO LOCATION
+    public void controlZombie(Zombie zom, Intersection intersection2, int node){
+        int currentNode = zom.getNode();
+            Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
+
+             // GET THE TILE TWO LOCATION
                     int x1 = zom.getStartX();
                     int y1 = zom.getStartY();
-                    int tile2x = intersection.getX() + 50;
-                    int tile2y = intersection.getY() - 30;
+                    int tile2x = intersection2.getX() + 50;
+                    int tile2y = intersection2.getY() - 30;
 
                     int differenceX = tile2x - x1 - 60;
                     int differenceY = tile2y - y1 + 20;
@@ -460,7 +474,6 @@ public class pathXDataModel extends MiniGameDataModel {
                     // SEND THEM TO THEIR DESTINATION
                     zom.startMovingToTarget(3);
                     zom.setNode(node);
-        }
     }
     
     public void setAdjacentIntersections(){
@@ -933,7 +946,76 @@ public class pathXDataModel extends MiniGameDataModel {
                         fly(i);
                 }
             }
-        } 
+        } else if(special.equals(MIND_CONTROL_BUTTON_TYPE)){
+            for(int i=0; i<police.size(); i++){
+                Police policeSprite = police.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                int node2x = (int) (policeSprite.getX() - screenPositionX1 + 170);
+                int node2y = (int) (policeSprite.getY() - screenPositionY1);
+                
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
+                if(bounds.contains(point2)){
+                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    
+                    specialSelected = false;
+                }
+            }
+            
+            for(int i=0; i<bandits.size(); i++){
+                Bandit banditSprite = bandits.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                int node2x = (int) (banditSprite.getX() - screenPositionX1 + 170);
+                int node2y = (int) (banditSprite.getY() - screenPositionY1);
+                
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
+                if(bounds.contains(point2)){
+                   if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    
+                    specialSelected = false;
+                }
+            }
+            
+            for(int i=0; i<zombies.size(); i++){
+                Zombie zombieSprite = zombies.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                int node2x = (int) (zombieSprite.getX() - screenPositionX1 + 170);
+                int node2y = (int) (zombieSprite.getY() - screenPositionY1);
+                
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
+                if(bounds.contains(point2)){
+                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    zombieSprite.stopped = true;
+                    zombieSprite.timer = System.currentTimeMillis() + 10000;
+                    money -= 20;
+                    
+                    
+                    
+                    specialSelected = false;
+                }
+            }
+        } else if(special.equals(DEC_SPEED_BUTTON_TYPE) || special.equals(INC_SPEED_BUTTON_TYPE)){
+            specialSelected = false;
+        } else if(special.equals(CLOSE_ROAD_BUTTON_TYPE)){
+            specialSelected = false;
+        }
     }
     
     /**

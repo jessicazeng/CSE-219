@@ -74,16 +74,30 @@ public class SpecialsHandler {
         data.setSpecialSelected(true);
         
         data.setSpecial(CLOSE_ROAD_BUTTON_TYPE);
+        
+        data.closeRoad();
     }
     
     public void closeIntersection(){
         // GET THE GAME'S DATA MODEL
         pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(CLOSE_INTERSECTION_BUTTON_TYPE);
+        
+        data.closeIntersection();
     }
     
     public void openIntersection(){
         // GET THE GAME'S DATA MODEL
         pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(OPEN_INTERSECTION_BUTTON_TYPE);
+        
+        data.openIntersection();
     }
     
     public void flatTire(){

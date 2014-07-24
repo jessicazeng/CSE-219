@@ -877,17 +877,24 @@ public class pathXGame  extends MiniGame{
             }
         });
         
-        guiButtons.get(CLOSE_INTERSECTION_BUTTON_TYPE).setActionListener(new ActionListener(){
+        guiButtons.get(CLOSE_ROAD_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   
                 specialsHandler.closeRoad();     
             }
         });
         
+        guiButtons.get(CLOSE_INTERSECTION_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   
+                specialsHandler.closeIntersection();     
+            }
+        });
+        
         guiButtons.get(OPEN_INTERSECTION_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   
-                specialsHandler.openRoad();     
+                specialsHandler.openIntersection();     
             }
         });
         

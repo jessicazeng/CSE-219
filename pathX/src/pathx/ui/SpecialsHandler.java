@@ -32,10 +32,13 @@ public class SpecialsHandler {
         data.setSpecial(MAKE_GREEN_LIGHT_BUTTON_TYPE);
     }
     
+    /**
+     * Decreases speed on a particular road.
+     */
     public void decSpeed(){
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
-        data.slowSpeed(true);
+        data.slowSpeed();
     }
     
     public void incSpeed(){

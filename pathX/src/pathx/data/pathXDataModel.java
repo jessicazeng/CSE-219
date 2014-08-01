@@ -134,8 +134,8 @@ public class pathXDataModel extends MiniGameDataModel {
             
             specialSelected = false;
             
-            if(((pathXGame)miniGame).isSoundDisabled() == false)
-                miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+            //if(((pathXGame)miniGame).isSoundDisabled() == false)
+            //    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
         } else if(special.equals(INVINCIBILITY_BUTTON_TYPE)){
             player.invinsible = true;
             player.timer = System.currentTimeMillis() + 10000;
@@ -143,9 +143,12 @@ public class pathXDataModel extends MiniGameDataModel {
             
             specialSelected = false;
             
-            if(((pathXGame)miniGame).isSoundDisabled() == false)
-                miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+            //if(((pathXGame)miniGame).isSoundDisabled() == false)
+            //    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
         }
+        
+        if(((pathXGame)miniGame).isSoundDisabled() == false)
+                miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
     public void slowSpeed(){
@@ -187,15 +190,11 @@ public class pathXDataModel extends MiniGameDataModel {
     }
     
     public void closeIntersection(){
-        money -= 25;
-        
         if(((pathXGame)miniGame).isSoundDisabled() == false)
             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
     public void openIntersection(){
-        money -= 25;
-        
         if(((pathXGame)miniGame).isSoundDisabled() == false)
             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
@@ -1030,7 +1029,50 @@ public class pathXDataModel extends MiniGameDataModel {
         } else if(special.equals(CLOSE_ROAD_BUTTON_TYPE)){
             specialSelected = false;
         } else if(special.equals(CLOSE_INTERSECTION_BUTTON_TYPE) || special.equals(OPEN_INTERSECTION_BUTTON_TYPE)){
-            specialSelected = false;
+            for(int i=0; i<intersections.size(); i++){
+                Intersection intersection2 = intersections.get(i);
+
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                // position of intersection
+                int node2x = intersection2.getX() - screenPositionX1 + 170;
+                int node2y = intersection2.getY() - screenPositionY1;
+
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(30, 30));
+
+                if (bounds.contains(point2)) { //check if pressed on this intersection
+                    if(special.equals(CLOSE_INTERSECTION_BUTTON_TYPE)){
+                        intersection2.setBlocked(true);
+                        
+                        // CLOSE ALL ROADS LEADING TO INTERSECTION
+                        
+                        //get roads
+                        ArrayList<Road> roads = record.getRoads(currentLevel);
+                        
+                        // loop through all roads & check if its starting/ending intersection
+                        // is the closed intersection
+                        for (int r = 0; r < roads.size(); r++){
+                            Road road = roads.get(r);
+                            
+                            //check starting node
+                            //if((road.getNode1()).equals(intersection2))
+                                road.setClosed(true);
+                            
+                            //if((road.getNode2()).equals(intersection2))
+                            //    road.setClosed(true);
+                        }
+                    } else
+                        intersection2.setBlocked(false);
+                    specialSelected = false;
+                    money -= 25;
+                    
+                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                        miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                }
+            }
         }
     }
     

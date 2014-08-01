@@ -86,7 +86,7 @@ public class SpecialsHandler {
         
         data.setSpecial(CLOSE_INTERSECTION_BUTTON_TYPE);
         
-        data.closeIntersection();
+        //data.closeIntersection();
     }
     
     public void openIntersection(){
@@ -97,7 +97,7 @@ public class SpecialsHandler {
         
         data.setSpecial(OPEN_INTERSECTION_BUTTON_TYPE);
         
-        data.openIntersection();
+        //data.openIntersection();
     }
     
     public void flatTire(){

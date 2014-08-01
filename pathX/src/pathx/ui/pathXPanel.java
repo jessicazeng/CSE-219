@@ -221,7 +221,12 @@ public class pathXPanel extends JPanel {
                 int node2y = intersection2.getY() - screenPositionY1 + 15;
                 
                 int speed = road.getSpeedLimit();
-                g2.setColor(Color.black);
+                
+                if(road.isClosed() == true)
+                    g2.setColor(Color.red);
+                else
+                    g2.setColor(Color.black);
+                
                 g2.setStroke(new BasicStroke(speed/5));
                 
                 g2.drawLine(node1x, node1y, node2x, node2y);

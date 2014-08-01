@@ -13,9 +13,10 @@ public class Intersection {
     public int x;
     public int y;
     
-    // IS IT OPEN OR NOT
+    // IS IT RED LIGHT OR GREEN LIGHT
     public boolean open;
     
+    // IS INTERSECTION CLOSED
     public boolean blocked;
     public long time;
     
@@ -45,6 +46,7 @@ public class Intersection {
     public int getX()       {   return x;       }
     public int getY()       {   return y;       }
     public boolean isOpen() {   return open;    }
+    public boolean isBlocked()  {   return blocked;     }
     
     public ArrayList<Intersection> getAdjacentIntersections(){
         return adjacentIntersections;
@@ -58,6 +60,9 @@ public class Intersection {
     public void setOpen(boolean open)
     {   
         this.open = open;   
+    }
+    public void setBlocked(boolean block){
+        this.blocked = block;
     }
     
     public void addAdjacentIntersection(Intersection intersection){

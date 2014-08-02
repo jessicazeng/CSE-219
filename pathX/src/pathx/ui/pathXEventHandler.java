@@ -91,7 +91,7 @@ public class pathXEventHandler {
             
             if(data.isFrozen())
                 data.freeze();
-            data.slowSpeed(false);
+            //data.slowSpeed(false);
 
             // GO TO THE GAME
             game.switchToLevelScreen();
@@ -199,12 +199,16 @@ public class pathXEventHandler {
         
         // dec speed
         if (keyCode == KeyEvent.VK_Z){
-            data.slowSpeed(true);
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(DEC_SPEED_BUTTON_TYPE);
         }
         
         // inc speed
         if (keyCode == KeyEvent.VK_X){
-            data.increaseSpeed(true);
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(INC_SPEED_BUTTON_TYPE);
         }
         
         // inc player speed

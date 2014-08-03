@@ -41,7 +41,7 @@ public class SpecialsHandler {
         data.setSpecialSelected(true);
         data.setSpecial(DEC_SPEED_BUTTON_TYPE);
         
-        data.slowSpeed();
+        //data.slowSpeed();
     }
     
     public void incSpeed(){
@@ -50,7 +50,7 @@ public class SpecialsHandler {
         data.setSpecialSelected(true);
         data.setSpecial(INC_SPEED_BUTTON_TYPE);
         
-        data.increaseSpeed();
+        //data.increaseSpeed();
     }
     
     public void incPlayerSpeed(){

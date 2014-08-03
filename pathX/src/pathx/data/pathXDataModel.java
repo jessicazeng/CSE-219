@@ -50,8 +50,8 @@ public class pathXDataModel extends MiniGameDataModel {
     private String special;
     
     private boolean frozen;
-    private boolean slowed;
-    private boolean speedup;
+    //private boolean slowed;
+    //private boolean speedup;
     
     private boolean decroadspeed;
     private int playerSpeed;
@@ -151,32 +151,10 @@ public class pathXDataModel extends MiniGameDataModel {
                 miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
-    public void slowSpeed(){
-        //specialSelected = true;
-        
-        money -= 15;
-        
-        if(((pathXGame)miniGame).isSoundDisabled() == false)
-            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
-    }
-    
     public void incPlayerSpeed(){
         playerSpeed += 1;
         money -= 20;
         specialSelected = false;
-        
-        if(((pathXGame)miniGame).isSoundDisabled() == false)
-            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
-    }
-    
-    public void increaseSpeed(){
-        //speedup = value;
-        //specialSelected = true;
-        
-        money -= 15;
-        
-        //if(slowed == true)
-        //    slowed = false;
         
         if(((pathXGame)miniGame).isSoundDisabled() == false)
             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
@@ -299,10 +277,10 @@ public class pathXDataModel extends MiniGameDataModel {
                     Road road = findRoad(intersection1, intersection2);
                     int speedLimit = (road.getSpeedLimit())/10;
 
-                    if(slowed == true)
-                        speedLimit = speedLimit / 2;
-                    if(speedup == true)
-                        speedLimit = speedLimit * 2;
+                    //if(slowed == true)
+                    //    speedLimit = speedLimit / 2;
+                    //if(speedup == true)
+                    //    speedLimit = speedLimit * 2;
 
                     // SEND THEM TO THEIR DESTINATION
                     banditSprite.startMovingToTarget(speedLimit);
@@ -375,10 +353,10 @@ public class pathXDataModel extends MiniGameDataModel {
                     Road road = findRoad(intersection1, intersection2);
                     int speedLimit = (road.getSpeedLimit())/10;
 
-                    if(slowed == true)
-                        speedLimit = speedLimit / 2;
-                    if(speedup == true)
-                        speedLimit = speedLimit * 2;
+                    //if(slowed == true)
+                    //    speedLimit = speedLimit / 2;
+                    //if(speedup == true)
+                    //    speedLimit = speedLimit * 2;
 
                     // SEND THEM TO THEIR DESTINATION
                     policeSprite.startMovingToTarget(speedLimit);
@@ -452,10 +430,10 @@ public class pathXDataModel extends MiniGameDataModel {
                     Road road = findRoad(intersection1, intersection2);
                     int speedLimit = (road.getSpeedLimit())/10;
 
-                    if(slowed == true)
-                        speedLimit = speedLimit / 2;
-                    if(speedup == true)
-                        speedLimit = speedLimit * 2;
+                    //if(slowed == true)
+                    //    speedLimit = speedLimit / 2;
+                    //if(speedup == true)
+                    //    speedLimit = speedLimit * 2;
 
                     // SEND THEM TO THEIR DESTINATION
                     zombieSprite.startMovingToTarget(speedLimit);
@@ -611,10 +589,10 @@ public class pathXDataModel extends MiniGameDataModel {
                 int initSpeed = road.getSpeedLimit();
                 int speedLimit = (int) (initSpeed - (zombieCollisions * (0.1*initSpeed)))/10;
 
-                if(slowed == true)
-                        speedLimit = speedLimit / 2;
-                if(speedup == true)
-                        speedLimit = speedLimit * 2;
+                //if(slowed == true)
+                //        speedLimit = speedLimit / 2;
+                //if(speedup == true)
+                //        speedLimit = speedLimit * 2;
                 if(playerSpeed > 0){
                     float inc = (int) (playerSpeed * 0.2);
                     float percentInc = 1 + inc;
@@ -1057,6 +1035,8 @@ public class pathXDataModel extends MiniGameDataModel {
                         miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
                 }
             }
+        } else if(special.equals(DEC_SPEED_BUTTON_TYPE) || special.equals(INC_SPEED_BUTTON_TYPE)){
+            //increases/decreases speed on specified road
         }
     }
     

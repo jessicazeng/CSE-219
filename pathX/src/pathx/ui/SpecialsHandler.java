@@ -56,7 +56,9 @@ public class SpecialsHandler {
     public void incPlayerSpeed(){
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
-        data.incPlayerSpeed();
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(INC_PLAYER_SPEED_BUTTON_TYPE);
     }
     
     public void freeze(){
@@ -138,6 +140,8 @@ public class SpecialsHandler {
         // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
         pathXDataModel data = (pathXDataModel)game.getDataModel();
         
+        data.setSpecialSelected(true);
+        
         data.setSpecial(INVINCIBILITY_BUTTON_TYPE);
     }
     
@@ -157,5 +161,14 @@ public class SpecialsHandler {
         data.setSpecialSelected(true);
         
         data.setSpecial(MIND_CONTROL_BUTTON_TYPE);
+    }
+    
+    public void mindlessTerror(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        pathXDataModel data = (pathXDataModel)game.getDataModel();
+        
+        data.setSpecialSelected(true);
+        
+        data.setSpecial(MINDLESS_TERROR_BUTTON_TYPE);
     }
 }

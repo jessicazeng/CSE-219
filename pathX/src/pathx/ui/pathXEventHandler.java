@@ -213,7 +213,9 @@ public class pathXEventHandler {
         
         // inc player speed
         if (keyCode == KeyEvent.VK_P){
-            data.incPlayerSpeed();
+            data.setSpecialSelected(true);
+        
+            data.setSpecial(INC_PLAYER_SPEED_BUTTON_TYPE);
         }
         
         // flat tire

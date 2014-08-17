@@ -53,7 +53,7 @@ public class pathXDataModel extends MiniGameDataModel {
     //private boolean slowed;
     //private boolean speedup;
     
-    private boolean decroadspeed;
+    //private boolean decroadspeed;
     private int playerSpeed;
     private boolean steal;
     private boolean selectedSprite;
@@ -145,19 +145,17 @@ public class pathXDataModel extends MiniGameDataModel {
             
             //if(((pathXGame)miniGame).isSoundDisabled() == false)
             //    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+        } else if(special.equals(INC_PLAYER_SPEED_BUTTON_TYPE)){
+            playerSpeed += 1;
+            money -= 20;
+            specialSelected = false;
+
+            if(((pathXGame)miniGame).isSoundDisabled() == false)
+                miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
         }
         
         if(((pathXGame)miniGame).isSoundDisabled() == false)
                 miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
-    }
-    
-    public void incPlayerSpeed(){
-        playerSpeed += 1;
-        money -= 20;
-        specialSelected = false;
-        
-        if(((pathXGame)miniGame).isSoundDisabled() == false)
-            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
     }
     
     public void closeRoad(){
@@ -589,10 +587,8 @@ public class pathXDataModel extends MiniGameDataModel {
                 int initSpeed = road.getSpeedLimit();
                 int speedLimit = (int) (initSpeed - (zombieCollisions * (0.1*initSpeed)))/10;
 
-                //if(slowed == true)
-                //        speedLimit = speedLimit / 2;
-                //if(speedup == true)
-                //        speedLimit = speedLimit * 2;
+                // if inc player speed special was applied, increase player speed
+                // by 20% for each time player applied special
                 if(playerSpeed > 0){
                     float inc = (int) (playerSpeed * 0.2);
                     float percentInc = 1 + inc;
@@ -917,7 +913,7 @@ public class pathXDataModel extends MiniGameDataModel {
                 Point point = new Point(node2x, node2y);
                 Point point2 = new Point(x, y);
                 Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
-                if(bounds.contains(point2)){
+                if(bounds.contains(point2)){ //if player chooses to control police
                     if(((pathXGame)miniGame).isSoundDisabled() == false)
                             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
                     
@@ -1035,8 +1031,8 @@ public class pathXDataModel extends MiniGameDataModel {
                         miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
                 }
             }
-        } else if(special.equals(DEC_SPEED_BUTTON_TYPE) || special.equals(INC_SPEED_BUTTON_TYPE)){
-            //increases/decreases speed on specified road
+        } else if(special.equals(MINDLESS_TERROR_BUTTON_TYPE)){
+            
         }
     }
     

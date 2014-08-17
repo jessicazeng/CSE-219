@@ -56,7 +56,13 @@ public class pathXDataModel extends MiniGameDataModel {
     //private boolean decroadspeed;
     private int playerSpeed;
     private boolean steal;
-    private boolean selectedSprite;
+    
+    // This is used for specials that require you to select a node
+    // or vehicle to apply it to
+    private boolean policeSelected;
+    private boolean banditSelected;
+    private boolean zombieSelected;
+    private int selectedSprite;
     
     public pathXDataModel(MiniGame initMiniGame)
     {
@@ -335,16 +341,16 @@ public class pathXDataModel extends MiniGameDataModel {
                     // GET THE TILE TWO LOCATION
                     int x1 = policeSprite.getStartX();
                     int y1 = policeSprite.getStartY();
-                    int tile2x = intersection2.getX() + 50;
-                    int tile2y = intersection2.getY() - 30;
+                    int node2x = intersection2.getX() + 50;
+                    int node2y = intersection2.getY() - 30;
 
-                    int differenceX = tile2x - x1 - 60;
-                    int differenceY = tile2y - y1 + 20;
+                    int differenceX = node2x - x1 - 60;
+                    int differenceY = node2y - y1 + 20;
 
                     int newX = x1+differenceX;
                     int newY = y1+differenceY;
 
-                    // THEN MOVE PLAYER
+                    // THEN MOVE POLICE CAR
                     policeSprite.setTarget(newX, newY);
 
                     // FIND SPEED LIMIT OF ROAD
@@ -706,11 +712,101 @@ public class pathXDataModel extends MiniGameDataModel {
                             bounds = new Rectangle(point, new Dimension(30, 30));
 
                         if (bounds.contains(point2)) {
-                            selectedNode = intersection2;
-                            selectedNodeIndex = i;
-                            
-                            if(i != player.getCurrentNode())
-                                movePlayer(i);
+                            if(policeSelected == true){
+                                if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                                
+                                policeSelected = false;
+                                
+                                Police policeSprite = police.get(selectedSprite);
+                                int x1 = policeSprite.getStartX();
+                                int y1 = policeSprite.getStartY();
+                                node2x = intersection2.getX() + 50;
+                                node2y = intersection2.getY() - 30;
+
+                                int differenceX = node2x - x1 - 60;
+                                int differenceY = node2y - y1 + 20;
+
+                                int newX = x1+differenceX;
+                                int newY = y1+differenceY;
+
+                                // THEN MOVE POLICE CAR
+                                policeSprite.setTarget(newX, newY);
+
+                                // SEND THEM TO THEIR DESTINATION
+                                policeSprite.startMovingToTarget(2);
+                                policeSprite.setNode(i);
+                                
+                                policeSprite.stopped = true;
+                                policeSprite.timer = System.currentTimeMillis() + 20000;
+                                
+                                money -= 30;
+                            } else if(zombieSelected == true){
+                                zombieSelected = false;
+                                
+                                if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                                
+                                Zombie zombieSprite = zombies.get(selectedSprite);
+                                int x1 = zombieSprite.getStartX();
+                                int y1 = zombieSprite.getStartY();
+                                node2x = intersection2.getX() + 50;
+                                node2y = intersection2.getY() - 30;
+
+                                int differenceX = node2x - x1 - 60;
+                                int differenceY = node2y - y1 + 20;
+
+                                int newX = x1+differenceX;
+                                int newY = y1+differenceY;
+
+                                // THEN MOVE POLICE CAR
+                                zombieSprite.setTarget(newX, newY);
+
+                                // SEND THEM TO THEIR DESTINATION
+                                zombieSprite.startMovingToTarget(2);
+                                zombieSprite.setNode(i);
+                                
+                                zombieSprite.stopped = true;
+                                zombieSprite.timer = System.currentTimeMillis() + 20000;
+                                
+                                money -= 30;
+                            } else if(banditSelected == true){
+                                banditSelected = false;
+                                
+                                // play sound when player selects node to move bandit to
+                                if(((pathXGame)miniGame).isSoundDisabled() == false)
+                                    miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                                
+                                Bandit banditSprite = bandits.get(selectedSprite);
+                                int x1 = banditSprite.getStartX();
+                                int y1 = banditSprite.getStartY();
+                                node2x = intersection2.getX() + 50;
+                                node2y = intersection2.getY() - 30;
+
+                                int differenceX = node2x - x1 - 60;
+                                int differenceY = node2y - y1 + 20;
+
+                                int newX = x1+differenceX;
+                                int newY = y1+differenceY;
+
+                                // THEN MOVE POLICE CAR
+                                banditSprite.setTarget(newX, newY);
+
+                                // SEND THEM TO THEIR DESTINATION
+                                banditSprite.startMovingToTarget(2);
+                                banditSprite.setNode(i);
+                                
+                                banditSprite.stopped = true;
+                                banditSprite.timer = System.currentTimeMillis() + 20000;
+                                
+                                money -= 30;
+                            } else{
+                                selectedNode = intersection2;
+                                selectedNodeIndex = i;
+
+                                if(i != player.getCurrentNode())
+                                    movePlayer(i);
+                            }
                         }
                     }
                 }
@@ -918,6 +1014,9 @@ public class pathXDataModel extends MiniGameDataModel {
                             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
                     
                     specialSelected = false;
+                    
+                    policeSelected = true;
+                    selectedSprite = i;
                 }
             }
             
@@ -937,7 +1036,10 @@ public class pathXDataModel extends MiniGameDataModel {
                    if(((pathXGame)miniGame).isSoundDisabled() == false)
                             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
                     
-                    specialSelected = false;
+                   specialSelected = false;
+                   
+                   banditSelected = true;
+                   selectedSprite = i;
                 }
             }
             
@@ -960,9 +1062,10 @@ public class pathXDataModel extends MiniGameDataModel {
                     zombieSprite.timer = System.currentTimeMillis() + 10000;
                     money -= 20;
                     
-                    
-                    
                     specialSelected = false;
+                    
+                    zombieSelected = true;
+                    selectedSprite = i;
                 }
             }
         } else if(special.equals(DEC_SPEED_BUTTON_TYPE) || special.equals(INC_SPEED_BUTTON_TYPE)){
@@ -1101,6 +1204,10 @@ public class pathXDataModel extends MiniGameDataModel {
         
         playerSpeed = 0;
         specialSelected = false;
+        
+        policeSelected = false;
+        banditSelected = false;
+        zombieSelected = false;
         
         ArrayList<Road> roads = record.getRoads(currentLevel);
         for (int r = 0; r < roads.size(); r++){

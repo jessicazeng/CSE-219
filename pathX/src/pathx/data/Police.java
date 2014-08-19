@@ -32,6 +32,7 @@ public class Police extends Sprite{
     public boolean stopped;
     public boolean noGas;
     public boolean destroyed;
+    public boolean mindlessTerror;
     
     public boolean steal;
     

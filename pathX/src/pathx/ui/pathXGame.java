@@ -937,6 +937,11 @@ public class pathXGame  extends MiniGame{
             public void actionPerformed(ActionEvent ae)
             {   specialsHandler.mindControl();     }
         });
+        
+        guiButtons.get(MINDLESS_TERROR_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   specialsHandler.mindlessTerror();     }
+        });
     }
     
     public void setClickedMusicButton(String buttontype){

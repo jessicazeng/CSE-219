@@ -38,6 +38,7 @@ public class Bandit extends Sprite{
     public boolean stopped;
     public boolean noGas;
     public boolean destroyed;
+    public boolean mindlessTerror;
     
     public long timer;
     

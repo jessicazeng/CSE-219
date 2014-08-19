@@ -250,7 +250,7 @@ public class pathXDataModel extends MiniGameDataModel {
             int currentNode = banditSprite.getNode();
             Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
 
-            if(intersection1.isOpen()){
+            //if(intersection1.isOpen()){
                 Random rand = new Random();
                 int node = rand.nextInt(record.getIntersections(currentLevel).size());
                 Intersection intersection2 = record.getIntersections(currentLevel).get(node);
@@ -274,23 +274,33 @@ public class pathXDataModel extends MiniGameDataModel {
                     int newX = x1+differenceX;
                     int newY = y1+differenceY;
 
-                    // THEN MOVE PLAYER
-                    banditSprite.setTarget(newX, newY);
+                    if(intersection1.isOpen()){
+                        // THEN MOVE PLAYER
+                        banditSprite.setTarget(newX, newY);
 
-                    // FIND SPEED LIMIT OF ROAD
-                    Road road = findRoad(intersection1, intersection2);
-                    int speedLimit = (road.getSpeedLimit())/10;
+                        // FIND SPEED LIMIT OF ROAD
+                        Road road = findRoad(intersection1, intersection2);
+                        int speedLimit = (road.getSpeedLimit())/10;
 
-                    //if(slowed == true)
-                    //    speedLimit = speedLimit / 2;
-                    //if(speedup == true)
-                    //    speedLimit = speedLimit * 2;
+                        // SEND THEM TO THEIR DESTINATION
+                        banditSprite.startMovingToTarget(speedLimit);
+                        banditSprite.setNode(node);
+                    } else{
+                        if(banditSprite.mindlessTerror == true){
+                            // THEN MOVE PLAYER
+                            banditSprite.setTarget(newX, newY);
 
-                    // SEND THEM TO THEIR DESTINATION
-                    banditSprite.startMovingToTarget(speedLimit);
-                    banditSprite.setNode(node);
+                            // FIND SPEED LIMIT OF ROAD
+                            Road road = findRoad(intersection1, intersection2);
+                            int speedLimit = (road.getSpeedLimit())/5;
+
+                            // SEND THEM TO THEIR DESTINATION
+                            banditSprite.startMovingToTarget(speedLimit);
+                            banditSprite.setNode(node);
+                        }
+                    }
                 } 
-            }
+            //} 
         }
     } 
     
@@ -326,7 +336,7 @@ public class pathXDataModel extends MiniGameDataModel {
             int currentNode = policeSprite.getNode();    
             Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
 
-            if(intersection1.isOpen()){
+           //if(intersection1.isOpen()){
                 Random rand = new Random();
                 int node = rand.nextInt(record.getIntersections(currentLevel).size());
                 Intersection intersection2 = record.getIntersections(currentLevel).get(node);
@@ -350,23 +360,25 @@ public class pathXDataModel extends MiniGameDataModel {
                     int newX = x1+differenceX;
                     int newY = y1+differenceY;
 
-                    // THEN MOVE POLICE CAR
-                    policeSprite.setTarget(newX, newY);
+                    if(intersection1.isOpen()){
+                        // THEN MOVE POLICE CAR
+                        policeSprite.setTarget(newX, newY);
 
-                    // FIND SPEED LIMIT OF ROAD
-                    Road road = findRoad(intersection1, intersection2);
-                    int speedLimit = (road.getSpeedLimit())/10;
+                        // FIND SPEED LIMIT OF ROAD
+                        Road road = findRoad(intersection1, intersection2);
+                        int speedLimit = (road.getSpeedLimit())/10;
 
-                    //if(slowed == true)
-                    //    speedLimit = speedLimit / 2;
-                    //if(speedup == true)
-                    //    speedLimit = speedLimit * 2;
+                        //if(slowed == true)
+                        //    speedLimit = speedLimit / 2;
+                        //if(speedup == true)
+                        //    speedLimit = speedLimit * 2;
 
-                    // SEND THEM TO THEIR DESTINATION
-                    policeSprite.startMovingToTarget(speedLimit);
-                    policeSprite.setNode(node);
-                } 
-            }
+                        // SEND THEM TO THEIR DESTINATION
+                        policeSprite.startMovingToTarget(speedLimit);
+                        policeSprite.setNode(node);
+                    } 
+                }
+            //}
         }
     } 
     
@@ -1058,9 +1070,6 @@ public class pathXDataModel extends MiniGameDataModel {
                 if(bounds.contains(point2)){
                     if(((pathXGame)miniGame).isSoundDisabled() == false)
                             miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
-                    zombieSprite.stopped = true;
-                    zombieSprite.timer = System.currentTimeMillis() + 10000;
-                    money -= 20;
                     
                     specialSelected = false;
                     
@@ -1135,8 +1144,74 @@ public class pathXDataModel extends MiniGameDataModel {
                 }
             }
         } else if(special.equals(MINDLESS_TERROR_BUTTON_TYPE)){
+            for(int i=0; i<police.size(); i++){
+                Police policeSprite = police.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                int node2x = (int) (policeSprite.getX() - screenPositionX1 + 170);
+                int node2y = (int) (policeSprite.getY() - screenPositionY1);
+                
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
+                if(bounds.contains(point2)){ //if player chooses to control police
+                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    
+                    specialSelected = false;
+                    
+                    policeSprite.mindlessTerror = true;
+                }
+            }
             
-        }
+            for(int i=0; i<bandits.size(); i++){
+                Bandit banditSprite = bandits.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                int node2x = (int) (banditSprite.getX() - screenPositionX1 + 170);
+                int node2y = (int) (banditSprite.getY() - screenPositionY1);
+                
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
+                if(bounds.contains(point2)){
+                   if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    
+                   specialSelected = false;
+                   
+                   banditSprite.mindlessTerror = true;
+                }
+            }
+            
+            for(int i=0; i<zombies.size(); i++){
+                Zombie zombieSprite = zombies.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                int node2x = (int) (zombieSprite.getX() - screenPositionX1 + 170);
+                int node2y = (int) (zombieSprite.getY() - screenPositionY1);
+                
+                Point point = new Point(node2x, node2y);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(50, 25));
+                if(bounds.contains(point2)){
+                    if(((pathXGame)miniGame).isSoundDisabled() == false)
+                            miniGame.getAudio().play(pathXPropertyType.AUDIO_SPECIALS.toString(), false);
+                    
+                    money -= 30;
+                    
+                    specialSelected = false;
+                    
+                    zombieSprite.mindlessTerror = true;
+                }
+            }
+        } 
     }
     
     /**

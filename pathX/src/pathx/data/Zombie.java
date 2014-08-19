@@ -27,6 +27,7 @@ public class Zombie extends Sprite{
     public boolean noGas;
     public boolean destroyed;
     public boolean controlled;
+    public boolean mindlessTerror;
     
     public long timer;
     

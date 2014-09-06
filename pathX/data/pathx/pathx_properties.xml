@@ -49,8 +49,11 @@
         <property name="IMAGE_DIALOG_LEVEL"                     value="./pathx/DialogLevel.png"></property>
         <property name="IMAGE_GETAWAY_CAR"                      value="./pathx/getawaycar.png"></property>
         <property name="IMAGE_BANDIT"                           value="./pathx/bandit.png"></property>
+        <property name="IMAGE_BANDIT_DEAD"                      value="./pathx/banditDead.png"></property>
         <property name="IMAGE_POLICE"                           value="./pathx/police.png"></property>
+        <property name="IMAGE_POLICE_DESTROYED"                 value="./pathx/policeDestroyed.png"></property>
         <property name="IMAGE_ZOMBIE"                           value="./pathx/zombie.png"></property>
+        <property name="IMAGE_ZOMBIE_DEAD"                      value="./pathx/zombieDead.png"></property>
         <property name="IMAGE_BUTTON_PAUSE"                     value="./pathx/ButtonPause.png"></property>
         <property name="IMAGE_BUTTON_PAUSE_MOUSE_OVER"          value="./pathx/ButtonPauseMouseOver.png"></property>
         <property name="IMAGE_BUTTON_GREEN_LIGHT"               value="./pathx/ButtonMakeGreenLight.png"></property>
@@ -94,6 +97,7 @@
         <property name="AUDIO_ZOMBIE"                           value="./pathx/zombie.wav"></property>
         <property name="AUDIO_SPECIALS"                         value="./pathx/specials.wav"></property>
         <property name="AUDIO_WIN"                              value="./pathx/cheering.wav"></property>
+        <property name="AUDIO_CRASH"                            value="./pathx/crash.wav"></property>
         
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>

@@ -17,8 +17,6 @@ public class Record {
     // total amount of money earned for all levels won
     private int balance;
     
-    private Specials unlockedSpecials;
-    
     public Record(){
         levelRecords = new HashMap();
         
@@ -49,7 +47,6 @@ public class Record {
             levelRecords.put(levelFile, level);
         }
         
-        unlockedSpecials = new Specials();
         balance = 0;
     }
     

@@ -1,0 +1,3 @@
+sorting_hat.data.BubbleSortAlgorithm
+sorting_hat.data.SortingHatAlgorithmFactory
+sorting_hat.data.SelectionSortAlgorithm

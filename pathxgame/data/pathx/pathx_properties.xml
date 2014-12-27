@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<properties>
+    <property_list>
+        <!-- ALL THE IMAGES TO BE USED IN THE GAME -->
+        <property name="IMAGE_MENU_BACKGROUND"                  value="./MenuBackground.png"></property>
+        <property name="IMAGE_LEVELSELECTION_BACKGROUND"        value="./LevelSelectionBackground.png"></property>
+        <property name="IMAGE_MAP"                              value="./Map.png"></property>
+        <property name="IMAGE_LEVELSELECTION_PANE"              value="./LevelSelectionPane.png"></property>
+        <property name="IMAGE_GAMESCREEN_BACKGROUND"            value="./GameScreenBackground.png"></property>
+        <property name="IMAGE_GAMESCREEN_PANE"                  value="./GameScreenPane.png"></property>
+        <property name="IMAGE_BUTTON_PLAY"                      value="./Button_Play.png"></property>
+        <property name="IMAGE_BUTTON_PLAY_MOUSE_OVER"           value="./Button_Play_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RESET"                     value="./Button_Reset.png"></property>
+        <property name="IMAGE_BUTTON_RESET_MOUSE_OVER"          value="./Button_Reset_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS"                  value="./Button_Settings.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./Button_Settings_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_HELP"                      value="./Button_Help.png"></property>
+        <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"           value="./Button_Help_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_HOME"                      value="./Button_Home.png"></property>
+        <property name="IMAGE_BUTTON_HOME_MOUSE_OVER"           value="./Button_Home_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_BACK"                      value="./Button_Back.png"></property>
+        <property name="IMAGE_BUTTON_BACK_MOUSE_OVER"           value="./Button_Back_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_LEAVETOWN"                 value="./Leavetown.png"></property>
+        <property name="IMAGE_BUTTON_LEAVETOWN_MOUSE_OVER"      value="./Leavetown_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_TRYAGAIN"                  value="./Tryagain.png"></property>
+        <property name="IMAGE_BUTTON_TRYAGAIN_MOUSE_OVER"       value="./Tryagain_MouseOver.png"></property>
+        <property name="IMAGE_POLICE"                           value="./police.png"></property>
+        <property name="IMAGE_PLAYER"                           value="./player.png"></property>
+        <property name="DIALOG_LEVEL"                           value="./Level_Dialog.png"></property>
+        
+        <!-- AUDIO FILES -->
+        
+        
+        <!-- ALL THE TEXT TO BE DISPLAYED -->
+        <property name="TEXT_TITLE_BAR_GAME"                    value="pathX"></property>
+    </property_list>
+    
+    <!-- PLAYABLE LEVELS CREATED WITH THE LEVEL EDITOR -->
+    <property_options_list>
+        <property_options name="LEVEL_OPTIONS">
+            <option>Los Angeles, CA</option>
+        </property_options>
+        <property_options name="X_LOCATION">
+            <option>260</option>
+        </property_options>
+        <property_options name="Y_LOCATION">
+            <option>720</option>
+        </property_options>
+        <property_options name="LEVEL_FILES">
+            <option>lemonade stands in Los Angeles</option>
+        </property_options>
+    </property_options_list>
+</properties>

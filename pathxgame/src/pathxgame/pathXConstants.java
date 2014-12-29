@@ -41,7 +41,13 @@ public class pathXConstants {
     public static final String LEVEL_DIALOG_TYPE = "LEVEL_DIALOG_BUTTON_TYPE";
     public static final String TRY_AGAIN_BUTTON_TYPE = "TRY_AGAIN_BUTTON_TYPE";
     public static final String LEAVE_TOWN_BUTTON_TYPE = "LEAVE_TOWN_BUTTON_TYPE";
-    
+    // Specials buttons
+    public static final String GREENLIGHT_BUTTON_TYPE = "GREENLIGHT_BUTTON_TYPE";
+    public static final String REDLIGHT_BUTTON_TYPE = "REDLIGHT_BUTTON_TYPE";
+    public static final String FREEZE_BUTTON_TYPE = "FREEZE_BUTTON_TYPE";
+    public static final String DECSPEED_BUTTON_TYPE = "DECSPEED_BUTTON_TYPE";
+    public static final String INCSPEED_BUTTON_TYPE = "INCSPEED_BUTTON_TYPE";
+    public static final String INCPLAYERSPEED_BUTTON_TYPE = "INCPLAYERSPEED_BUTTON_TYPE";
     
     // variables
     public static final int WINDOW_WIDTH = 640;
@@ -76,8 +82,26 @@ public class pathXConstants {
     public static final int TRYAGAIN_Y = 210;
     public static final int LEAVETOWN_X = 275;
     public static final int LEAVETOWN_Y = 240;
-    public static final int DIALOG_TEXT_X = 270;
+    public static final int DIALOG_TEXT_X = 230;
     public static final int DIALOG_TEXT_Y = 160;
+    public static final int TOTAL_MONEY_X = 200;
+    public static final int TOTAL_MONEY_Y = 45;
+    public static final int CITY_X = 470;
+    public static final int CITY_Y = 440;
+    
+    // SPECIALS POSITIONS
+    public static final int GREENLIGHT_X = 9;
+    public static final int GREENLIGHT_Y = 180;
+    public static final int REDLIGHT_X = 45;
+    public static final int REDLIGHT_Y = 180;
+    public static final int FREEZE_X = 9;
+    public static final int FREEZE_Y = 216;
+    public static final int DECSPEED_X = 45;
+    public static final int DECSPEED_Y = 216;
+    public static final int INCSPEED_X = 9;
+    public static final int INCSPEED_Y = 252;
+    public static final int INCPLAYERSPEED_X = 45;
+    public static final int INCPLAYERSPEED_Y = 252;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";
@@ -87,8 +111,9 @@ public class pathXConstants {
     public static final String HELP_SCREEN_STATE = "HELP_SCREEN_STATE";  
     
     // FONTS USED DURING FOR TEXTUAL GAME DISPLAYS
-    public static final Font FONT_TEXT_DISPLAY = new Font(Font.SANS_SERIF, Font.BOLD, 48);
+    public static final Font FONT_TEXT_DISPLAY = new Font(Font.SANS_SERIF, Font.BOLD, 28);
     public static final Font FONT_DEBUG_TEXT = new Font(Font.MONOSPACED, Font.BOLD, 14);
+    public static final Font FONT_GAME_STATS = new Font(Font.SANS_SERIF, Font.BOLD, 18);
     
     // COLORS USED FOR RENDERING VARIOUS THINGS, INCLUDING THE
     // COLOR KEY, WHICH REFERS TO THE COLOR TO IGNORE WHEN

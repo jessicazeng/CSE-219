@@ -237,4 +237,10 @@ public class Record {
             nextLev.locked = false;
         }
     }
+    
+    public void setNextLevel(String levelName, String nextLevelName){
+        Level level = levelRecords.get(levelName);
+        
+        level.nextLevel = nextLevelName;
+    }
 }

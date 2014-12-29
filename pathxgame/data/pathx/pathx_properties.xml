@@ -25,8 +25,21 @@
         <property name="IMAGE_BUTTON_LEAVETOWN_MOUSE_OVER"      value="./Leavetown_MouseOver.png"></property>
         <property name="IMAGE_BUTTON_TRYAGAIN"                  value="./Tryagain.png"></property>
         <property name="IMAGE_BUTTON_TRYAGAIN_MOUSE_OVER"       value="./Tryagain_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_GREENLIGHT"                value="./Button_GreenLight.png"></property>
+        <property name="IMAGE_BUTTON_GREENLIGHT_MOUSE_OVER"     value="./Button_GreenLight_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_REDLIGHT"                  value="./Button_RedLight.png"></property>
+        <property name="IMAGE_BUTTON_REDLIGHT_MOUSE_OVER"       value="./Button_RedLight_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FREEZE"                    value="./Button_Freeze.png"></property>
+        <property name="IMAGE_BUTTON_FREEZE_MOUSE_OVER"         value="./Button_Freeze_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INCSPEED"                  value="./Button_IncSpeed.png"></property>
+        <property name="IMAGE_BUTTON_INCSPEED_MOUSE_OVER"       value="./Button_IncSpeed_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_DECSPEED"                  value="./Button_DecSpeed.png"></property>
+        <property name="IMAGE_BUTTON_DECSPEED_MOUSE_OVER"       value="./Button_DecSpeed_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INCPLAYERSPEED"            value="./Button_IncPlayerSpeed.png"></property>
+        <property name="IMAGE_BUTTON_INCPLAYERSPEED_MOUSE_OVER" value="./Button_IncPlayerSpeed_MouseOver.png"></property>
         <property name="IMAGE_POLICE"                           value="./police.png"></property>
         <property name="IMAGE_PLAYER"                           value="./player.png"></property>
+        <property name="IMAGE_BANDIT"                           value="./bandit.png"></property>
         <property name="DIALOG_LEVEL"                           value="./Level_Dialog.png"></property>
         
         <!-- AUDIO FILES -->
@@ -40,15 +53,23 @@
     <property_options_list>
         <property_options name="LEVEL_OPTIONS">
             <option>Los Angeles, CA</option>
+            <option>Hollywood, CA</option>
+            <option>Las Vegas, NV</option>
         </property_options>
         <property_options name="X_LOCATION">
+            <option>210</option>
             <option>260</option>
+            <option>320</option>
         </property_options>
         <property_options name="Y_LOCATION">
-            <option>720</option>
+            <option>700</option>
+            <option>705</option>
+            <option>630</option>
         </property_options>
         <property_options name="LEVEL_FILES">
             <option>lemonade stands in Los Angeles</option>
+            <option>celebrities in Hollywood</option>
+            <option>casinos in Las Vegas</option>
         </property_options>
     </property_options_list>
 </properties>

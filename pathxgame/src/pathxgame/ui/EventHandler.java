@@ -78,6 +78,17 @@ public class EventHandler {
         }      
     }
     
+    public void respondToTryAgainRequest(){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        DataModel data = (DataModel)game.getDataModel();
+            
+        // UPDATE THE DATA
+        data.reset(game);
+            
+        // GO TO THE GAME
+        game.switchToGameScreen();
+    }
+    
     /**
      * Called when the user presses a key on the keyboard.
      */    

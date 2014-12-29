@@ -190,6 +190,73 @@ public class Game extends MiniGame{
         s = new Sprite(sT, TRYAGAIN_X, TRYAGAIN_Y, 0, 0, States.INVISIBLE_STATE.toString());
         guiButtons.put(TRY_AGAIN_BUTTON_TYPE, s);
         
+        // ------------------------SPECIALS BUTTONS------------------------------
+        // Green light
+        String greenlightButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_GREENLIGHT);
+        sT = new SpriteType(GREENLIGHT_BUTTON_TYPE);
+        img = loadImage(imgPath + greenlightButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String greenlightMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_GREENLIGHT_MOUSE_OVER);
+        img = loadImage(imgPath + greenlightMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, GREENLIGHT_X, GREENLIGHT_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(GREENLIGHT_BUTTON_TYPE, s);
+        
+        // Red light
+        String redlightButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_REDLIGHT);
+        sT = new SpriteType(REDLIGHT_BUTTON_TYPE);
+        img = loadImage(imgPath + redlightButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String redlightMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_REDLIGHT_MOUSE_OVER);
+        img = loadImage(imgPath + redlightMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, REDLIGHT_X, REDLIGHT_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(REDLIGHT_BUTTON_TYPE, s);
+        
+        // Freeze 
+        String freezeButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FREEZE);
+        sT = new SpriteType(FREEZE_BUTTON_TYPE);
+        img = loadImage(imgPath + freezeButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String freezeMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FREEZE_MOUSE_OVER);
+        img = loadImage(imgPath + freezeMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, FREEZE_X, FREEZE_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(FREEZE_BUTTON_TYPE, s);
+        
+        // Dec Speed 
+        String decspeedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_DECSPEED);
+        sT = new SpriteType(DECSPEED_BUTTON_TYPE);
+        img = loadImage(imgPath + decspeedButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String decspeedMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_DECSPEED_MOUSE_OVER);
+        img = loadImage(imgPath + decspeedMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, DECSPEED_X, DECSPEED_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(DECSPEED_BUTTON_TYPE, s);
+        
+        // Inc Speed 
+        String incspeedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INCSPEED);
+        sT = new SpriteType(INCSPEED_BUTTON_TYPE);
+        img = loadImage(imgPath + incspeedButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String incspeedMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INCSPEED_MOUSE_OVER);
+        img = loadImage(imgPath + incspeedMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, INCSPEED_X, INCSPEED_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(INCSPEED_BUTTON_TYPE, s);
+        
+        // Inc Player Speed 
+        String incplayerspeedButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INCPLAYERSPEED);
+        sT = new SpriteType(INCPLAYERSPEED_BUTTON_TYPE);
+        img = loadImage(imgPath + incplayerspeedButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String incplayerspeedMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INCPLAYERSPEED_MOUSE_OVER);
+        img = loadImage(imgPath + incplayerspeedMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, INCPLAYERSPEED_X, INCPLAYERSPEED_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(INCPLAYERSPEED_BUTTON_TYPE, s);
+        
         // ------------------------------DIALOGS-----------------------------------
         String statsDialog = props.getProperty(pathXPropertyType.DIALOG_LEVEL);
         sT = new SpriteType(LEVEL_DIALOG_TYPE);
@@ -225,6 +292,20 @@ public class Game extends MiniGame{
         
         // BACK EVENT HANDLER
         guiButtons.get(BACK_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToLevelSelectionScreenRequest();     }
+        });
+        
+        //---------------------DIALOG HANDLERS--------------------------
+        
+        // TRY AGAIN HANDLER
+        guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToTryAgainRequest();     }
+        });
+        
+        // TRY AGAIN HANDLER
+        guiButtons.get(LEAVE_TOWN_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToLevelSelectionScreenRequest();     }
         });
@@ -343,6 +424,18 @@ public class Game extends MiniGame{
         guiButtons.get(HOME_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(BACK_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
         guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(false);
     }
 
     public void switchToLevelSelectionScreen() {
@@ -366,6 +459,22 @@ public class Game extends MiniGame{
         guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(BACK_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
         guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(false);
+        
+        // specials buttons
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(false);
         
         //ACTIVATE LEVEL SELECTION SCREEN BUTTONS
         guiButtons.get(HOME_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
@@ -406,6 +515,27 @@ public class Game extends MiniGame{
         //ACTIVATE LEVEL SELECTION SCREEN BUTTONS
         guiButtons.get(BACK_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
         guiButtons.get(BACK_BUTTON_TYPE).setEnabled(true);
+        
+        // SPECIALS BUTTONS
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(true);
+        
+        // DIALOG BUTTONS & DIALOG
+        guiDialogs.get(LEVEL_DIALOG_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(TRY_AGAIN_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(LEAVE_TOWN_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(LEAVE_TOWN_BUTTON_TYPE).setEnabled(false);
         
         // AND UPDATE THE DATA GAME STATE
         data.setGameState(MiniGameState.IN_PROGRESS);

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
+import mini_game.MiniGameState;
 import mini_game.SpriteType;
 import pathxgame.Pathx;
 import static pathxgame.pathXConstants.*;
@@ -33,12 +34,14 @@ public class DataModel extends MiniGameDataModel {
     private String currentLevel;
     private Record record;
     
+    // keeps track of money stolen during a level
     private int money;
     
     private Player player;
     
     // Lists of Sprites
-    ArrayList<Police> police;
+    private ArrayList<Police> police;
+    private ArrayList<Bandit> bandits;
     
     public DataModel(MiniGame initMiniGame)
     {
@@ -66,6 +69,10 @@ public class DataModel extends MiniGameDataModel {
     
     public ArrayList<Police> getPolice(){
         return police;
+    }
+    
+    public ArrayList<Bandit> getBandits(){
+        return bandits;
     }
     
     //------------------------MUTATOR METHODS----------------------------------
@@ -131,6 +138,31 @@ public class DataModel extends MiniGameDataModel {
         }
     }
     
+    public void loadBandits(){
+        bandits = new ArrayList();
+        
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        int numBandits = record.getNumBandits(currentLevel);
+        for(int i=0; i<numBandits; i++){
+            Random rand = new Random();
+            int node = rand.nextInt((intersections.size())/2);
+            while(node==0 || node==1)
+                node = rand.nextInt((intersections.size())/2);
+            
+            Intersection intersection = intersections.get(node);
+            int x = intersection.getX();
+            int y = intersection.getY();
+            
+            SpriteType sT = new SpriteType("Bandit" + i);
+            addSpriteType(sT);
+            Bandit newBandit = new Bandit(sT, x, y, 0, 0, States.INVISIBLE_STATE.toString());
+            newBandit.setID(i);
+            newBandit.setNode(node);
+            bandits.add(newBandit);
+        }
+    }
+    
     // ----------------------MOVE SPRITES--------------------------------------
     
     /**
@@ -145,10 +177,6 @@ public class DataModel extends MiniGameDataModel {
         
         if(intersection2.isBlocked() == false){
             if(isAdjacent == true){ // if destination node is one edge away
-                // get player location
-                int x1 = player.getStartX();
-                int y1 = player.getStartY();
-                
                 // get location of destination node
                 int tile2x = intersection2.getX();
                 int tile2y = intersection2.getY();
@@ -187,20 +215,12 @@ public class DataModel extends MiniGameDataModel {
 
         if(isAdjacent == true){
             // GET THE TILE TWO LOCATION
-            int x1 = policeSprite.getStartX();
-            int y1 = policeSprite.getStartY();
-            int node2x = intersection2.getX() + 50;
-            int node2y = intersection2.getY() - 30;
-
-            int differenceX = node2x - x1 - 60;
-            int differenceY = node2y - y1 + 20;
-
-            int newX = x1+differenceX;
-            int newY = y1+differenceY;
-
+            int x2 = intersection2.getX();
+            int y2 = intersection2.getY();
+            
             if(intersection1.isOpen()){
                 // THEN MOVE POLICE CAR
-                policeSprite.setTarget(newX, newY);
+                policeSprite.setTarget(x2, y2);
 
                 // FIND SPEED LIMIT OF ROAD
                 Road road = findRoad(intersection1, intersection2);
@@ -212,6 +232,42 @@ public class DataModel extends MiniGameDataModel {
             } 
         }
     }
+    
+    public void moveBandit(int ID)
+    {
+        Bandit banditSprite = bandits.get(ID);
+        
+        int currentNode = banditSprite.getNode();
+        Intersection intersection1 = record.getIntersections(currentLevel).get(currentNode);
+
+        Random rand = new Random();
+        int node = rand.nextInt((record.getIntersections(currentLevel).size())/2);
+        Intersection intersection2 = record.getIntersections(currentLevel).get(node);
+        while(node==0 || node==1){
+            node = rand.nextInt((record.getIntersections(currentLevel).size())/2);
+            intersection2 = record.getIntersections(currentLevel).get(node);
+        }
+
+        Boolean isAdjacent = intersection1.isAdjacent(intersection2);
+        if(isAdjacent == true){
+            // GET THE TILE TWO LOCATION
+            int x2 = intersection2.getX();
+            int y2 = intersection2.getY();
+
+            if(intersection1.isOpen()){
+                // THEN MOVE PLAYER
+                banditSprite.setTarget(x2, y2);
+
+                // FIND SPEED LIMIT OF ROAD
+                Road road = findRoad(intersection1, intersection2);
+                int speedLimit = (road.getSpeedLimit())/10;
+
+                // SEND THEM TO THEIR DESTINATION
+                banditSprite.startMovingToTarget(speedLimit);
+                banditSprite.setNode(node);
+            }
+        }
+    } 
     
     public Road findRoad(Intersection from, Intersection to){
         Road road = null;
@@ -316,6 +372,8 @@ public class DataModel extends MiniGameDataModel {
         // UPDATE THE GAME STATE USING THE INHERITED FUNCTIONALITY
         super.endGameAsWin();
         
+        super.setGameState(MiniGameState.WIN);
+        
         ((Game)miniGame).openDialog();
         
         record.completedLevel(currentLevel);
@@ -323,9 +381,8 @@ public class DataModel extends MiniGameDataModel {
 
     @Override
     public void reset(MiniGame game) {
-        setCurrentLevel(currentLevel);
-        
         loadPolice();
+        loadBandits();
         
         ArrayList<Road> roads = record.getRoads(currentLevel);
         for (int r = 0; r < roads.size(); r++){
@@ -352,6 +409,12 @@ public class DataModel extends MiniGameDataModel {
                 Police policeSprite = police.get(i);
                 
                 policeSprite.update(miniGame);
+            }
+            
+            // update bandit sprites
+            for(int i=0; i<bandits.size(); i++){
+                Bandit banditSprite = bandits.get(i);
+                banditSprite.update(miniGame);
             }
             
             // check if player reached destination

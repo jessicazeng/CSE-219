@@ -22,6 +22,7 @@ import mini_game.Sprite;
 import mini_game.SpriteType;
 import mini_game.Viewport;
 import pathxgame.Pathx.pathXPropertyType;
+import pathxgame.data.Bandit;
 import pathxgame.data.DataModel;
 import pathxgame.data.Intersection;
 import pathxgame.data.Player;
@@ -87,6 +88,8 @@ public class Panel extends JPanel {
             renderGUIControls(g);
             
             renderDialogs(g);
+            
+            renderStats(g);
             
             // AND FINALLY, TEXT FOR DEBUGGING
             renderDebuggingText(g);
@@ -281,7 +284,6 @@ public class Panel extends JPanel {
                     g.setColor(Color.LIGHT_GRAY);
                     g.drawOval(newX, newY, INTERSECTION_WIDTH, INTERSECTION_WIDTH);
                     g.setColor(Color.BLACK);
-                    g.drawString(""+intersection.getID(), newX, newY);
                 }
                 
                 // draw player
@@ -304,14 +306,25 @@ public class Panel extends JPanel {
                     
                     g.drawImage(img, x, y, null);
                 }
+                
+                // draw bandits
+                ArrayList<Bandit> bandits = data.getBandits();
+                for(int n=0; n<bandits.size(); n++){
+                    Bandit banditSprite = bandits.get(n);
+                    x = (int)(banditSprite.getX()) - x1 - SPRITE_MARGIN;
+                    y = (int)(banditSprite.getY()) - y1 - SPRITE_MARGIN;
+
+                    imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                    img = game.loadImage(imgPath+props.getProperty(pathXPropertyType.IMAGE_BANDIT));
+                    
+                    g.drawImage(img, x, y, null);
+                }
             }
             
             // draw panel on left side of level selection screen
             img = game.loadImageWithColorKey(imgPath + props.getProperty(pathXPropertyType.IMAGE_GAMESCREEN_PANE), COLOR_KEY);
             g.drawImage(img, 0, 0, GAMESCREEN_PANE_WIDTH, GAMESCREEN_PANE_HEIGHT, 0, 0, GAMESCREEN_PANE_WIDTH, GAMESCREEN_PANE_HEIGHT, null);
             
-            String moneyStolen = "$ Stolen: $" + record.getMoney(currentLevel);
-            g.drawString(moneyStolen, 5, 120);
         } else{
             renderSprite(g, bg);
         }
@@ -342,15 +355,7 @@ public class Panel extends JPanel {
             // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
             renderSprite(g, s);
             
-            if(data.won()){
-                // display stats
-                int money = data.getMoney();
-                
-                String win = "You have successfully stolen $" + money + ".";
-                
-                g.drawString(win, DIALOG_TEXT_X, DIALOG_TEXT_Y);
-                
-                Collection<Sprite> buttonSprites = game.getGUIButtons().values();
+            if(data.won()){Collection<Sprite> buttonSprites = game.getGUIButtons().values();
                 for (Sprite sp : buttonSprites)
                 {
                     if ((sp.getSpriteType().getSpriteTypeID() == LEAVE_TOWN_BUTTON_TYPE) || (sp.getSpriteType().getSpriteTypeID() == TRY_AGAIN_BUTTON_TYPE))
@@ -361,7 +366,35 @@ public class Panel extends JPanel {
     }
 
     private void renderStats(Graphics g) {
+        Record record = ((Game)game).getPlayerRecord();
+        if (((Game)game).isCurrentScreenState(LEVEL_SCREEN_STATE)){
+            g.setFont(FONT_TEXT_DISPLAY);
+            g.setColor(Color.BLACK);
+            
+            String money = "Money: $" + record.getBalance();
+            g.drawString(money, TOTAL_MONEY_X, TOTAL_MONEY_Y);
+        }
+        if(((Game)game).isCurrentScreenState(GAME_SCREEN_STATE)){
+            g.setFont(FONT_GAME_STATS);
+            g.drawString("$ Stolen:", 5, 130);
+            
+            String money = "$" + data.getMoney();
+            g.drawString(money, 25, 150);
+            
+            String city = record.getCity(data.getCurrentLevel());
+            g.drawString(city, CITY_X, CITY_Y);
+        }
         
+        if(data.won()){
+            // display stats
+            int money = data.getMoney();
+            String win = "You have successfully stolen";
+            g.setFont(FONT_GAME_STATS);
+            g.drawString(win, DIALOG_TEXT_X, DIALOG_TEXT_Y);
+            
+            win = "$"+ money;
+            g.drawString(win, DIALOG_TEXT_X+115, DIALOG_TEXT_Y+30);
+        }
     }
 
     private void renderDebuggingText(Graphics g) {

@@ -160,8 +160,8 @@ public class FileManager {
                     
                     record.setCity(levelFile, levels.get(i));
                     
-                    //if(i != levels.size()-1)
-                    //    record.setNextLevel(levelFile, levels.get(i+1));
+                    if(i != levels.size()-1)
+                        record.setNextLevel(levelFile, levels.get(i+1));
                     
                     DataModel dataModel = (DataModel)miniGame.getDataModel();
                     dataModel.setCurrentLevel(levelFile);

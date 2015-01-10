@@ -47,12 +47,19 @@ public class EventHandler {
      * Called when the user clicks the play button in the menu
      */
     public void respondToLevelSelectionScreenRequest(){
-        // WE ONLY LET THIS HAPPEN IF THE MENU SCREEN IS VISIBLE
         game.switchToLevelSelectionScreen();
     }
 
     public void switchToSplashScreenRequest() {
         game.switchToSplashScreen();
+    }
+    
+    public void switchToSettingsScreenRequest(){
+        game.switchToSettingsScreen();
+    }
+    
+    public void switchToHelpScreenRequest(){
+        game.switchToHelpScreen();
     }
     
     public void respondToScrollRequest(String buttontype){
@@ -107,5 +114,14 @@ public class EventHandler {
         if (keyCode == KeyEvent.VK_RIGHT){
             respondToScrollRequest(SCROLL_RIGHT_BUTTON_TYPE);
         }
+    }
+    
+    //----------------------------SPECIALS HANDERS-----------------------------
+    public void respondToSpecialSelcted(String type){
+        // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
+        DataModel data = (DataModel)game.getDataModel();
+        
+        data.setSpecialSelected();
+        data.setSpecial(type);
     }
 }

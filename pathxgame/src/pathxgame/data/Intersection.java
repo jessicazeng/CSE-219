@@ -48,8 +48,12 @@ public class Intersection {
     public int getID()      {   return ID;      }
     public int getX()       {   return x;       }
     public int getY()       {   return y;       }
+    public long getTime()   {   return time;    }
     public boolean isOpen() {   return open;    }
     public boolean isBlocked()  {   return blocked;     }
+    public ArrayList<Intersection> getAdjacentIntersections() {    
+        return adjacentIntersections;   
+    }
     
     public Boolean isAdjacent(Intersection intersection){
         for(int i=0; i<adjacentIntersections.size(); i++){
@@ -71,6 +75,9 @@ public class Intersection {
     }
     public void setBlocked(boolean block){
         this.blocked = block;
+    }
+    public void setTime(long newTime){
+        this.time = newTime;
     }
     
     public void addAdjacentIntersection(Intersection intersection){

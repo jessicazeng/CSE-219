@@ -14,57 +14,52 @@ import mini_game.SpriteType;
  *
  * @author Jessica
  */
-public class Player extends Sprite{
-    // CURRENT POSITION
-    private int startX;
-    private int startY;
+public class Zombie extends Sprite {
+    private int ID;
     
-    // keep track of current and next node
-    private int currentNode;
-    private int nextNode;
+    // the current node this sprite is in
+    private int Node;
     
-    // THE TARGET COORDINATES IN WHICH IT IS CURRENTLY HEADING
     private int targetX;
     private int targetY;
+    
+    private int startX;
+    private int startY;
     
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
-
-    public Player(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, String initState) {
+    
+    private ArrayList<Intersection> path;
+    private int pathIndex;
+    
+    private boolean slowedPlayer;
+    
+    public Zombie(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
+            String initState){
+        // SEND ALL THE Sprite DATA TO A Sprite CONSTRUCTOR
         super(initSpriteType, initX, initY, initVx, initVy, initState);
         
-        // player always starts at first node
-        currentNode = 0;
+        pathIndex = 0;
     }
     
-    // ACCESSOR METHODS
+    public int getNode()        {   return Node;        }
+    public int getStartX()      {   return startX;      }
+    public int getStartY()      {   return startY;      }
+    public int getPathIndex()   {   return pathIndex;   }
     
-    public int getStartX(){
-        return startX;
+    public ArrayList<Intersection> getPath(){
+        return path;
     }
     
-    public int getStartY(){
-        return startY;
+    public boolean hasSlowedPlayer(){
+        return slowedPlayer;
     }
     
-    public int getTargetX(){
-        return targetX;
+    // MUTATOR METHODS
+    public void setID(int initID){
+        ID = initID;
     }
-    
-    public int getTargetY(){
-        return targetY;
-    }
-    
-    public int getCurrentNode(){
-        return currentNode;
-    }
-    
-    public boolean isMovingToTarget(){
-        return movingToTarget;
-    }
-    
-    // ------------------------MUTATOR METHODS-------------------------------
     
     public void setStartingPos(int x, int y){
         startX = x;
@@ -76,8 +71,23 @@ public class Player extends Sprite{
         targetY = y;
     }
     
-    public void setNextNode(int next){
-        nextNode = next;
+    public void setNode(int newNode){
+        Node = newNode;
+    }
+    
+    public void setPath(ArrayList<Intersection> newPath){
+        path = newPath;
+    }
+    
+    public void setSlowed(boolean value){
+        slowedPlayer = value;
+    }
+    
+    public void incPathIndex(){
+        if(pathIndex == path.size()-1)
+            pathIndex = 0;
+        else
+            pathIndex++;
     }
     
     /**
@@ -145,15 +155,17 @@ public class Player extends Sprite{
     @Override
     public void update(MiniGame game)
     {
+        if(movingToTarget == false){
+            ((DataModel)(game.getDataModel())).moveZombie(ID);
+        }
         // GO TO THE TARGET AND THEN STOP MOVING
-        if (calculateDistanceToTarget() < 5)
+        else if (calculateDistanceToTarget() < 5)
         {
             vX = 0;
             vY = 0;
             x = targetX;
             y = targetY;
             movingToTarget = false;
-            currentNode = nextNode;
         }
         // OTHERWISE, JUST DO A NORMAL UPDATE, WHICH WILL CHANGE ITS POSITION
         // USING ITS CURRENT VELOCITY.

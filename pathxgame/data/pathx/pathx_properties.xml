@@ -4,6 +4,8 @@
     <property_list>
         <!-- ALL THE IMAGES TO BE USED IN THE GAME -->
         <property name="IMAGE_MENU_BACKGROUND"                  value="./MenuBackground.png"></property>
+        <property name="IMAGE_SETTINGS_BACKGROUND"              value="./SettingsBackground.png"></property>
+        <property name="IMAGE_HELP_BACKGROUND"                  value="./HelpBackground.png"></property>
         <property name="IMAGE_LEVELSELECTION_BACKGROUND"        value="./LevelSelectionBackground.png"></property>
         <property name="IMAGE_MAP"                              value="./Map.png"></property>
         <property name="IMAGE_LEVELSELECTION_PANE"              value="./LevelSelectionPane.png"></property>
@@ -37,9 +39,30 @@
         <property name="IMAGE_BUTTON_DECSPEED_MOUSE_OVER"       value="./Button_DecSpeed_MouseOver.png"></property>
         <property name="IMAGE_BUTTON_INCPLAYERSPEED"            value="./Button_IncPlayerSpeed.png"></property>
         <property name="IMAGE_BUTTON_INCPLAYERSPEED_MOUSE_OVER" value="./Button_IncPlayerSpeed_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FLATTIRE"                  value="./Button_FlatTire.png"></property>
+        <property name="IMAGE_BUTTON_FLATTIRE_MOUSE_OVER"       value="./Button_FlatTire_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_EMPTYGAS"                  value="./Button_EmptyGas.png"></property>
+        <property name="IMAGE_BUTTON_EMPTYGAS_MOUSE_OVER"       value="./Button_EmptyGas_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSEROAD"                 value="./Button_CloseRoad.png"></property>
+        <property name="IMAGE_BUTTON_CLOSEROAD_MOUSE_OVER"      value="./Button_CloseRoad_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSEINTERSECTION"         value="./Button_CloseIntersection.png"></property>
+        <property name="IMAGE_BUTTON_CLOSEINTERSECTION_MOUSE_OVER"      value="./Button_CloseIntersection_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_OPENINTERSECTION"          value="./Button_OpenIntersection.png"></property>
+        <property name="IMAGE_BUTTON_OPENINTERSECTION_MOUSE_OVER"      value="./Button_OpenIntersection_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_STEAL"                     value="./Button_Steal.png"></property>
+        <property name="IMAGE_BUTTON_STEAL_MOUSE_OVER"          value="./Button_Steal_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MINDCONTROL"               value="./Button_MindControl.png"></property>
+        <property name="IMAGE_BUTTON_MINDCONTROL_MOUSE_OVER"    value="./Button_MindControl_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INTANGIBILITY"             value="./Button_Intangibility.png"></property>
+        <property name="IMAGE_BUTTON_INTANGIBILITY_MOUSE_OVER"  value="./Button_Intangibility_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MINDLESSTERROR"            value="./Button_MindlessTerror.png"></property>
+        <property name="IMAGE_BUTTON_MINDLESSTERROR_MOUSE_OVER"  value="./Button_MindlessTerror_MouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INVINCIBILITY"             value="./Button_Invincibility.png"></property>
+        <property name="IMAGE_BUTTON_INVINCIBILITY_MOUSE_OVER"  value="./Button_Invincibility_MouseOver.png"></property>
         <property name="IMAGE_POLICE"                           value="./police.png"></property>
         <property name="IMAGE_PLAYER"                           value="./player.png"></property>
         <property name="IMAGE_BANDIT"                           value="./bandit.png"></property>
+        <property name="IMAGE_ZOMBIE"                           value="./zombie.png"></property>
         <property name="DIALOG_LEVEL"                           value="./Level_Dialog.png"></property>
         
         <!-- AUDIO FILES -->

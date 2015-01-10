@@ -48,6 +48,16 @@ public class pathXConstants {
     public static final String DECSPEED_BUTTON_TYPE = "DECSPEED_BUTTON_TYPE";
     public static final String INCSPEED_BUTTON_TYPE = "INCSPEED_BUTTON_TYPE";
     public static final String INCPLAYERSPEED_BUTTON_TYPE = "INCPLAYERSPEED_BUTTON_TYPE";
+    public static final String FLATTIRE_BUTTON_TYPE = "FLATTIRE_BUTTON_TYPE";
+    public static final String EMPTYGAS_BUTTON_TYPE = "EMPTYGAS_BUTTON_TYPE";
+    public static final String CLOSEROAD_BUTTON_TYPE = "CLOSEROAD_BUTTON_TYPE";
+    public static final String CLOSEINTERSECTION_BUTTON_TYPE = "CLOSEINTERSECTION_BUTTON_TYPE";
+    public static final String OPENINTERSECTION_BUTTON_TYPE = "OPENINTERSECTION_BUTTON_TYPE";
+    public static final String STEAL_BUTTON_TYPE = "STEAL_BUTTON_TYPE";
+    public static final String MINDCONTROL_BUTTON_TYPE = "MINDCONTROL_BUTTON_TYPE";
+    public static final String INTANGBILITY_BUTTON_TYPE = "INTANGIBILITY_BUTTON_TYPE";
+    public static final String MINDLESSTERROR_BUTTON_TYPE = "MINDLESSTERROR_BUTTON_TYPE";
+    public static final String INVINCIBILITY_BUTTON_TYPE = "INVINCIBILITY_BUTTON_TYPE";
     
     // variables
     public static final int WINDOW_WIDTH = 640;
@@ -86,22 +96,42 @@ public class pathXConstants {
     public static final int DIALOG_TEXT_Y = 160;
     public static final int TOTAL_MONEY_X = 200;
     public static final int TOTAL_MONEY_Y = 45;
-    public static final int CITY_X = 470;
-    public static final int CITY_Y = 440;
+    public static final int CITY_X = 93;
+    public static final int CITY_Y = 20;
     
     // SPECIALS POSITIONS
     public static final int GREENLIGHT_X = 9;
-    public static final int GREENLIGHT_Y = 180;
+    public static final int GREENLIGHT_Y = 100;
     public static final int REDLIGHT_X = 45;
-    public static final int REDLIGHT_Y = 180;
+    public static final int REDLIGHT_Y = 100;
     public static final int FREEZE_X = 9;
-    public static final int FREEZE_Y = 216;
+    public static final int FREEZE_Y = 136;
     public static final int DECSPEED_X = 45;
-    public static final int DECSPEED_Y = 216;
+    public static final int DECSPEED_Y = 136;
     public static final int INCSPEED_X = 9;
-    public static final int INCSPEED_Y = 252;
+    public static final int INCSPEED_Y = 172;
     public static final int INCPLAYERSPEED_X = 45;
-    public static final int INCPLAYERSPEED_Y = 252;
+    public static final int INCPLAYERSPEED_Y = 172;
+    public static final int FLATTIRE_X = 9;
+    public static final int FLATTIRE_Y = 205;
+    public static final int EMPTYGAS_X = 45;
+    public static final int EMPTYGAS_Y = 205;
+    public static final int CLOSEROAD_X = 9;
+    public static final int CLOSEROAD_Y = 241;
+    public static final int CLOSEINTERSECTION_X = 45;
+    public static final int CLOSEINTERSECTION_Y = 241;
+    public static final int OPENINTERSECTION_X = 9;
+    public static final int OPENINTERSECTION_Y = 277;
+    public static final int STEAL_X = 45;
+    public static final int STEAL_Y = 277;
+    public static final int MINDCONTROL_X = 9;
+    public static final int MINDCONTROL_Y = 313;
+    public static final int INTANGIBILITY_X = 45;
+    public static final int INTANGIBILITY_Y = 313;
+    public static final int MINDLESSTERROR_X = 9;
+    public static final int MINDLESSTERROR_Y = 349;
+    public static final int INVINCIBILITY_X = 45;
+    public static final int INVINCIBILITY_Y = 349;
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String MENU_SCREEN_STATE = "MENU_SCREEN_STATE";

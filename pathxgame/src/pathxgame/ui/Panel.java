@@ -29,6 +29,7 @@ import pathxgame.data.Player;
 import pathxgame.data.Police;
 import pathxgame.data.Record;
 import pathxgame.data.Road;
+import pathxgame.data.Zombie;
 import static pathxgame.pathXConstants.*;
 import properties_manager.PropertiesManager;
 
@@ -319,6 +320,19 @@ public class Panel extends JPanel {
                     
                     g.drawImage(img, x, y, null);
                 }
+                
+                // draw zombies
+                ArrayList<Zombie> zombies = data.getZombies();
+                for(int n=0; n<zombies.size(); n++){
+                    Zombie zombieSprite = zombies.get(n);
+                    x = (int)(zombieSprite.getX()) - x1 - SPRITE_MARGIN;
+                    y = (int)(zombieSprite.getY()) - y1 - SPRITE_MARGIN;
+
+                    imgPath = props.getProperty(pathXPropertyType.PATH_IMG);  
+                    img = game.loadImage(imgPath+props.getProperty(pathXPropertyType.IMAGE_ZOMBIE));
+                    
+                    g.drawImage(img, x, y, null);
+                }
             }
             
             // draw panel on left side of level selection screen
@@ -355,7 +369,8 @@ public class Panel extends JPanel {
             // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
             renderSprite(g, s);
             
-            if(data.won()){Collection<Sprite> buttonSprites = game.getGUIButtons().values();
+            if(data.won() || data.lost()){
+                Collection<Sprite> buttonSprites = game.getGUIButtons().values();
                 for (Sprite sp : buttonSprites)
                 {
                     if ((sp.getSpriteType().getSpriteTypeID() == LEAVE_TOWN_BUTTON_TYPE) || (sp.getSpriteType().getSpriteTypeID() == TRY_AGAIN_BUTTON_TYPE))
@@ -376,13 +391,12 @@ public class Panel extends JPanel {
         }
         if(((Game)game).isCurrentScreenState(GAME_SCREEN_STATE)){
             g.setFont(FONT_GAME_STATS);
-            g.drawString("$ Stolen:", 5, 130);
-            
-            String money = "$" + data.getMoney();
-            g.drawString(money, 25, 150);
             
             String city = record.getCity(data.getCurrentLevel());
             g.drawString(city, CITY_X, CITY_Y);
+            
+            String money = "$" + data.getMoney();
+            g.drawString(money, CITY_X, CITY_Y+20);
         }
         
         if(data.won()){
@@ -394,6 +408,10 @@ public class Panel extends JPanel {
             
             win = "$"+ money;
             g.drawString(win, DIALOG_TEXT_X+115, DIALOG_TEXT_Y+30);
+        } else if(data.lost()){
+            g.setFont(FONT_GAME_STATS);
+            g.drawString("Oh no! You've been caught by", DIALOG_TEXT_X, DIALOG_TEXT_Y);
+            g.drawString("the police. Too bad.", DIALOG_TEXT_X, DIALOG_TEXT_Y+20);
         }
     }
 

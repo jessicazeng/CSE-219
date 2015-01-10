@@ -90,6 +90,10 @@ public class Game extends MiniGame{
         img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_MENU_BACKGROUND));
         sT = new SpriteType(BACKGROUND_TYPE);
         sT.addState(MENU_SCREEN_STATE, img);
+        img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_SETTINGS_BACKGROUND));
+        sT.addState(SETTINGS_SCREEN_STATE, img);
+        img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_HELP_BACKGROUND));
+        sT.addState(HELP_SCREEN_STATE, img);
         img = loadImageWithColorKey(imgPath + props.getProperty(pathXPropertyType.IMAGE_LEVELSELECTION_BACKGROUND), COLOR_KEY);
         sT.addState(LEVEL_SCREEN_STATE, img);
         img = loadImage(imgPath + props.getProperty(pathXPropertyType.IMAGE_GAMESCREEN_BACKGROUND));
@@ -257,6 +261,116 @@ public class Game extends MiniGame{
         s = new Sprite(sT, INCPLAYERSPEED_X, INCPLAYERSPEED_Y, 0, 0, States.INVISIBLE_STATE.toString());
         guiButtons.put(INCPLAYERSPEED_BUTTON_TYPE, s);
         
+        // Flat Tire
+        String flattireButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FLATTIRE);
+        sT = new SpriteType(FLATTIRE_BUTTON_TYPE);
+        img = loadImage(imgPath + flattireButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String flattireMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_FLATTIRE_MOUSE_OVER);
+        img = loadImage(imgPath + flattireMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, FLATTIRE_X, FLATTIRE_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(FLATTIRE_BUTTON_TYPE, s);
+        
+        // Empty Gas
+        String emptygasButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_EMPTYGAS);
+        sT = new SpriteType(EMPTYGAS_BUTTON_TYPE);
+        img = loadImage(imgPath + emptygasButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String emptygasMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_EMPTYGAS_MOUSE_OVER);
+        img = loadImage(imgPath + emptygasMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, EMPTYGAS_X, EMPTYGAS_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(EMPTYGAS_BUTTON_TYPE, s);
+        
+        // Close Road
+        String closeroadButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSEROAD);
+        sT = new SpriteType(CLOSEROAD_BUTTON_TYPE);
+        img = loadImage(imgPath + closeroadButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String closeroadMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSEROAD_MOUSE_OVER);
+        img = loadImage(imgPath + closeroadMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, CLOSEROAD_X, CLOSEROAD_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(CLOSEROAD_BUTTON_TYPE, s);
+        
+        // Close Intersection
+        String closeintersectionButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSEINTERSECTION);
+        sT = new SpriteType(CLOSEINTERSECTION_BUTTON_TYPE);
+        img = loadImage(imgPath + closeintersectionButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String closeintersectionMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_CLOSEINTERSECTION_MOUSE_OVER);
+        img = loadImage(imgPath + closeintersectionMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, CLOSEINTERSECTION_X, CLOSEINTERSECTION_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(CLOSEINTERSECTION_BUTTON_TYPE, s);
+        
+        // Open Intersection
+        String openintersectionButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_OPENINTERSECTION);
+        sT = new SpriteType(OPENINTERSECTION_BUTTON_TYPE);
+        img = loadImage(imgPath + openintersectionButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String openintersectionMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_OPENINTERSECTION_MOUSE_OVER);
+        img = loadImage(imgPath + openintersectionMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, OPENINTERSECTION_X, OPENINTERSECTION_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(OPENINTERSECTION_BUTTON_TYPE, s);
+        
+        // Steal
+        String stealButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_STEAL);
+        sT = new SpriteType(STEAL_BUTTON_TYPE);
+        img = loadImage(imgPath + stealButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String stealMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_STEAL_MOUSE_OVER);
+        img = loadImage(imgPath + stealMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, STEAL_X, STEAL_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(STEAL_BUTTON_TYPE, s);
+        
+        // Mind Control
+        String mindcontrolButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MINDCONTROL);
+        sT = new SpriteType(MINDCONTROL_BUTTON_TYPE);
+        img = loadImage(imgPath + mindcontrolButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String mindcontrolMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MINDCONTROL_MOUSE_OVER);
+        img = loadImage(imgPath + mindcontrolMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, MINDCONTROL_X, MINDCONTROL_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(MINDCONTROL_BUTTON_TYPE, s);
+        
+        // intangibility
+        String intangibilitylButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INTANGIBILITY);
+        sT = new SpriteType(INTANGBILITY_BUTTON_TYPE);
+        img = loadImage(imgPath + intangibilitylButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String intangibilityMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INTANGIBILITY_MOUSE_OVER);
+        img = loadImage(imgPath + intangibilityMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, INTANGIBILITY_X, INTANGIBILITY_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(INTANGBILITY_BUTTON_TYPE, s);
+        
+        // mindlessterror
+        String mindlessterrorButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MINDLESSTERROR);
+        sT = new SpriteType(MINDLESSTERROR_BUTTON_TYPE);
+        img = loadImage(imgPath + mindlessterrorButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String mindlesssterrorMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_MINDLESSTERROR_MOUSE_OVER);
+        img = loadImage(imgPath + mindlesssterrorMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, MINDLESSTERROR_X, MINDLESSTERROR_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(MINDLESSTERROR_BUTTON_TYPE, s);
+        
+        // invincibility
+        String invincibilityButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INVINCIBILITY);
+        sT = new SpriteType(INVINCIBILITY_BUTTON_TYPE);
+        img = loadImage(imgPath + invincibilityButton);
+        sT.addState(States.VISIBLE_STATE.toString(), img);
+        String invincibilityMouseOverButton = props.getProperty(pathXPropertyType.IMAGE_BUTTON_INVINCIBILITY_MOUSE_OVER);
+        img = loadImage(imgPath + invincibilityMouseOverButton);
+        sT.addState(States.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, INVINCIBILITY_X, INVINCIBILITY_Y, 0, 0, States.INVISIBLE_STATE.toString());
+        guiButtons.put(INVINCIBILITY_BUTTON_TYPE, s);
+        
         // ------------------------------DIALOGS-----------------------------------
         String statsDialog = props.getProperty(pathXPropertyType.DIALOG_LEVEL);
         sT = new SpriteType(LEVEL_DIALOG_TYPE);
@@ -282,6 +396,18 @@ public class Game extends MiniGame{
         guiButtons.get(PLAY_BUTTON_TYPE).setActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
             {   eventHandler.respondToLevelSelectionScreenRequest();     }
+        });
+        
+        // SETTINGS EVENT HANDLER
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.switchToSettingsScreenRequest();     }
+        });
+        
+        // HELP EVENT HANDLER
+        guiButtons.get(HELP_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.switchToHelpScreenRequest();     }
         });
         
         // HOME EVENT HANDLER
@@ -310,7 +436,21 @@ public class Game extends MiniGame{
             {   eventHandler.respondToLevelSelectionScreenRequest();     }
         });
         
-        // KEY LISTENER
+        //------------------SPECIALS HANDLERS--------------------------------
+        
+        // GREEN LIGHT HANDLER
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSpecialSelcted(GREENLIGHT_BUTTON_TYPE);     }
+        });
+        
+        // RED LIGHT HANDLER
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSpecialSelcted(REDLIGHT_BUTTON_TYPE);     }
+        });
+        
+        // ---------------------------KEY LISTENER-----------------------------
         this.setKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent ke)
             {   
@@ -436,6 +576,140 @@ public class Game extends MiniGame{
         guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
         guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(STEAL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(STEAL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
+    }
+    
+    public void switchToSettingsScreen()
+    {
+        // MAKE THE CURRENT SCREEN THE MENU SCREEN
+        currentScreenState = SETTINGS_SCREEN_STATE;
+        
+        // CHANGE THE BACKGROUND
+        guiDecor.get(BACKGROUND_TYPE).setState(SETTINGS_SCREEN_STATE);
+
+        // ACTIVATE THE SETTINGS CONTROLS
+        guiButtons.get(HOME_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(HOME_BUTTON_TYPE).setEnabled(true);
+        
+        // DEACTIVATE LEVEL SELECTION & GAME SCREEN BUTTONS
+        guiButtons.get(PLAY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(HELP_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(HELP_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(RESET_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(BACK_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(STEAL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(STEAL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
+    }
+    
+    public void switchToHelpScreen()
+    {
+        // MAKE THE CURRENT SCREEN THE MENU SCREEN
+        currentScreenState = HELP_SCREEN_STATE;
+        
+        // CHANGE THE BACKGROUND
+        guiDecor.get(BACKGROUND_TYPE).setState(HELP_SCREEN_STATE);
+
+        // ACTIVATE THE HELP CONTROLS
+        guiButtons.get(HOME_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(HOME_BUTTON_TYPE).setEnabled(true);
+        
+        // DEACTIVATE LEVEL SELECTION & GAME SCREEN BUTTONS
+        guiButtons.get(PLAY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(SETTINGS_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(HELP_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(HELP_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(RESET_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(BACK_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(GREENLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(REDLIGHT_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(STEAL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(STEAL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
     }
 
     public void switchToLevelSelectionScreen() {
@@ -459,8 +733,6 @@ public class Game extends MiniGame{
         guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(BACK_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
         guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-        guiButtons.get(FREEZE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
-        guiButtons.get(FREEZE_BUTTON_TYPE).setEnabled(false);
         
         // specials buttons
         guiButtons.get(GREENLIGHT_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
@@ -475,6 +747,26 @@ public class Game extends MiniGame{
         guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(false);
         guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
         guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(STEAL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(STEAL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setEnabled(false);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(States.INVISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(false);
         
         //ACTIVATE LEVEL SELECTION SCREEN BUTTONS
         guiButtons.get(HOME_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
@@ -529,6 +821,26 @@ public class Game extends MiniGame{
         guiButtons.get(DECSPEED_BUTTON_TYPE).setEnabled(true);
         guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
         guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(EMPTYGAS_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(CLOSEROAD_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(CLOSEINTERSECTION_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(OPENINTERSECTION_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(STEAL_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(STEAL_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(MINDCONTROL_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(INTANGBILITY_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(MINDLESSTERROR_BUTTON_TYPE).setEnabled(true);
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setState(States.VISIBLE_STATE.toString());
+        guiButtons.get(INVINCIBILITY_BUTTON_TYPE).setEnabled(true);
         
         // DIALOG BUTTONS & DIALOG
         guiDialogs.get(LEVEL_DIALOG_TYPE).setState(States.INVISIBLE_STATE.toString());
@@ -540,7 +852,6 @@ public class Game extends MiniGame{
         // AND UPDATE THE DATA GAME STATE
         data.setGameState(MiniGameState.IN_PROGRESS);
         ((DataModel)data).initPlayer();
-        ((DataModel)data).setAdjacentIntersections();
     }
     
     /**

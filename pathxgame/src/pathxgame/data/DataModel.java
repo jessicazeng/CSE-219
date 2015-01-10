@@ -42,6 +42,11 @@ public class DataModel extends MiniGameDataModel {
     // Lists of Sprites
     private ArrayList<Police> police;
     private ArrayList<Bandit> bandits;
+    private ArrayList<Zombie> zombies;
+    
+    private boolean specialSelected;
+    private String special;
+    private int zombieCollisions;
     
     public DataModel(MiniGame initMiniGame)
     {
@@ -50,6 +55,7 @@ public class DataModel extends MiniGameDataModel {
         miniGame = initMiniGame;
         
         record = ((Game) miniGame).getPlayerRecord();
+        specialSelected = false;
     }
     
     //-------------------------ACCESSOR METHODS-------------------------------
@@ -73,6 +79,10 @@ public class DataModel extends MiniGameDataModel {
     
     public ArrayList<Bandit> getBandits(){
         return bandits;
+    }
+    
+    public ArrayList<Zombie> getZombies(){
+        return zombies;
     }
     
     //------------------------MUTATOR METHODS----------------------------------
@@ -99,6 +109,14 @@ public class DataModel extends MiniGameDataModel {
                 intersection2.addAdjacentIntersection(intersection1);
             }
         }
+    }
+    
+    public void setSpecialSelected(){
+        specialSelected = true;
+    }
+    
+    public void setSpecial(String value){
+        special = value;
     }
     
     // -----------------------LOAD SPRITES------------------------------------
@@ -163,6 +181,51 @@ public class DataModel extends MiniGameDataModel {
         }
     }
     
+    public void loadZombies(){
+        zombies = new ArrayList();
+        
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        int numZombies = record.getNumZombies(currentLevel);
+        for(int i=0; i<numZombies; i++){
+            Random rand = new Random();
+            int node = rand.nextInt(intersections.size());
+            while(node==0 || node==1)
+                node = rand.nextInt(intersections.size());
+            
+            Intersection intersection = intersections.get(node);
+            ArrayList<Intersection> path = zombiePath(intersection);
+            
+            int x = intersection.getX();
+            int y = intersection.getY();
+            
+            SpriteType sT = new SpriteType("Zombie" + i);
+            addSpriteType(sT);
+            Zombie newZombie = new Zombie(sT, x, y, 0, 0, States.INVISIBLE_STATE.toString());
+            newZombie.setPath(path);
+            newZombie.setID(i);
+            newZombie.setNode(node);
+            zombies.add(newZombie);
+        }
+    }
+    
+    public ArrayList<Intersection> zombiePath(Intersection intersection){
+        ArrayList<Intersection> path = new ArrayList<Intersection>();
+        path.add(intersection);
+        
+        ArrayList<Intersection> adjacentIntersections = intersection.getAdjacentIntersections();
+        
+        Random rand = new Random();
+        int node = rand.nextInt(adjacentIntersections.size());
+        while(node==0 || node==1)
+            node = rand.nextInt(adjacentIntersections.size());
+        
+        Intersection nextIntersection = adjacentIntersections.get(node);
+        path.add(nextIntersection);
+        
+        return path;
+    }
+    
     // ----------------------MOVE SPRITES--------------------------------------
     
     /**
@@ -187,17 +250,20 @@ public class DataModel extends MiniGameDataModel {
                 // FIND SPEED LIMIT OF ROAD
                 Road road = findRoad(intersection1, intersection2);
                 int initSpeed = road.getSpeedLimit()/10;
+                // decrease player speed by 10% for each zombie collision
+                if(zombieCollisions > 0){ 
+                    initSpeed -= initSpeed * (zombieCollisions * 0.1);
+                }
 
                 // SEND THEM TO THEIR DESTINATION
                 player.startMovingToTarget(initSpeed);
-                player.setCurrentNode(index2);
                 player.setStartingPos(tile2x, tile2y);
+                player.setNextNode(index2);
             }
         }
     }
     
-    public void movePolice(int ID)
-    {
+    public void movePolice(int ID){
         Police policeSprite = police.get(ID);
         
         int currentNode = policeSprite.getNode();    
@@ -233,8 +299,7 @@ public class DataModel extends MiniGameDataModel {
         }
     }
     
-    public void moveBandit(int ID)
-    {
+    public void moveBandit(int ID){
         Bandit banditSprite = bandits.get(ID);
         
         int currentNode = banditSprite.getNode();
@@ -269,6 +334,38 @@ public class DataModel extends MiniGameDataModel {
         }
     } 
     
+    public void moveZombie(int ID){
+        Zombie zombieSprite = zombies.get(ID);
+        
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        int currentNode = zombieSprite.getNode();
+        Intersection intersection1 = intersections.get(currentNode);
+
+        zombieSprite.incPathIndex();
+        int nextNode = zombieSprite.getPathIndex();
+        Intersection nextIntersection = (zombieSprite.getPath()).get(nextNode);
+        int node = nextIntersection.getID();
+        Intersection intersection2 = intersections.get(node);
+
+        // GET THE TILE TWO LOCATION
+        int x2 = intersection2.getX();
+        int y2 = intersection2.getY();
+
+        if(intersection1.isOpen()){
+            // MOVE ZOMBIE
+            zombieSprite.setTarget(x2, y2);
+
+            // FIND SPEED LIMIT OF ROAD
+            Road road = findRoad(intersection1, intersection2);
+            int speedLimit = (road.getSpeedLimit())/10;
+
+            // SEND TO DESTINATION
+            zombieSprite.startMovingToTarget(speedLimit);
+            zombieSprite.setNode(node);
+        }
+    } 
+    
     public Road findRoad(Intersection from, Intersection to){
         Road road = null;
         ArrayList<Road> roads = record.getRoads(currentLevel);
@@ -290,8 +387,42 @@ public class DataModel extends MiniGameDataModel {
         if(((Game)miniGame).isCurrentScreenState(LEVEL_SCREEN_STATE)){
             pressOnLevelScreen(game, x, y);
         } else if(((Game)miniGame).isCurrentScreenState(GAME_SCREEN_STATE)){
-            pressOnGameScreen(game, x, y);
+            if(specialSelected)
+                applySpecial(x, y);
+            else
+                pressOnGameScreen(game, x, y);
         }
+    }
+    
+    public void applySpecial(int x, int y){
+        ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+        
+        if(special.equals(GREENLIGHT_BUTTON_TYPE) || special.equals(REDLIGHT_BUTTON_TYPE)){
+            for(int i=0; i<intersections.size(); i++){
+                Intersection intersection2 = intersections.get(i);
+                
+                int screenPositionX1 = viewport.getViewportX();
+                int screenPositionY1 = viewport.getViewportY();
+
+                // position of intersection on node
+                int node2x = intersection2.getX() - screenPositionX1;
+                int node2y = intersection2.getY() - screenPositionY1;
+
+                Point point = new Point(node2x-12, node2y-12);
+                Point point2 = new Point(x, y);
+                Rectangle bounds = new Rectangle(point, new Dimension(INTERSECTION_WIDTH, INTERSECTION_WIDTH));
+
+                if (bounds.contains(point2)) {
+                    if(special.equals(REDLIGHT_BUTTON_TYPE)){
+                        intersection2.setOpen(false);
+                        intersection2.setTime(System.currentTimeMillis() + 10000);
+                    } else
+                        intersection2.setOpen(true);
+                    specialSelected = false;
+                    money -= 5;
+                }
+            }
+        } 
     }
     
     /**
@@ -362,6 +493,20 @@ public class DataModel extends MiniGameDataModel {
     }
     
     /**
+     * Updates the player record when player does not pass a level
+     */
+    public void endGameAsLoss(){
+        super.endGameAsLoss();
+        
+        ((Game)miniGame).openDialog();
+        pause();
+        
+        // player loses 10% of his/her money when he/she does not pass a level
+        int newBalance = (int)(record.getBalance() * 0.1);
+        record.incBalance(0 - newBalance);
+    }
+    
+    /**
      * Called when the game is won, it will record the ending game time, update
      * the player record, display the win dialog, and play the win animation.
      */
@@ -371,8 +516,7 @@ public class DataModel extends MiniGameDataModel {
         
         // UPDATE THE GAME STATE USING THE INHERITED FUNCTIONALITY
         super.endGameAsWin();
-        
-        super.setGameState(MiniGameState.WIN);
+        pause();
         
         ((Game)miniGame).openDialog();
         
@@ -381,8 +525,16 @@ public class DataModel extends MiniGameDataModel {
 
     @Override
     public void reset(MiniGame game) {
+        if(super.isPaused())
+            unpause();
+        
+        setAdjacentIntersections();
+        
         loadPolice();
         loadBandits();
+        loadZombies();
+        
+        zombieCollisions = 0;
         
         ArrayList<Road> roads = record.getRoads(currentLevel);
         for (int r = 0; r < roads.size(); r++){
@@ -393,7 +545,63 @@ public class DataModel extends MiniGameDataModel {
         for(int i=0; i<intersections.size(); i++)
             intersections.get(i).setBlocked(false);
     }
-
+    
+    /* 
+     *Checks if the player intersects with police, bandits and zombies
+     */
+    public void updateBots(){
+        // check for collisions with police
+        for(int i=0; i<police.size(); i++){
+            Police policeSprite = police.get(i);
+            
+            // check if player and police overlap
+            Point playerPoint = new Point((int)player.getX()+5, (int)player.getY()+5);
+            Rectangle playerCar = new Rectangle(playerPoint, new Dimension(56, 30));
+            Point policePoint = new Point((int)policeSprite.getX()+5, (int)policeSprite.getY()+5);
+            Rectangle policeCar = new Rectangle(policePoint, new Dimension(59, 42));
+            if(playerCar.intersects(policeCar))
+                endGameAsLoss(); // got caught by police
+        }
+        
+        // check for collision with bandit
+        for(int i=0; i<bandits.size(); i++){
+            Bandit banditSprite = bandits.get(i);
+            
+            // check if player and bandit overlap
+            Point playerPoint = new Point((int)player.getX()+5, (int)player.getY()+5);
+            Rectangle playerCar = new Rectangle(playerPoint, new Dimension(56, 30));
+            Point banditPoint = new Point((int)banditSprite.getX()+5, (int)banditSprite.getY()+5);
+            Rectangle banditCar = new Rectangle(banditPoint, new Dimension(49, 32));
+            if(playerCar.intersects(banditCar)){
+                if(banditSprite.hasRobbedPlayer() == false){
+                    banditSprite.setRobbed(true);
+                    money -= money * 0.1;
+                }
+            } else{
+                banditSprite.setRobbed(false);
+            }
+        }
+        
+        // check for collision with zombie
+        for(int i=0; i<zombies.size(); i++){
+            Zombie zombieSprite = zombies.get(i);
+            
+            // check if player and police overlap
+            Point playerPoint = new Point((int)player.getX()+5, (int)player.getY()+5);
+            Rectangle playerCar = new Rectangle(playerPoint, new Dimension(56, 30));
+            Point zombiePoint = new Point((int)zombieSprite.getX()+5, (int)zombieSprite.getY()+5);
+            Rectangle policeCar = new Rectangle(zombiePoint, new Dimension(49, 32));
+            if(playerCar.intersects(policeCar)){
+                if(zombieSprite.hasSlowedPlayer() == false){
+                    zombieSprite.setSlowed(true);
+                    zombieCollisions += 1;
+                }
+            } else{
+                zombieSprite.setSlowed(false);
+            }
+        }
+    }
+    
     @Override
     public void updateAll(MiniGame game) {
         try
@@ -407,7 +615,6 @@ public class DataModel extends MiniGameDataModel {
             // update police sprites
             for(int i=0; i<police.size(); i++){
                 Police policeSprite = police.get(i);
-                
                 policeSprite.update(miniGame);
             }
             
@@ -415,6 +622,24 @@ public class DataModel extends MiniGameDataModel {
             for(int i=0; i<bandits.size(); i++){
                 Bandit banditSprite = bandits.get(i);
                 banditSprite.update(miniGame);
+            }
+            
+            // update zombie sprites
+            for(int i=0; i<zombies.size(); i++){
+                Zombie zombieSprite = zombies.get(i);
+                zombieSprite.update(miniGame);
+            }
+            
+            //check if bots overlap with player
+            updateBots();
+            
+            // update intersections - check red lights
+            ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
+            for(int i=0; i<intersections.size(); i++){
+                if(System.currentTimeMillis() >= intersections.get(i).getTime()){
+                    if(!(intersections.get(i).isBlocked()))
+                        intersections.get(i).setOpen(true);
+                }
             }
             
             // check if player reached destination

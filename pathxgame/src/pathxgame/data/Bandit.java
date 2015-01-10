@@ -15,22 +15,24 @@ import mini_game.SpriteType;
  * @author Jessica
  */
 public class Bandit extends Sprite{
-    int ID;
+    private int ID;
     
     // the current node this sprite is in
-    int Node;
+    private int Node;
     
-    int targetX;
-    int targetY;
+    private int targetX;
+    private int targetY;
     
-    int startX;
-    int startY;
+    private int startX;
+    private int startY;
     
-    int moneyStolen;
+    private int moneyStolen;
     
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
+    
+    private boolean robbedPlayer;
     
     public Bandit(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState){
@@ -54,6 +56,10 @@ public class Bandit extends Sprite{
         return moneyStolen;
     }
     
+    public boolean hasRobbedPlayer(){
+        return robbedPlayer;
+    }
+    
     // MUTATOR METHODS
     public void setID(int initID){
         ID = initID;
@@ -75,6 +81,10 @@ public class Bandit extends Sprite{
     
     public void setNode(int newNode){
         Node = newNode;
+    }
+    
+    public void setRobbed(boolean value){
+        robbedPlayer = value;
     }
     
     /**

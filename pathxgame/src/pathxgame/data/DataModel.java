@@ -48,6 +48,10 @@ public class DataModel extends MiniGameDataModel {
     private String special;
     private int zombieCollisions;
     
+    // Specials booleans
+    private boolean freeze;
+    private int incPlayerSpeed;
+    
     public DataModel(MiniGame initMiniGame)
     {
         // KEEP THE GAME FOR LATER
@@ -117,6 +121,22 @@ public class DataModel extends MiniGameDataModel {
     
     public void setSpecial(String value){
         special = value;
+    }
+    
+    public void setFreeze(){
+        if(freeze==false)
+            freeze = true;
+        else
+            freeze = false;
+        
+        money -= 10;
+        specialSelected = false;
+    }
+    
+    public void incPlayerSpeed() {
+        incPlayerSpeed++;
+        money -= 20;
+        specialSelected = false;
     }
     
     // -----------------------LOAD SPRITES------------------------------------
@@ -250,6 +270,7 @@ public class DataModel extends MiniGameDataModel {
                 // FIND SPEED LIMIT OF ROAD
                 Road road = findRoad(intersection1, intersection2);
                 int initSpeed = road.getSpeedLimit()/10;
+                initSpeed *= (1 + (incPlayerSpeed * 0.2));
                 // decrease player speed by 10% for each zombie collision
                 if(zombieCollisions > 0){ 
                     initSpeed -= initSpeed * (zombieCollisions * 0.1);
@@ -397,32 +418,87 @@ public class DataModel extends MiniGameDataModel {
     public void applySpecial(int x, int y){
         ArrayList<Intersection> intersections = record.getIntersections(currentLevel);
         
+        // Green or red light
         if(special.equals(GREENLIGHT_BUTTON_TYPE) || special.equals(REDLIGHT_BUTTON_TYPE)){
-            for(int i=0; i<intersections.size(); i++){
-                Intersection intersection2 = intersections.get(i);
-                
-                int screenPositionX1 = viewport.getViewportX();
-                int screenPositionY1 = viewport.getViewportY();
+            if(money >= 5){
+                for(int i=0; i<intersections.size(); i++){
+                    Intersection intersection2 = intersections.get(i);
 
-                // position of intersection on node
-                int node2x = intersection2.getX() - screenPositionX1;
-                int node2y = intersection2.getY() - screenPositionY1;
+                    int screenPositionX1 = viewport.getViewportX();
+                    int screenPositionY1 = viewport.getViewportY();
 
-                Point point = new Point(node2x-12, node2y-12);
-                Point point2 = new Point(x, y);
-                Rectangle bounds = new Rectangle(point, new Dimension(INTERSECTION_WIDTH, INTERSECTION_WIDTH));
+                    // position of intersection on node
+                    int node2x = intersection2.getX() - screenPositionX1;
+                    int node2y = intersection2.getY() - screenPositionY1;
 
-                if (bounds.contains(point2)) {
-                    if(special.equals(REDLIGHT_BUTTON_TYPE)){
-                        intersection2.setOpen(false);
-                        intersection2.setTime(System.currentTimeMillis() + 10000);
-                    } else
-                        intersection2.setOpen(true);
-                    specialSelected = false;
-                    money -= 5;
+                    Point point = new Point(node2x-12, node2y-12);
+                    Point point2 = new Point(x, y);
+                    Rectangle bounds = new Rectangle(point, new Dimension(INTERSECTION_WIDTH, INTERSECTION_WIDTH));
+
+                    if (bounds.contains(point2)) {
+                        if(special.equals(REDLIGHT_BUTTON_TYPE)){
+                            intersection2.setOpen(false);
+                            intersection2.setTime(System.currentTimeMillis() + 10000);
+                        } else
+                            intersection2.setOpen(true);
+                        money -= 5;
+                        specialSelected = false;
+                    }
                 }
             }
         } 
+        // flat tire
+        else if(special.equals(FLATTIRE_BUTTON_TYPE)){
+            int x1 = viewport.getViewportX();
+            int y1 = viewport.getViewportY();
+                
+            if(money >= 20){
+                for(Police p: police){
+                    // position of police car
+                    int node2x = (int)p.getX() - x1 - SPRITE_MARGIN;
+                    int node2y = (int)p.getY() - y1 - SPRITE_MARGIN;
+
+                    Point point = new Point(node2x, node2y);
+                    Point point2 = new Point(x, y);
+                    Rectangle policeCar = new Rectangle(point, new Dimension(59, 42));
+                    if(policeCar.contains(point2)){
+                        p.setFlatTire();
+                        money -= 20;
+                        specialSelected = false;
+                    }
+                }
+
+                for(Bandit b: bandits){
+                    // position of bandit car
+                    int node2x = (int)b.getX() - x1 - SPRITE_MARGIN;
+                    int node2y = (int)b.getY() - y1 - SPRITE_MARGIN;
+
+                    Point point = new Point(node2x, node2y);
+                    Point point2 = new Point(x, y);
+                    Rectangle banditCar = new Rectangle(point, new Dimension(49, 32));
+                    if(banditCar.contains(point2)){
+                        b.setFlatTire();
+                        money -= 20;
+                        specialSelected = false;
+                    }
+                }
+
+                for(Zombie z: zombies){
+                    // position of zombie car
+                    int node2x = (int)z.getX() - x1 - SPRITE_MARGIN;
+                    int node2y = (int)z.getY() - y1 - SPRITE_MARGIN;
+
+                    Point point = new Point(node2x, node2y);
+                    Point point2 = new Point(x, y);
+                    Rectangle zombieCar = new Rectangle(point, new Dimension(49, 32));
+                    if(zombieCar.contains(point2)){
+                        z.setFlatTire();
+                        money -= 20;
+                        specialSelected = false;
+                    }
+                }
+            }
+        }
     }
     
     /**
@@ -535,6 +611,7 @@ public class DataModel extends MiniGameDataModel {
         loadZombies();
         
         zombieCollisions = 0;
+        incPlayerSpeed = 0;
         
         ArrayList<Road> roads = record.getRoads(currentLevel);
         for (int r = 0; r < roads.size(); r++){
@@ -590,8 +667,8 @@ public class DataModel extends MiniGameDataModel {
             Point playerPoint = new Point((int)player.getX()+5, (int)player.getY()+5);
             Rectangle playerCar = new Rectangle(playerPoint, new Dimension(56, 30));
             Point zombiePoint = new Point((int)zombieSprite.getX()+5, (int)zombieSprite.getY()+5);
-            Rectangle policeCar = new Rectangle(zombiePoint, new Dimension(49, 32));
-            if(playerCar.intersects(policeCar)){
+            Rectangle zombieCar = new Rectangle(zombiePoint, new Dimension(49, 32));
+            if(playerCar.intersects(zombieCar)){
                 if(zombieSprite.hasSlowedPlayer() == false){
                     zombieSprite.setSlowed(true);
                     zombieCollisions += 1;
@@ -609,25 +686,27 @@ public class DataModel extends MiniGameDataModel {
             // MAKE SURE THIS THREAD HAS EXCLUSIVE ACCESS TO THE DATA
             game.beginUsingData();
             
-            // update player
-            player.update(miniGame);
-            
-            // update police sprites
-            for(int i=0; i<police.size(); i++){
-                Police policeSprite = police.get(i);
-                policeSprite.update(miniGame);
-            }
-            
-            // update bandit sprites
-            for(int i=0; i<bandits.size(); i++){
-                Bandit banditSprite = bandits.get(i);
-                banditSprite.update(miniGame);
-            }
-            
-            // update zombie sprites
-            for(int i=0; i<zombies.size(); i++){
-                Zombie zombieSprite = zombies.get(i);
-                zombieSprite.update(miniGame);
+            if(!freeze){ // if all cars are not frozen by the special
+                // update player
+                player.update(miniGame);
+
+                // update police sprites
+                for(int i=0; i<police.size(); i++){
+                    Police policeSprite = police.get(i);
+                    policeSprite.update(miniGame);
+                }
+
+                // update bandit sprites
+                for(int i=0; i<bandits.size(); i++){
+                    Bandit banditSprite = bandits.get(i);
+                    banditSprite.update(miniGame);
+                }
+
+                // update zombie sprites
+                for(int i=0; i<zombies.size(); i++){
+                    Zombie zombieSprite = zombies.get(i);
+                    zombieSprite.update(miniGame);
+                }
             }
             
             //check if bots overlap with player

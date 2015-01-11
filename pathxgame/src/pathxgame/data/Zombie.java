@@ -26,6 +26,8 @@ public class Zombie extends Sprite {
     private int startX;
     private int startY;
     
+    private long timer;
+    
     // THIS IS true WHEN THIS TILE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
@@ -34,6 +36,9 @@ public class Zombie extends Sprite {
     private int pathIndex;
     
     private boolean slowedPlayer;
+    
+    // SPECIALS
+    private boolean flatTire;
     
     public Zombie(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, 
             String initState){
@@ -88,6 +93,11 @@ public class Zombie extends Sprite {
             pathIndex = 0;
         else
             pathIndex++;
+    }
+    
+    public void setFlatTire(){
+        flatTire = true;
+        timer = System.currentTimeMillis() + 10000;
     }
     
     /**
@@ -171,7 +181,11 @@ public class Zombie extends Sprite {
         // USING ITS CURRENT VELOCITY.
         else
         {
-            super.update(game);
+            if(flatTire == false)
+                super.update(game);
+            else
+                if(System.currentTimeMillis() >= timer)
+                    flatTire = false;
         }
     }
 }

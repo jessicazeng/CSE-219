@@ -123,5 +123,10 @@ public class EventHandler {
         
         data.setSpecialSelected();
         data.setSpecial(type);
+        
+        if(type.equals(FREEZE_BUTTON_TYPE))
+            data.setFreeze();
+        else if(type.equals(INCPLAYERSPEED_BUTTON_TYPE))
+            data.incPlayerSpeed();
     }
 }

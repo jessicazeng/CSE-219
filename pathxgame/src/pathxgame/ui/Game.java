@@ -450,6 +450,24 @@ public class Game extends MiniGame{
             {   eventHandler.respondToSpecialSelcted(REDLIGHT_BUTTON_TYPE);     }
         });
         
+        // FREEZE HANDLER
+        guiButtons.get(FREEZE_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSpecialSelcted(FREEZE_BUTTON_TYPE);     }
+        });
+        
+        // INC PLAYER SPEED HANDLER
+        guiButtons.get(INCPLAYERSPEED_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSpecialSelcted(INCPLAYERSPEED_BUTTON_TYPE);     }
+        });
+        
+        // FLAT TIRE HANDLER
+        guiButtons.get(FLATTIRE_BUTTON_TYPE).setActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {   eventHandler.respondToSpecialSelcted(FLATTIRE_BUTTON_TYPE);     }
+        });
+        
         // ---------------------------KEY LISTENER-----------------------------
         this.setKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent ke)

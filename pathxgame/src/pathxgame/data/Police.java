@@ -27,11 +27,14 @@ public class Police extends Sprite{
     private int startX;
     private int startY;
     
-    public long timer;
+    private long timer;
     
     // THIS IS true WHEN THIS POLICE IS MOVING, WHICH HELPS US FIGURE
     // OUT WHEN IT HAS REACHED A DESTINATION NODE
     private boolean movingToTarget;
+    
+    // SPECIALS
+    private boolean flatTire;
     
      public Police(SpriteType initSpriteType, float initX, float initY, float initVx, float initVy, String initState)
     {
@@ -68,6 +71,11 @@ public class Police extends Sprite{
     
     public void setNode(int newNode){
         Node = newNode;
+    }
+    
+    public void setFlatTire(){
+        flatTire = true;
+        timer = System.currentTimeMillis() + 10000;
     }
     
     /**
@@ -159,7 +167,11 @@ public class Police extends Sprite{
         // USING ITS CURRENT VELOCITY.
         else
         {
-            super.update(game);
+            if(flatTire == false)
+                super.update(game);
+            else
+                if(System.currentTimeMillis() >= timer)
+                    flatTire = false;
         }
     }
 }
